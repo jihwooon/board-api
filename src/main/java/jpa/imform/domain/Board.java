@@ -33,7 +33,7 @@ public class Board {
 
   private String content;
 
-  private Member member;
+//  private Member member;
 
   @CreationTimestamp
   @Column(nullable = false, length = 20, updatable = false)
