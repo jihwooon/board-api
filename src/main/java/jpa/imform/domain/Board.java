@@ -26,14 +26,17 @@ import java.time.LocalDateTime;
 public class Board {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue
   @Column(name = "board_id")
   private Long id;
 
+  @Column(name = "board_userid")
   private String userId;
 
+  @Column(name = "board_title")
   private String title;
 
+  @Column(name = "board_content")
   private String content;
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -41,11 +44,11 @@ public class Board {
   private Member member;
 
   @CreationTimestamp
-  @Column(nullable = false, length = 20, updatable = false)
+  @Column(name = "board_save_date",nullable = false, length = 20, updatable = false)
   private LocalDateTime saveDate;
 
   @UpdateTimestamp
-  @Column(length = 20)
+  @Column(name = "board_update_date",length = 20)
   private LocalDateTime updateDate;
 
   @Builder

@@ -13,11 +13,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
 @Getter
 @Setter
+@Table(name = "comment")
 public class Comment {
 
   @Id
@@ -25,14 +27,15 @@ public class Comment {
   @Column(name = "comment_id")
   private Long id;
 
+  @Column(name = "comment_content")
   private String content;
 
   @CreationTimestamp
-  @Column(nullable = false, length = 20, updatable = false)
+  @Column(name = "comment_save_data",nullable = false, length = 20, updatable = false)
   private LocalDate saveDate;
 
   @UpdateTimestamp
-  @Column(length = 20)
+  @Column(name = "comment_update_data",length = 20)
   private LocalDate updateDate;
 
   @ManyToOne(fetch = FetchType.LAZY)

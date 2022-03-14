@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,15 +23,20 @@ public class Member {
   @Column(name = "member_id")
   private Long id;
 
+  @Column(name = "member_name")
   private String name;
 
+  @Column(name = "member_password")
   private String password;
 
+  @Column(name = "member_birth")
   private Integer birth;
 
+  @Column(name = "member_email")
   private String email;
 
   @Embedded
+  @Column(name = "member_address")
   private Address address;
 
   @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)

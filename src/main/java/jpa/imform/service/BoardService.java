@@ -1,11 +1,9 @@
 package jpa.imform.service;
 
-import jpa.imform.error.BoardNotFoundException;
 import jpa.imform.domain.Board;
+import jpa.imform.error.BoardNotFoundException;
 import jpa.imform.repository.BoardRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
