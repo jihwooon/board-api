@@ -8,6 +8,7 @@
 package jpa.imform.service;
 
 import jpa.imform.domain.Board;
+import jpa.imform.error.BoardNotFoundException;
 import jpa.imform.repository.BoardRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -44,6 +46,12 @@ class BoardServiceTest {
 
     //then
     assertThat(boards).hasSize(0);
+  }
+
+  @Test
+  void getBoardsWithNoBoard() {
+
+    assertThat(boardService.getBoards()).isEmpty();
   }
 
 }
