@@ -1,3 +1,6 @@
+spring:
+
 logging:
   level:
     org.hibernage.SQL: debug
+    org.hibernate.type: trace

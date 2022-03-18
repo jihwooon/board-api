@@ -18,6 +18,8 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.InstanceOfAssertFactories.PATH;
+import static org.mockito.Mockito.verify;
 
 @DisplayName("BoardService 클래스")
 @SpringBootTest
@@ -46,8 +48,14 @@ class BoardServiceTest {
 
   @Test
   void getBoardsWithNoBoard() {
-
     assertThat(boardService.getBoards()).isEmpty();
+  }
+
+  @Test
+  void getBoardWithExistedId() {
+    Board board = boardService.getBoard(1L);
+
+
   }
 
 }

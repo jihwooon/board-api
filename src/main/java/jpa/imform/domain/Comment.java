@@ -47,7 +47,7 @@ public class Comment {
   private Board board;
 
   @Builder
-  public Comment(Long id, String content) {
+  public Comment(Long id, String content, Member member) {
     this.id = id;
     this.content = content;
   }

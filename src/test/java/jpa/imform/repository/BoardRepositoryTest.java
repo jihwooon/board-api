@@ -6,6 +6,7 @@
 // 5. delete -> 삭제
 package jpa.imform.repository;
 
+import jpa.imform.domain.Address;
 import jpa.imform.domain.Board;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +21,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("BoardRepository")
+@DisplayName("BoardRepository 클래스")
 @DataJpaTest
 class BoardRepositoryTest {
 
@@ -34,6 +35,11 @@ class BoardRepositoryTest {
   @AfterEach
   public void cleanUp() {
     boardRepository.deleteAll();
+  }
+
+  @Test
+  void 주소_Null_아닐_때() {
+    Address address = new Address();
   }
 
   @Test

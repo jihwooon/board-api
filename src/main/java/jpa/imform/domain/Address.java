@@ -1,11 +1,13 @@
 package jpa.imform.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.Embeddable;
 
 @Embeddable
 @Getter
+@Builder
 public class Address {
 
   private String city;
@@ -15,7 +17,9 @@ public class Address {
   private String zipcode;
 
   protected Address() {
+
   }
+
 
   public Address(String city, String street, String zipcode) {
     this.city = city;
