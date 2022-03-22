@@ -51,4 +51,11 @@ public class Member {
     this.birth = birth;
     this.email = email;
   }
+
+  public void change(Member update) {
+    this.name = update.getName();
+    this.password = update.getPassword();
+    this.birth = update.getBirth();
+    this.email = update.getEmail();
+  }
 }

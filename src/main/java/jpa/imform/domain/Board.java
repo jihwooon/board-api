@@ -1,5 +1,6 @@
 package jpa.imform.domain;
 
+import jpa.imform.dto.BoardDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Board {
@@ -50,7 +52,7 @@ public class Board {
   @Column(name = "board_update_date",length = 20)
   private LocalDateTime updateDate;
 
-  @Builder
+
   public Board(String userId, String title, String content) {
     this.userId = userId;
     this.title = title;
@@ -61,5 +63,10 @@ public class Board {
     this.userId = update.getUserId();
     this.title = update.getTitle();
     this.content = update.getContent();
+  }
+
+  public void changeWith(BoardDto.BoardRequest update) {
+    this.id = update.getId();
+    this.userId = update.getUserId();
   }
 }

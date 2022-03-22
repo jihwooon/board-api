@@ -1,44 +1,20 @@
 package jpa.imform.service;
 
 import jpa.imform.domain.Board;
-import jpa.imform.error.BoardNotFoundException;
-import jpa.imform.repository.BoardRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import jpa.imform.dto.BoardDto;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
-@Service
-@Transactional
-@RequiredArgsConstructor
-public class BoardService {
+public interface BoardService {
 
-  private final BoardRepository boardRepository;
+  List<BoardDto.BoardResponse> getBoards();
 
-  public List<Board> getBoards() {
-   return boardRepository.findAll();
-  }
+  Board getBoard(Long id);
 
-  public Board getBoard(Long id) {
-      return boardRepository.findById(id)
-          .orElseThrow(() -> new BoardNotFoundException(id));
-  }
+  BoardDto.BoardResponse createBoard(BoardDto.BoardRequest request);
 
-  public Board createBoard(Board board) {
-    return boardRepository.save(board);
-  }
+  BoardDto.BoardResponse updateBoard(Long id, BoardDto.BoardRequest update);
 
-  public Board updateBoard(Long id, Board update) {
-    Board board = getBoard(id);
-    board.change(update);
-
-    return board;
-  }
-
-  public Board deleteBoard(Long id) {
-    Board board = getBoard(id);
-    boardRepository.delete(board);
-    return board;
-  }
+  void deleteBoard(Long id);
 }
+

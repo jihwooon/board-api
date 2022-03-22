@@ -1,8 +1,19 @@
+//TODO : 엔티티 클래스 -> DTO 변환
+// list DTO 변환 완료
+// detail DTO 변환 완료
+// create DTO 변화 진행
+// update DTO
+// delete DTO
+
 package jpa.imform.controller;
 
 import jpa.imform.domain.Board;
+import jpa.imform.dto.BoardDto;
 import jpa.imform.service.BoardService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.BindingResultUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -17,38 +28,36 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/board")
+@RequiredArgsConstructor
 public class BoardController {
 
   private final BoardService boardService;
 
-  public BoardController(BoardService boardService) {
-    this.boardService = boardService;
-  }
-
   @GetMapping
-  public List<Board> list() {
+  public List<BoardDto.BoardResponse> list() {
     return boardService.getBoards();
   }
 
   @GetMapping("{id}")
-  public Board detail(@PathVariable Long id) {
-    return boardService.getBoard(id);
+  public BoardDto.BoardResponse detail(@PathVariable Long id) {
+    return BoardDto.BoardResponse.of(boardService.getBoard(id));
   }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public Board create(@RequestBody Board board) {
-    return boardService.createBoard(board);
+  public BoardDto.BoardResponse create(@RequestBody BoardDto.BoardRequest request) {
+      return boardService.createBoard(request);
   }
 
   @PatchMapping("{id}")
-  public Board update(@PathVariable Long id, @RequestBody Board source) {
-    return boardService.updateBoard(id, source);
+  public BoardDto.BoardResponse update(@PathVariable Long id, @RequestBody BoardDto.BoardRequest update) {
+    return boardService.updateBoard(id, update);
   }
 
   @DeleteMapping("{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void destory(@PathVariable Long id) {
+  public void remove(@PathVariable Long id) {
     boardService.deleteBoard(id);
   }
+
 }
