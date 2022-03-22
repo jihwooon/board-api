@@ -1,6 +1,6 @@
 package jpa.imform.controller;
 
-import jpa.imform.service.impl.BoardService;
+import jpa.imform.service.BoardService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

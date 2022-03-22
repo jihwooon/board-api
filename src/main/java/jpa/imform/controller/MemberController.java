@@ -1,6 +1,7 @@
 package jpa.imform.controller;
 
 import jpa.imform.domain.Member;
+import jpa.imform.dto.MemberDto;
 import jpa.imform.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,29 +25,29 @@ public class MemberController {
   private final MemberService memberService;
 
   @GetMapping
-  public List<Member> list() {
+  public List<MemberDto.MemberResponse> list() {
     return memberService.getMembers();
   }
 
   @GetMapping("{id}")
-  public Member detail(@PathVariable Long id) {
-    return memberService.getMember(id);
+  public MemberDto.MemberResponse detail(@PathVariable Long id) {
+    return MemberDto.MemberResponse.of(memberService.getMember(id));
   }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public Member create(@RequestBody Member member) {
-    return memberService.createMember(member);
+  public MemberDto.MemberResponse create(@RequestBody MemberDto.MemberRequest request) {
+    return memberService.createMember(request);
   }
 
   @PatchMapping("{id}")
-  public Member update(@PathVariable Long id, Member source) {
-    return memberService.updateMember(id, source);
+  public MemberDto.MemberResponse update(@PathVariable Long id, MemberDto.MemberRequest request) {
+    return memberService.updateMember(id, request);
   }
 
   @DeleteMapping("{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public Member remove(@PathVariable Long id) {
-    return memberService.delete(id);
+  public void remove(@PathVariable Long id) {
+    memberService.delete(id);
   }
 }

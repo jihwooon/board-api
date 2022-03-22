@@ -50,6 +50,7 @@ public class Comment {
   public Comment(Long id, String content, Member member) {
     this.id = id;
     this.content = content;
+    this.member = member;
   }
 
   public void change(Comment source) {

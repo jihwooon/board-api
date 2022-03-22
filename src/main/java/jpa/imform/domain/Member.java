@@ -1,5 +1,6 @@
 package jpa.imform.domain;
 
+import jpa.imform.dto.MemberDto;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -45,7 +46,8 @@ public class Member {
   private List<Comment> comments = new ArrayList<>();
 
   @Builder
-  public Member(String name, String password, Integer birth, String email) {
+  public Member(Long id,String name, String password, Integer birth, String email) {
+    this.id = id;
     this.name = name;
     this.password = password;
     this.birth = birth;
@@ -57,5 +59,10 @@ public class Member {
     this.password = update.getPassword();
     this.birth = update.getBirth();
     this.email = update.getEmail();
+  }
+
+  public void changeWith(MemberDto.MemberRequest request) {
+    this.id = request.getId();
+    this.name = request.getName();
   }
 }
