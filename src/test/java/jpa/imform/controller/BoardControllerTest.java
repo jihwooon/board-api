@@ -1,6 +1,6 @@
 package jpa.imform.controller;
 
-import jpa.imform.service.BoardService;
+import jpa.imform.service.impl.BoardService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -18,28 +18,40 @@ class BoardControllerTest {
   @Autowired
   private MockMvc mockMvc;
 
-  @Autowired
-  private BoardController boardController;
-
   @MockBean
   private BoardService boardService;
 
+
   @Test
-  void list() throws Exception {
-    mockMvc.perform(get("/boards")
+  void list_board() throws Exception {
+    mockMvc.perform(get("/board")
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
 
     verify(boardService).getBoards();
   }
 
-  @Test
-  void detail() throws Exception {
-    mockMvc.perform(get("/boards/1")
-      .contentType(MediaType.APPLICATION_JSON))
-      .andExpect(status().isOk());
-
-    verify(boardService).getBoard(1L);
-  }
-
+//  @Test
+//  void detail() throws Exception {
+//    mockMvc.perform(get("/board/1")
+//      .contentType(MediaType.APPLICATION_JSON))
+//      .andExpect(status().isOk());
+//
+//    verify(boardService).getBoard(1L);
+//  }
+//
+//  @Test
+//  void detailNotVaildId() throws Exception {
+//    mockMvc.perform(get("/board/1000"))
+//        .andExpect(status().isNotFound());
+//    }
+//
+//  @Test
+//  void create() throws Exception {
+//    mockMvc.perform(post("/board")
+//        .contentType(MediaType.APPLICATION_JSON)
+//        .content(""))
+//        .andExpect(status().isCreated());
+//  }
 }
+

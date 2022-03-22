@@ -1,9 +1,4 @@
-// TODO :
-//1. getBoards
-//2. getBoard
-//3. createBoard
-//4. updateBoard
-//5. deleteBoard
+
 
 package jpa.imform.service;
 
@@ -18,8 +13,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.InstanceOfAssertFactories.PATH;
-import static org.mockito.Mockito.verify;
 
 @DisplayName("BoardService 클래스")
 @SpringBootTest
@@ -50,12 +43,4 @@ class BoardServiceTest {
   void getBoardsWithNoBoard() {
     assertThat(boardService.getBoards()).isEmpty();
   }
-
-  @Test
-  void getBoardWithExistedId() {
-    Board board = boardService.getBoard(1L);
-
-
-  }
-
 }

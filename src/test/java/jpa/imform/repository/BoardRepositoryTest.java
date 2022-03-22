@@ -1,12 +1,6 @@
-//TODO:
-// 1. findAll -> 전제 조회
-// 2. findbyId() -> 조회
-// 3. save -> 저장
-// 4. update -> 수정
-// 5. delete -> 삭제
+
 package jpa.imform.repository;
 
-import jpa.imform.domain.Address;
 import jpa.imform.domain.Board;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,11 +29,6 @@ class BoardRepositoryTest {
   @AfterEach
   public void cleanUp() {
     boardRepository.deleteAll();
-  }
-
-  @Test
-  void 주소_Null_아닐_때() {
-    Address address = new Address();
   }
 
   @Test

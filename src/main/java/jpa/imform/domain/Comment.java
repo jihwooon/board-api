@@ -51,4 +51,12 @@ public class Comment {
     this.id = id;
     this.content = content;
   }
+
+  public void change(Comment source) {
+    this.content = source.getContent();
+    this.board = source.getBoard();
+    this.member = source.getMember();
+    this.saveDate = source.getSaveDate();
+    this.updateDate = source.getUpdateDate();
+  }
 }
