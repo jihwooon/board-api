@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class BoardDto {
@@ -19,7 +18,6 @@ public class BoardDto {
 
   @Data
   public static class BoardResponse {
-
     private Long id;
     private String userId;
     private String content;
@@ -41,28 +39,6 @@ public class BoardDto {
           .map(o -> new BoardResponse(o))
           .collect(Collectors.toList());
     }
-  }
-
-  @Data
-  public static class BoardListResponse {
-    private Long id;
-    private String userId;
-
-    public BoardListResponse(Board board) {
-      this.id = id;
-      this.userId = userId;
-    }
-
-    public static BoardListResponse of(Board board) {
-      return new BoardListResponse(board);
-    }
-
-    public static List<BoardListResponse> of(List<Board> boards) {
-      return boards.stream()
-          .map(BoardListResponse::of)
-          .collect(Collectors.toList());
-    }
 
   }
-
 }

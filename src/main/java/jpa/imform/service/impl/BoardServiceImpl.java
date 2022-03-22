@@ -24,22 +24,26 @@ public class BoardServiceImpl implements BoardService {
   }
 
   @Override
-  public BoardDto.BoardResponse getBoard(Long boardId) {
-    return boardRepository.findById(boardId)
-        .orElseThrow(() -> new BoardNotFoundException(boardId));
+  public Board getBoard(Long id) {
+    return boardRepository.findById(id)
+        .orElseThrow(() -> new BoardNotFoundException(id));
   }
 
   @Override
-  public Board createBoard(Board board) {
-    return null;
+  public BoardDto.BoardResponse createBoard(BoardDto.BoardRequest request) {
+    Board board = Board.builder()
+        .id(request.getId())
+        .userId(request.getUserId())
+        .build();
+    return BoardDto.BoardResponse.of(board);
   }
 
   @Override
-  public Board updateBoard(Long id, Board update) {
+  public BoardDto.BoardResponse updateBoard(Long id, BoardDto.BoardRequest update) {
     Board board = getBoard(id);
-    board.change(update);
+    board.changeWith(update);
 
-    return board;
+    return BoardDto.BoardResponse.of(board);
   }
 
   @Override
@@ -47,14 +51,4 @@ public class BoardServiceImpl implements BoardService {
     Board board = getBoard(id);
     boardRepository.delete(board);
   }
-
-//  @Override
-//  public Long createBoard(BoardDto.BoardRequest request) {
-//    Board board = Board.builder()
-//        .id(request.getId())
-//        .userId(request.getUserId())
-//        .build();
-//
-//    return createBoard(board).getId();
-//  }
 }

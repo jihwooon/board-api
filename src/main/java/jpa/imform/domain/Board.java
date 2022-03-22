@@ -1,5 +1,6 @@
 package jpa.imform.domain;
 
+import jpa.imform.dto.BoardDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -62,5 +63,10 @@ public class Board {
     this.userId = update.getUserId();
     this.title = update.getTitle();
     this.content = update.getContent();
+  }
+
+  public void changeWith(BoardDto.BoardRequest update) {
+    this.id = update.getId();
+    this.userId = update.getUserId();
   }
 }
