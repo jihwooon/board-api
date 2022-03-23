@@ -1,7 +1,9 @@
 package jpa.imform.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -20,6 +22,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Table(name = "comment")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Comment {
 
   @Id
@@ -31,11 +35,11 @@ public class Comment {
   private String content;
 
   @CreationTimestamp
-  @Column(name = "comment_save_data",nullable = false, length = 20, updatable = false)
+  @Column(name = "comment_save_data", nullable = false, length = 20, updatable = false)
   private LocalDate saveDate;
 
   @UpdateTimestamp
-  @Column(name = "comment_update_data",length = 20)
+  @Column(name = "comment_update_data", length = 20)
   private LocalDate updateDate;
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -47,10 +51,11 @@ public class Comment {
   private Board board;
 
   @Builder
-  public Comment(Long id, String content, Member member) {
+  public Comment(Long id, String content, Member member, Board board) {
     this.id = id;
     this.content = content;
     this.member = member;
+    this.board = board;
   }
 
   public void change(Comment source) {

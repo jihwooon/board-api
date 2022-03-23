@@ -24,7 +24,7 @@ public class MemberServiceImpl implements MemberService {
 
   public Member getMember(Long id) {
     return memberRepository.findById(id)
-        .orElseThrow(() -> new MemberNotFoundException(id));
+        .orElseThrow(() -> new MemberNotFoundException("Id"));
   }
 
   @Override

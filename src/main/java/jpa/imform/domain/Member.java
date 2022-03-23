@@ -1,8 +1,10 @@
 package jpa.imform.domain;
 
 import jpa.imform.dto.MemberDto;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,6 +18,8 @@ import java.util.List;
 
 @Entity
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Member {
 
   @Id
@@ -46,12 +50,13 @@ public class Member {
   private List<Comment> comments = new ArrayList<>();
 
   @Builder
-  public Member(Long id,String name, String password, Integer birth, String email) {
+  public Member(Long id, String name, String password, Integer birth, String email, Address address) {
     this.id = id;
     this.name = name;
     this.password = password;
     this.birth = birth;
     this.email = email;
+    this.address = address;
   }
 
   public void change(Member update) {
@@ -64,5 +69,10 @@ public class Member {
   public void changeWith(MemberDto.MemberRequest request) {
     this.id = request.getId();
     this.name = request.getName();
+  }
+
+  @Override
+  public String toString() {
+    return "주소는 " + address;
   }
 }

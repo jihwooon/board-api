@@ -13,9 +13,12 @@ spring:
       ddl-auto: create
     properties:
       hibernate:
-        #show_sql: true
+        show_sql: true
         format_sql: true
 
 logging:
   level:
     org.hibernage.SQL: debug
+    org:
+      hibernage:
+        type: trace

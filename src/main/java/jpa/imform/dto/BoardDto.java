@@ -3,10 +3,12 @@ package jpa.imform.dto;
 import jpa.imform.domain.Board;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Getter
 public class BoardDto {
 
   @Data

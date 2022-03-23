@@ -4,10 +4,12 @@ import jpa.imform.domain.Address;
 import jpa.imform.domain.Member;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Getter
 public class MemberDto {
 
   @Data
@@ -17,19 +19,18 @@ public class MemberDto {
     private String name;
   }
 
-
   @Data
   public static class MemberResponse {
     private String name;
     private Integer birth;
     private String email;
-    private Address address;
+//    private Address address;
 
     public MemberResponse(Member member) {
       this.name = member.getName();
       this.birth = member.getBirth();
       this.email = member.getEmail();
-      this.address = member.getAddress();
+//      this.address = member.getAddress();
     }
 
     public static MemberResponse of(final Member member) {
