@@ -35,11 +35,11 @@ public class Comment {
   private String content;
 
   @CreationTimestamp
-  @Column(name = "comment_save_data",nullable = false, length = 20, updatable = false)
+  @Column(name = "comment_save_data", nullable = false, length = 20, updatable = false)
   private LocalDate saveDate;
 
   @UpdateTimestamp
-  @Column(name = "comment_update_data",length = 20)
+  @Column(name = "comment_update_data", length = 20)
   private LocalDate updateDate;
 
   @ManyToOne(fetch = FetchType.LAZY)

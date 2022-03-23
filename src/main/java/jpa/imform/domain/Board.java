@@ -44,11 +44,11 @@ public class Board {
   private Member member;
 
   @CreationTimestamp
-  @Column(name = "board_save_date",nullable = false, length = 20, updatable = false)
+  @Column(name = "board_save_date", nullable = false, length = 20, updatable = false)
   private LocalDateTime saveDate;
 
   @UpdateTimestamp
-  @Column(name = "board_update_date",length = 20)
+  @Column(name = "board_update_date", length = 20)
   private LocalDateTime updateDate;
 
   @Builder

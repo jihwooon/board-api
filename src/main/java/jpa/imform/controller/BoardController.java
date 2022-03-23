@@ -46,7 +46,7 @@ public class BoardController {
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public BoardDto.BoardResponse create(@RequestBody BoardDto.BoardRequest request) {
-      return boardService.createBoard(request);
+    return boardService.createBoard(request);
   }
 
   @PatchMapping("{id}")

@@ -73,6 +73,6 @@ public class Member {
 
   @Override
   public String toString() {
-    return "주소는 " +address;
+    return "주소는 " + address;
   }
 }

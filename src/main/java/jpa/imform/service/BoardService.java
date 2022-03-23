@@ -17,4 +17,3 @@ public interface BoardService {
 
   void deleteBoard(Long id);
 }
-
