@@ -30,6 +30,5 @@ class BoardControllerTest {
 
     verify(boardService).getBoards();
   }
-
 }
 

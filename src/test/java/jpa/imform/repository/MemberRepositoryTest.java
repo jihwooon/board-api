@@ -22,7 +22,7 @@ class MemberRepositoryTest {
 
   @Test
   public void db_test_1() {
-    Member member = Member.builder()
+    Member member1 = Member.builder()
         .name("안지환")
         .email("jihwooon@gmail.com")
         .birth(920303)
@@ -30,7 +30,7 @@ class MemberRepositoryTest {
         .address(new Address("서울", "경기","1234"))
         .build();
 
-    Member saveId = memberRepository.save(member);
+    Member saveId = memberRepository.save(member1);
 
     assertThat(saveId.getName()).isEqualTo("안지환");
     assertThat(saveId.getEmail()).isEqualTo("jihwooon@gmail.com");
@@ -41,7 +41,7 @@ class MemberRepositoryTest {
 
   @Test
   public void db_test_2() {
-    Member member = Member.builder()
+    Member member2 = Member.builder()
         .name("홍길동")
         .email("hong@gmail.com")
         .birth(810502)
@@ -49,11 +49,11 @@ class MemberRepositoryTest {
         .address(new Address("서울", "경기","1234"))
         .build();
 
-    Member saveId = memberRepository.save(member);
+    Member saveId = memberRepository.save(member2);
 
     assertThat(saveId.getName()).isEqualTo("홍길동");
     assertThat(saveId.getEmail()).isEqualTo("hong@gmail.com");
-    assertThat(saveId.getBirth()).isEqualTo(920303);
+    assertThat(saveId.getBirth()).isEqualTo(810502);
     assertThat(saveId.getPassword()).isEqualTo("1234");
   }
 }
