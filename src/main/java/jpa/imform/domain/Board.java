@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -63,6 +64,10 @@ public class Board {
     member.getBoards().add(this);
   }
 
+  public void addComment(Comment comment) {
+    this.comments.add(comment);
+    comment.setBoard(this);
+  }
 
   @Builder
   public Board(Long id, String userId, String title, String content, LocalDateTime saveDate, LocalDateTime updateDate) {

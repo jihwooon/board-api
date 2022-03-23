@@ -86,15 +86,16 @@ class BoardRepositoryTest {
 //    assertThat(member3.getId()).isEqualTo(comment1.getId());
 //  }
 
-//  @Test
-//  void testSave4() {
-//    Board board3 = boardRepository.save(board);
-//    Comment comment2 = commentRepository.save(comment);
-//
-////    comment2.setBoard(board3);
-//
-//    assertThat(board3.getId()).isEqualTo(comment2.getId());
-//  }
+  @Test
+  void testSave4() {
+    Board board3 = boardRepository.save(board);
+
+    comment.setBoard(board3);
+
+//    boardRepository.save(board3);
+    commentRepository.save(comment);
+  }
+
 
 //  @Test
 //  @Transactional

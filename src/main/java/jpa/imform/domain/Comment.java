@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -16,14 +15,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Getter
-//@Table(name = "comment")
+@Table(name = "comment")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Comment {
@@ -44,9 +41,9 @@ public class Comment {
   @Column(name = "comment_update_data", length = 20)
   private LocalDate updateDate;
 
-//  @ManyToOne(fetch = FetchType.LAZY)
-//  @JoinColumn
-//  private Member member;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn
+  private Member member;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn
@@ -57,23 +54,23 @@ public class Comment {
     board.getComments().add(this);
   }
 
-//  public void setMember(Member member) {
-////    this.member = member;
-////    member.getComments().add(this);
-////  }
+  public void setMember(Member member) {
+    this.member = member;
+    member.getComments().add(this);
+  }
 
   @Builder
-  public Comment(Long id, String content, Board board) {
+  public Comment(Long id, String content, Member member, Board board) {
     this.id = id;
     this.content = content;
-//    this.member = member;
+    this.member = member;
     this.board = board;
   }
 
   public void change(Comment source) {
     this.content = source.getContent();
     this.board = source.getBoard();
-//    this.member = source.getMember();
+    this.member = source.getMember();
     this.saveDate = source.getSaveDate();
     this.updateDate = source.getUpdateDate();
   }
