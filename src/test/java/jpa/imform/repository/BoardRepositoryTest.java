@@ -2,13 +2,15 @@
 package jpa.imform.repository;
 
 import jpa.imform.domain.Board;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+
+import javax.transaction.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,7 +18,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("BoardRepository 클래스")
-@DataJpaTest
+@SpringBootTest
 class BoardRepositoryTest {
 
   private static final String BOARD_USERID = "userId";
@@ -24,11 +26,28 @@ class BoardRepositoryTest {
   private static final String BOARD_CONTENT = "설명";
 
   @Autowired
-  BoardRepository boardRepository;
+  private BoardRepository boardRepository;
+  private Board board;
 
-  @AfterEach
-  public void cleanUp() {
-    boardRepository.deleteAll();
+  @BeforeEach
+  void setUp() {
+    board = Board.builder()
+        .userId(BOARD_USERID)
+        .title(BOARD_TITLE)
+        .content(BOARD_CONTENT)
+        .build();
+  }
+
+  @Test
+  @Transactional
+  @Rollback(false)
+  void BoardTest() {
+    Board save = boardRepository.save(board);
+
+    assertThat(save.getUserId()).isEqualTo(BOARD_USERID);
+    assertThat(save.getTitle()).isEqualTo(BOARD_TITLE);
+    assertThat(save.getContent()).isEqualTo(BOARD_CONTENT);
+
   }
 
   @Test
@@ -42,14 +61,13 @@ class BoardRepositoryTest {
     @Nested
     @DisplayName("값을 세팅하고")
     class it_Context_has_board_info {
+
       @Test
+      @Transactional
+      @Rollback(false)
       @DisplayName("저장된 값을 확인한다.")
       void it_return_save() {
-        Board result = boardRepository.save(Board.builder()
-            .userId(BOARD_USERID)
-            .title(BOARD_TITLE)
-            .content(BOARD_CONTENT)
-            .build());
+        Board result = boardRepository.save(board);
 
         assertThat(result.getId()).isNotNull();
         assertThat(result.getUserId()).isEqualTo(BOARD_USERID);
@@ -61,13 +79,7 @@ class BoardRepositoryTest {
 
   @Test
   void 게시판_등록() {
-     final Board board = Board.builder()
-                .userId(BOARD_USERID)
-                .title(BOARD_TITLE)
-                .content(BOARD_CONTENT)
-                .build();
-
-    final Board result = boardRepository.save(board);
+    Board result = boardRepository.save(board);
 
     assertThat(result.getId()).isNotNull();
     assertThat(result.getUserId()).isEqualTo(BOARD_USERID);
@@ -103,35 +115,35 @@ class BoardRepositoryTest {
       }
   }
 
-  @Test
-  void 게시판조회_사이즈0() {
-    List<Board> result = boardRepository.findAll();
+//  @Test
+//  void 게시판조회_사이즈0() {
+//    List<Board> result = boardRepository.findAll();
+//
+//    assertThat(result.size()).isEqualTo(0);
+//  }
 
-    assertThat(result.size()).isEqualTo(0);
-  }
-
-  @Test
-  void 게시판조회_사이즈2() {
-    Board List1 = Board.builder()
-        .userId(BOARD_USERID)
-        .title(BOARD_TITLE)
-        .content(BOARD_CONTENT)
-        .build();
-
-    Board List2 = Board.builder()
-        .userId(BOARD_USERID)
-        .title("자바")
-        .content("설명")
-        .build();
-
-    boardRepository.save(List1);
-    boardRepository.save(List2);
-
-    List<Board> result = boardRepository.findAllByUserId("userId");
-
-    assertThat(result.size()).isEqualTo(2);
-
-  }
+//  @Test
+//  void 게시판조회_사이즈2() {
+//    Board List1 = Board.builder()
+//        .userId(BOARD_USERID)
+//        .title(BOARD_TITLE)
+//        .content(BOARD_CONTENT)
+//        .build();
+//
+//    Board List2 = Board.builder()
+//        .userId(BOARD_USERID)
+//        .title("자바")
+//        .content("설명")
+//        .build();
+//
+//    boardRepository.save(List1);
+//    boardRepository.save(List2);
+//
+//    List<Board> result = boardRepository.findAllByUserId("userId");
+//
+//    assertThat(result.size()).isEqualTo(2);
+//
+//  }
 
   @Nested
   @DisplayName("글 등록시간은")
