@@ -42,11 +42,11 @@ public class Comment {
   private LocalDate updateDate;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn
+  @JoinColumn(name = "member_id")
   private Member member;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn
+  @JoinColumn(name = "board_id")
   private Board board;
 
   public void setBoard(Board board) {

@@ -7,8 +7,10 @@ import jpa.imform.domain.Comment;
 import jpa.imform.domain.Member;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.convert.DataSizeUnit;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 
@@ -16,7 +18,7 @@ import javax.transaction.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("BoardRepository 클래스")
+@DisplayName("연관관계 매핑 조")
 @SpringBootTest
 @Transactional
 @Rollback(false)
@@ -48,7 +50,7 @@ class BoardRepositoryTest {
         .email("hong@gmail.com")
         .birth(810502)
         .password("1234")
-        .address(new Address("서울", "경기","1234"))
+        .address(new Address("서울", "경기", "1234"))
         .build();
 
     comment = Comment.builder()
@@ -56,57 +58,72 @@ class BoardRepositoryTest {
         .build();
   }
 
-  @Test
-  void testSave1() {
-    Member memberId = memberRepository.save(member);
-    Board boardId = boardRepository.save(board);
+  @Nested
+  @DisplayName("세 조건이 모든 조건이 성립 되는 경우")
+  class Describe_testcase_collect {
+    @Test
+    @DisplayName("정상적으로 작동 합니다.")
+    void it_id_relation() {
+      Member memberId = memberRepository.save(member);
+      Comment commentId = commentRepository.save(comment);
+      Board boardId = boardRepository.save(board);
 
-    boardId.setMember(memberId);
+      commentId.setMember(member);
+      commentId.setBoard(board);
+      boardId.setMember(member);
 
-    assertThat(memberId.getId()).isEqualTo(boardId.getId());
+      assertThat(commentId.getId()).isEqualTo(boardId.getId());
+      assertThat(commentId.getId()).isEqualTo(memberId.getId());
+      assertThat(boardId.getId()).isEqualTo(memberId.getId());
+    }
   }
 
-  @Test
-  void testSave2() {
-    Member member2 = memberRepository.save(member);
-    Board board2 = boardRepository.save(board);
+  @Nested
+  @DisplayName("세 조건 중 한 조건이라도 빠지는 경우")
+  class Describe_testcase_Not_collect {
 
-    board2.setMember(member2);
+    @Test
+    @DisplayName("BoardClass와 MemberClass 연관관계 매핑")
+    void it_board_member_class_with_test() {
+      Member memberId = memberRepository.save(member);
+      Board boardId = boardRepository.save(board);
 
-    assertThat(member2.getId()).isEqualTo(board2.getId());
+      boardId.setMember(memberId);
+
+      assertThat(memberId.getId()).isEqualTo(boardId.getId());
+    }
+
+    @Test
+    @DisplayName("CommentClass와 MemberClass 연관관계 매핑")
+    void testSave5() {
+      Member memberId = memberRepository.save(member);
+      Comment commentId = commentRepository.save(comment);
+
+      commentId.setMember(memberId);
+
+      assertThat(memberId.getId()).isEqualTo(commentId.getId());
+    }
+
+    @Test
+    @DisplayName("CommentClass와 BoardClass 연관관개 매핑")
+    void testSave4() {
+      Board boardId = boardRepository.save(board);
+      Comment commentId = commentRepository.save(comment);
+
+      commentId.setBoard(boardId);
+
+      assertThat(boardId.getId()).isEqualTo(commentId.getId());
+    }
   }
 
-//  @Test
-//  void testSave3() {
-//    Member member3 = memberRepository.save(member);
-//    Comment comment1 = commentRepository.save(comment);
-//
-//    comment1.setMember(member3);
-//
-//    assertThat(member3.getId()).isEqualTo(comment1.getId());
-//  }
-
-  @Test
-  void testSave4() {
-    Board board3 = boardRepository.save(board);
-
-    comment.setBoard(board3);
-
-//    boardRepository.save(board3);
-    commentRepository.save(comment);
-  }
 
 
-//  @Test
-//  @Transactional
-//  @Rollback(false)
-//  void BoardTest() {
-//    Board save = boardRepository.save(board);
-//
-//    assertThat(save.getUserId()).isEqualTo(BOARD_USERID);
-//    assertThat(save.getTitle()).isEqualTo(BOARD_TITLE);
-//    assertThat(save.getContent()).isEqualTo(BOARD_CONTENT);
-//  }
+
+
+
+
+
+
 
 
 //
