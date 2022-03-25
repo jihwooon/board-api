@@ -50,6 +50,10 @@ public class Member {
   @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
   private List<Comment> comments = new ArrayList<>();
 
+  public void addComment(Comment comment) {
+    this.comments.add(comment);
+    comment.setMember(this);
+  }
 
   @Builder
   public Member(Long id, String name, String password, Integer birth, String email, Address address) {

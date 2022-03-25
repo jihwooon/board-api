@@ -30,7 +30,7 @@ public class CommentController {
 
   @GetMapping("{id}")
   public Comment detail(@PathVariable Long id) {
-    return commentService.getCommet(id);
+    return commentService.getComment(id);
   }
 
   @PostMapping

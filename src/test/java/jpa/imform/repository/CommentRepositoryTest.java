@@ -3,16 +3,11 @@ package jpa.imform.repository;
 import jpa.imform.domain.Comment;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
-
-import javax.transaction.Transactional;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Transactional
-@Rollback(false)
-@SpringBootTest
+@DataJpaTest
 class CommentRepositoryTest {
 
   @Autowired

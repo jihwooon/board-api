@@ -18,9 +18,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @Transactional
 class BoardServiceTest {
-  private static final String BOARD_USERID = "userId";
-  private static final String BOARD_TITLE = "제목";
-  private static final String BOARD_CONTENT = "설명";
 
   @Autowired
   private BoardRepository boardRepository;
@@ -28,19 +25,17 @@ class BoardServiceTest {
   @Autowired
   private BoardService boardService;
 
+  private Board board;
+
   @Test
   void getBoards() {
     //given
+    board = Board.builder().build();
 
     //when
     List<Board> boards = boardRepository.findAll();
 
     //then
-    assertThat(boards).hasSize(0);
-  }
-
-  @Test
-  void getBoardsWithNoBoard() {
-    assertThat(boardService.getBoards()).isEmpty();
+    assertThat(boards).hasSizeLessThan(5);
   }
 }

@@ -23,7 +23,7 @@ public class CommentServiceImpl implements CommentService {
   }
 
   @Override
-  public Comment getCommet(Long id) {
+  public Comment getComment(Long id) {
     return commentRepository.findById(id)
         .orElseThrow(() -> new CommentNotFoundException(id));
   }
@@ -35,14 +35,14 @@ public class CommentServiceImpl implements CommentService {
 
   @Override
   public Comment updateComment(Long id, Comment source) {
-    Comment commet = getCommet(id);
-    commet.change(source);
-    return commet;
+    Comment comment = getComment(id);
+    comment.change(source);
+    return comment;
   }
 
   @Override
   public Comment deleteComment(Long id) {
-    Comment commet = getCommet(id);
+    Comment commet = getComment(id);
     commentRepository.delete(commet);
 
     return commet;
