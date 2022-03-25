@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -12,22 +11,23 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
 @Getter
-@Setter
 @Table(name = "comment")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Comment {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "comment_id")
   private Long id;
 
@@ -50,6 +50,16 @@ public class Comment {
   @JoinColumn(name = "board_id")
   private Board board;
 
+  public void setBoard(Board board) {
+    this.board = board;
+    board.getComments().add(this);
+  }
+
+  public void setMember(Member member) {
+    this.member = member;
+    member.getComments().add(this);
+  }
+
   @Builder
   public Comment(Long id, String content, Member member, Board board) {
     this.id = id;
@@ -65,4 +75,5 @@ public class Comment {
     this.saveDate = source.getSaveDate();
     this.updateDate = source.getUpdateDate();
   }
+
 }

@@ -1,4 +1,3 @@
-
 package jpa.imform.repository;
 
 import jpa.imform.domain.Board;
@@ -7,47 +6,34 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("BoardRepository 클래스")
-@SpringBootTest
-class BoardRepositoryTest {
-
-  private static final String BOARD_USERID = "userId";
-  private static final String BOARD_TITLE = "제목";
-  private static final String BOARD_CONTENT = "설명";
+@DataJpaTest
+public class BoardRepositoryTest {
 
   @Autowired
   private BoardRepository boardRepository;
+
+  private String BOARD_USERID = "userId";
+  private String BOARD_TITLE = "title";
+  private String BOARD_CONTENT = "content";
+
   private Board board;
 
   @BeforeEach
   void setUp() {
     board = Board.builder()
-        .userId(BOARD_USERID)
-        .title(BOARD_TITLE)
-        .content(BOARD_CONTENT)
+        .userId("userId")
+        .title("title")
+        .content("content")
         .build();
-  }
-
-  @Test
-  @Transactional
-  @Rollback(false)
-  void BoardTest() {
-    Board save = boardRepository.save(board);
-
-    assertThat(save.getUserId()).isEqualTo(BOARD_USERID);
-    assertThat(save.getTitle()).isEqualTo(BOARD_TITLE);
-    assertThat(save.getContent()).isEqualTo(BOARD_CONTENT);
-
   }
 
   @Test
@@ -91,59 +77,36 @@ class BoardRepositoryTest {
   @Nested
   @DisplayName("게시판 저장하고 불러오기는")
   class Describe_save_posts {
-      @Nested
-      @DisplayName("게시글 정보를 받아 저장하고")
-      class Context_has_post_info {
-        @BeforeEach
-        void setUp() {
-          boardRepository.save(Board.builder()
-              .userId(BOARD_USERID)
-              .title(BOARD_TITLE)
-              .content(BOARD_CONTENT)
-              .build());
-        }
-
-        @Test
-        @DisplayName("저장된 게시글 목록을 리턴한다.")
-        void it_return_list() {
-          List<Board> result = boardRepository.findAll();
-
-          Board boards = result.get(0);
-          assertThat(boards.getTitle()).isEqualTo(BOARD_TITLE);
-          assertThat(boards.getContent()).isEqualTo(BOARD_CONTENT);
-        }
+    @Nested
+    @DisplayName("게시글 정보를 받아 저장하고")
+    class Context_has_post_info {
+      @BeforeEach
+      void setUp() {
+        boardRepository.save(Board.builder()
+            .userId(BOARD_USERID)
+            .title(BOARD_TITLE)
+            .content(BOARD_CONTENT)
+            .build());
       }
+
+      @Test
+      @DisplayName("저장된 게시글 목록을 리턴한다.")
+      void it_return_list() {
+        List<Board> result = boardRepository.findAll();
+
+        Board boards = result.get(0);
+        assertThat(boards.getTitle()).isEqualTo(BOARD_TITLE);
+        assertThat(boards.getContent()).isEqualTo(BOARD_CONTENT);
+      }
+    }
   }
 
-//  @Test
-//  void 게시판조회_사이즈0() {
-//    List<Board> result = boardRepository.findAll();
-//
-//    assertThat(result.size()).isEqualTo(0);
-//  }
+  @Test
+  void 게시판조회_사이즈0() {
+    List<Board> result = boardRepository.findAll();
 
-//  @Test
-//  void 게시판조회_사이즈2() {
-//    Board List1 = Board.builder()
-//        .userId(BOARD_USERID)
-//        .title(BOARD_TITLE)
-//        .content(BOARD_CONTENT)
-//        .build();
-//
-//    Board List2 = Board.builder()
-//        .userId(BOARD_USERID)
-//        .title("자바")
-//        .content("설명")
-//        .build();
-//
-//    boardRepository.save(List1);
-//    boardRepository.save(List2);
-//
-//    List<Board> result = boardRepository.findAllByUserId("userId");
-//
-//    assertThat(result.size()).isEqualTo(2);
-//
-//  }
+    assertThat(result.size()).isEqualTo(0);
+  }
 
   @Nested
   @DisplayName("글 등록시간은")

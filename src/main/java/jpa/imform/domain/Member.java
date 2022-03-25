@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import java.util.List;
 public class Member {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "member_id")
   private Long id;
 
@@ -49,6 +50,11 @@ public class Member {
   @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
   private List<Comment> comments = new ArrayList<>();
 
+  public void addComment(Comment comment) {
+    this.comments.add(comment);
+    comment.setMember(this);
+  }
+
   @Builder
   public Member(Long id, String name, String password, Integer birth, String email, Address address) {
     this.id = id;
@@ -71,8 +77,4 @@ public class Member {
     this.name = request.getName();
   }
 
-  @Override
-  public String toString() {
-    return "주소는 " + address;
-  }
 }

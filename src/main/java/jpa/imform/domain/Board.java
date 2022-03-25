@@ -15,8 +15,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -43,6 +46,9 @@ public class Board {
   @JoinColumn(name = "member_id")
   private Member member;
 
+  @OneToMany(mappedBy = "board")
+  private List<Comment> comments = new ArrayList<>();
+
   @CreationTimestamp
   @Column(name = "board_save_date", nullable = false, length = 20, updatable = false)
   private LocalDateTime saveDate;
@@ -50,6 +56,16 @@ public class Board {
   @UpdateTimestamp
   @Column(name = "board_update_date", length = 20)
   private LocalDateTime updateDate;
+
+  public void setMember(Member member) {
+    this.member = member;
+    member.getBoards().add(this);
+  }
+
+  public void addComment(Comment comment) {
+    this.comments.add(comment);
+    comment.setBoard(this);
+  }
 
   @Builder
   public Board(Long id, String userId, String title, String content, LocalDateTime saveDate, LocalDateTime updateDate) {

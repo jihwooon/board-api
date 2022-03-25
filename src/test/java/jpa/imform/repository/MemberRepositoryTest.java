@@ -2,19 +2,13 @@ package jpa.imform.repository;
 
 import jpa.imform.domain.Address;
 import jpa.imform.domain.Member;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
-
-import javax.transaction.Transactional;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@Transactional
-@Rollback(false)
+@DataJpaTest
 class MemberRepositoryTest {
 
   @Autowired

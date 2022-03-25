@@ -8,7 +8,7 @@ public interface CommentService {
 
   List<Comment> getComments();
 
-  Comment getCommet(Long id);
+  Comment getComment(Long id);
 
   Comment createComment(Comment comment);
 
