@@ -32,4 +32,5 @@ class CommentRepositoryTest {
 
     assertThat(save.getContent()).isEqualTo("댓글");
   }
+
 }
