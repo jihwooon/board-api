@@ -3,19 +3,22 @@ package jpa.imform.dto;
 import jpa.imform.domain.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Getter
 public class CommentDto {
 
   @Data
   @AllArgsConstructor
   public static class CommentRequest {
+
+    @NotNull(message = "id는 필수 값입니다.")
     private Long id;
+    @NotEmpty()
     private String name;
   }
 

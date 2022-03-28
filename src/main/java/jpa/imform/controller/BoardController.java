@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -37,12 +37,12 @@ public class BoardController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public BoardDto.BoardResponse create(@RequestBody BoardDto.BoardRequest request) {
+  public BoardDto.BoardResponse create(@RequestBody @Valid BoardDto.BoardRequest request) {
     return boardService.createBoard(request);
   }
 
   @PatchMapping("{id}")
-  public BoardDto.BoardResponse update(@PathVariable Long id, @RequestBody BoardDto.BoardRequest update) {
+  public BoardDto.BoardResponse update(@PathVariable Long id, @RequestBody @Valid BoardDto.BoardRequest update) {
     return boardService.updateBoard(id, update);
   }
 
