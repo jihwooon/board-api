@@ -5,7 +5,11 @@ import jpa.imform.domain.Member;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,9 +18,20 @@ public class MemberDto {
 
   @Data
   @AllArgsConstructor
+  @NoArgsConstructor
   public static class MemberRequest {
-    private Long id;
+
+    @NotBlank
     private String name;
+
+    @NotBlank(message = "패스워드를 입력해주세요")
+    @Size(min =4, max = 1024)
+    private String password;
+
+    private Integer birth;
+
+    @NotBlank
+    private String email;
   }
 
   @Data
@@ -24,7 +39,6 @@ public class MemberDto {
     private String name;
     private Integer birth;
     private String email;
-//    private Address address;
 
     public MemberResponse(Member member) {
       this.name = member.getName();

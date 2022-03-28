@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -36,12 +37,12 @@ public class MemberController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public MemberDto.MemberResponse create(@RequestBody MemberDto.MemberRequest request) {
+  public MemberDto.MemberResponse create(@RequestBody @Valid MemberDto.MemberRequest request) {
     return memberService.createMember(request);
   }
 
   @PatchMapping("{id}")
-  public MemberDto.MemberResponse update(@PathVariable Long id, MemberDto.MemberRequest request) {
+  public MemberDto.MemberResponse update(@PathVariable Long id, @RequestBody @Valid MemberDto.MemberRequest request) {
     return memberService.updateMember(id, request);
   }
 

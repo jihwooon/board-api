@@ -24,14 +24,16 @@ public class MemberServiceImpl implements MemberService {
 
   public Member getMember(Long id) {
     return memberRepository.findById(id)
-        .orElseThrow(() -> new MemberNotFoundException("Id"));
+        .orElseThrow(() -> new MemberNotFoundException("id값을 다시 반환 해주세요"));
   }
 
   @Override
   public MemberDto.MemberResponse createMember(MemberDto.MemberRequest request) {
     Member member = Member.builder()
-        .id(request.getId())
         .name(request.getName())
+        .password(request.getPassword())
+        .birth(request.getBirth())
+        .email(request.getEmail())
         .build();
     return MemberDto.MemberResponse.of(memberRepository.save(member));
   }

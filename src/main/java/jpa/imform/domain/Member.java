@@ -74,8 +74,10 @@ public class Member {
   }
 
   public void changeWith(MemberDto.MemberRequest request) {
-    this.id = request.getId();
     this.name = request.getName();
+    this.password = request.getPassword();
+    this.birth = request.getBirth();
+    this.email = request.getEmail();
   }
 
 }
