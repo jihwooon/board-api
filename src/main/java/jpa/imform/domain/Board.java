@@ -1,5 +1,4 @@
 //TODO
-//1. board userid 제거 -> 연관성 제거
 //2. LocalDateTime 공통 엔티티로 옮기
 package jpa.imform.domain;
 

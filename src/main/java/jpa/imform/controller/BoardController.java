@@ -1,19 +1,9 @@
-//TODO : 엔티티 클래스 -> DTO 변환
-// list DTO 변환 완료
-// detail DTO 변환 완료
-// create DTO 변화 진행
-// update DTO
-// delete DTO
-
 package jpa.imform.controller;
 
-import jpa.imform.domain.Board;
 import jpa.imform.dto.BoardDto;
 import jpa.imform.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.BindingResultUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
