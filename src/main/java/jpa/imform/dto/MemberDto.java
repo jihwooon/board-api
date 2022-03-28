@@ -28,7 +28,7 @@ public class MemberDto {
     @Size(min =4, max = 1024)
     private String password;
 
-    private Integer birth;
+    private String birth;
 
     @NotBlank
     private String email;
@@ -37,7 +37,7 @@ public class MemberDto {
   @Data
   public static class MemberResponse {
     private String name;
-    private Integer birth;
+    private String birth;
     private String email;
 
     public MemberResponse(Member member) {
