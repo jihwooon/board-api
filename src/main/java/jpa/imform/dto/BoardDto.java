@@ -5,20 +5,26 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Getter
 public class BoardDto {
 
   @Data
   @AllArgsConstructor
   public static class BoardRequest {
+    @NotNull(message = "id 값은 필수 값입니다.")
     private Long id;
-    private String userId;
+
+    private String content;
+
+    @NotBlank(message = "값을 채워 주세요.")
+    private String title;
   }
 
-  @Data
+  @Getter
   public static class BoardResponse {
     private Long id;
     private String content;
