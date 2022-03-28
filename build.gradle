@@ -1,6 +1,7 @@
 plugins {
 	id 'org.springframework.boot' version '2.6.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'org.asciidoctor.convert' version '1.5.8'
 	id 'java'
 }
 
@@ -20,6 +21,10 @@ repositories {
 
 dependencies {
 
+	
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.6'
+	asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+	
 	// AssertJ
 	testImplementation 'org.assertj:assertj-core:3.18.1'
 
@@ -46,5 +51,11 @@ dependencies {
 }
 
 tasks.named('test') {
+	outputs.dir snippetsDir
 	useJUnitPlatform()
+}
+
+tasks.named('asciidoctor') {
+	inputs.dir snippetsDir
+	dependsOn test
 }
