@@ -1,3 +1,6 @@
+//TODO
+//1. board userid 제거 -> 연관성 제거
+//2. LocalDateTime 공통 엔티티로 옮기
 package jpa.imform.domain;
 
 import jpa.imform.dto.BoardDto;
@@ -33,9 +36,6 @@ public class Board {
   @Column(name = "board_id")
   private Long id;
 
-  @Column(name = "board_userId")
-  private String userId;
-
   @Column(name = "board_title")
   private String title;
 
@@ -68,9 +68,8 @@ public class Board {
   }
 
   @Builder
-  public Board(Long id, String userId, String title, String content, LocalDateTime saveDate, LocalDateTime updateDate) {
+  public Board(Long id, String title, String content, LocalDateTime saveDate, LocalDateTime updateDate) {
     this.id = id;
-    this.userId = userId;
     this.title = title;
     this.content = content;
     this.saveDate = saveDate;
@@ -78,13 +77,11 @@ public class Board {
   }
 
   public void change(Board update) {
-    this.userId = update.getUserId();
     this.title = update.getTitle();
     this.content = update.getContent();
   }
 
   public void changeWith(BoardDto.BoardRequest update) {
     this.id = update.getId();
-    this.userId = update.getUserId();
   }
 }

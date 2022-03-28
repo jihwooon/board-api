@@ -44,7 +44,6 @@ class RelationalMappingTest {
   @BeforeEach
   void setUp() {
     board1 = Board.builder()
-        .userId("userId")
         .title("제목")
         .content("설명")
         .build();
@@ -62,7 +61,6 @@ class RelationalMappingTest {
         .build();
 
      board2 = Board.builder()
-        .userId("안지환")
         .title("제목")
         .content("설명")
         .build();

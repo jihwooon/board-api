@@ -21,13 +21,11 @@ public class BoardDto {
   @Data
   public static class BoardResponse {
     private Long id;
-    private String userId;
     private String content;
     private String title;
 
     public BoardResponse(Board board) {
       this.id = board.getId();
-      this.userId = board.getUserId();
       this.content = board.getContent();
       this.title = board.getTitle();
     }

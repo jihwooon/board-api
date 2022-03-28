@@ -33,7 +33,6 @@ public class BoardServiceImpl implements BoardService {
   public BoardDto.BoardResponse createBoard(BoardDto.BoardRequest request) {
     Board board = Board.builder()
         .id(request.getId())
-        .userId(request.getUserId())
         .build();
     return BoardDto.BoardResponse.of(board);
   }

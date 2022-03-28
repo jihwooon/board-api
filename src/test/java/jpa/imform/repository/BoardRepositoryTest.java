@@ -30,7 +30,6 @@ public class BoardRepositoryTest {
   @BeforeEach
   void setUp() {
     board = Board.builder()
-        .userId("userId")
         .title("title")
         .content("content")
         .build();
@@ -56,7 +55,6 @@ public class BoardRepositoryTest {
         Board result = boardRepository.save(board);
 
         assertThat(result.getId()).isNotNull();
-        assertThat(result.getUserId()).isEqualTo(BOARD_USERID);
         assertThat(result.getTitle()).isEqualTo(BOARD_TITLE);
         assertThat(result.getContent()).isEqualTo(BOARD_CONTENT);
       }
@@ -68,7 +66,6 @@ public class BoardRepositoryTest {
     Board result = boardRepository.save(board);
 
     assertThat(result.getId()).isNotNull();
-    assertThat(result.getUserId()).isEqualTo(BOARD_USERID);
     assertThat(result.getTitle()).isEqualTo(BOARD_TITLE);
     assertThat(result.getContent()).isEqualTo(BOARD_CONTENT);
   }
@@ -83,7 +80,6 @@ public class BoardRepositoryTest {
       @BeforeEach
       void setUp() {
         boardRepository.save(Board.builder()
-            .userId(BOARD_USERID)
             .title(BOARD_TITLE)
             .content(BOARD_CONTENT)
             .build());
@@ -120,7 +116,6 @@ public class BoardRepositoryTest {
       void setUp() {
         now = LocalDateTime.now();
         boardRepository.save(Board.builder()
-            .userId(BOARD_USERID)
             .title(BOARD_TITLE)
             .content(BOARD_CONTENT)
             .build());
