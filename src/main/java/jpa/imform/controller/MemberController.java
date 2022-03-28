@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -31,12 +32,12 @@ public class MemberController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public MemberDto.MemberResponse create(@RequestBody MemberDto.MemberRequest request) {
+  public MemberDto.MemberResponse create(@RequestBody @Valid MemberDto.MemberRequest request) {
     return memberService.createMember(request);
   }
 
   @PatchMapping("{id}")
-  public MemberDto.MemberResponse update(@PathVariable Long id, MemberDto.MemberRequest request) {
+  public MemberDto.MemberResponse update(@PathVariable Long id, @RequestBody @Valid MemberDto.MemberRequest request) {
     return memberService.updateMember(id, request);
   }
 

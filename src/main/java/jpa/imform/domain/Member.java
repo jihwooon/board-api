@@ -36,7 +36,7 @@ public class Member {
   private String password;
 
   @Column(name = "member_birth")
-  private Integer birth;
+  private String birth;
 
   @Column(name = "member_email")
   private String email;
@@ -57,7 +57,7 @@ public class Member {
   }
 
   @Builder
-  public Member(Long id, String name, String password, Integer birth, String email, Address address) {
+  public Member(Long id, String name, String password, String birth, String email, Address address) {
     this.id = id;
     this.name = name;
     this.password = password;
@@ -74,8 +74,10 @@ public class Member {
   }
 
   public void changeWith(MemberDto.MemberRequest request) {
-    this.id = request.getId();
     this.name = request.getName();
+    this.password = request.getPassword();
+    this.birth = request.getBirth();
+    this.email = request.getEmail();
   }
 
 }
