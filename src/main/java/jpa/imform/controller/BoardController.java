@@ -41,7 +41,7 @@ public class BoardController {
   }
 
   @PatchMapping("{id}")
-  public BoardDto.BoardResponse update(@PathVariable Long id, @RequestBody BoardDto.BoardRequest update) {
+  public BoardDto.BoardResponse update(@PathVariable Long id, @RequestBody @Valid BoardDto.BoardRequest update) {
     return boardService.updateBoard(id, update);
   }
 

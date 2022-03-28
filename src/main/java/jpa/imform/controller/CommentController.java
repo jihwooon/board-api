@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -35,12 +36,12 @@ public class CommentController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public Comment create(@RequestBody Comment comment) {
+  public Comment create(@RequestBody @Valid Comment comment) {
     return commentService.createComment(comment);
   }
 
   @PatchMapping("{id}")
-  public Comment update(@PathVariable Long id, @RequestBody Comment comment) {
+  public Comment update(@PathVariable Long id, @RequestBody @Valid Comment comment) {
     return commentService.updateComment(id, comment);
   }
 
