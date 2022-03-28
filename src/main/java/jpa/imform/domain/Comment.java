@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,14 +14,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.time.LocalDate;
 
 @Entity
 @Getter
 @Table(name = "comment")
-@AllArgsConstructor
 @NoArgsConstructor
-public class Comment {
+public class Comment extends BaseEntity{
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,14 +28,6 @@ public class Comment {
 
   @Column(name = "comment_content")
   private String content;
-
-  @CreationTimestamp
-  @Column(name = "comment_save_date", nullable = false, length = 20, updatable = false)
-  private LocalDate saveDate;
-
-  @UpdateTimestamp
-  @Column(name = "comment_update_date", length = 20)
-  private LocalDate updateDate;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "member_id")
@@ -71,8 +59,6 @@ public class Comment {
     this.content = source.getContent();
     this.board = source.getBoard();
     this.member = source.getMember();
-    this.saveDate = source.getSaveDate();
-    this.updateDate = source.getUpdateDate();
   }
 
 }

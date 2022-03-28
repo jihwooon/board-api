@@ -17,13 +17,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 public class BoardRepositoryTest {
+  private String BOARD_TITLE = "title";
+  private String BOARD_CONTENT = "content";
 
   @Autowired
   private BoardRepository boardRepository;
-
-  private String BOARD_USERID = "userId";
-  private String BOARD_TITLE = "title";
-  private String BOARD_CONTENT = "content";
 
   private Board board;
 
@@ -42,7 +40,7 @@ public class BoardRepositoryTest {
 
   @Nested
   @DisplayName("게시판을 저장할 때")
-  class Descripb_save_boards {
+  class Describe_save_boards {
     @Nested
     @DisplayName("값을 세팅하고")
     class it_Context_has_board_info {
@@ -86,6 +84,8 @@ public class BoardRepositoryTest {
       }
 
       @Test
+      @Transactional
+      @Rollback(false)
       @DisplayName("저장된 게시글 목록을 리턴한다.")
       void it_return_list() {
         List<Board> result = boardRepository.findAll();
@@ -130,8 +130,8 @@ public class BoardRepositoryTest {
 
         Board boards = boardsList.get(index);
 
-        assertThat(boards.getSaveDate()).isAfter(now);
-        assertThat(boards.getUpdateDate()).isAfter(now);
+        assertThat(boards.getCreateDate()).isAfter(now);
+        assertThat(boards.getModifiedDate()).isAfter(now);
       }
     }
   }

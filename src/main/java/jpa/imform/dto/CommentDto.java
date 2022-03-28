@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,13 +22,13 @@ public class CommentDto {
   @Data
   public static class CommentResponse {
     private String content;
-    private LocalDate saveDate;
-    private LocalDate updateDate;
+    private LocalDateTime createDate;
+    private LocalDateTime modifiedDate;
 
     public CommentResponse(Comment comment) {
       this.content = comment.getContent();
-      this.saveDate = comment.getSaveDate();
-      this.updateDate = comment.getUpdateDate();
+      this.createDate = comment.getCreateDate();
+      this.modifiedDate = comment.getModifiedDate();
     }
 
     public static CommentResponse of(Comment comment) {

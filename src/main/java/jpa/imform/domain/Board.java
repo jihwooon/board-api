@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +26,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Board {
+public class Board extends BaseEntity{
 
   @Id
   @GeneratedValue
@@ -48,14 +46,6 @@ public class Board {
   @OneToMany(mappedBy = "board")
   private List<Comment> comments = new ArrayList<>();
 
-  @CreationTimestamp
-  @Column(name = "board_save_date", nullable = false, length = 20, updatable = false)
-  private LocalDateTime saveDate;
-
-  @UpdateTimestamp
-  @Column(name = "board_update_date", length = 20)
-  private LocalDateTime updateDate;
-
   public void setMember(Member member) {
     this.member = member;
     member.getBoards().add(this);
@@ -67,13 +57,12 @@ public class Board {
   }
 
   @Builder
-  public Board(Long id, String title, String content, LocalDateTime saveDate, LocalDateTime updateDate) {
+  public Board(Long id, String title, String content) {
     this.id = id;
     this.title = title;
     this.content = content;
-    this.saveDate = saveDate;
-    this.updateDate = updateDate;
   }
+
 
   public void change(Board update) {
     this.title = update.getTitle();
