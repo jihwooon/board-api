@@ -1,13 +1,11 @@
 package jpa.imform.dto;
 
-import jpa.imform.domain.Address;
 import jpa.imform.domain.Member;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -21,16 +19,17 @@ public class MemberDto {
   @NoArgsConstructor
   public static class MemberRequest {
 
-    @NotBlank
+    @NotBlank(message = "이름을 입력해주세요")
     private String name;
 
     @NotBlank(message = "패스워드를 입력해주세요")
-    @Size(min =4, max = 1024)
+    @Size(min = 4, max = 1024)
     private String password;
 
+    @NotBlank(message = "생년월일을 입력해주세요")
     private String birth;
 
-    @NotBlank
+    @NotBlank(message = "이메일을 입력해주세요")
     private String email;
   }
 
@@ -44,7 +43,7 @@ public class MemberDto {
       this.name = member.getName();
       this.birth = member.getBirth();
       this.email = member.getEmail();
-//      this.address = member.getAddress();
+
     }
 
     public static MemberResponse of(final Member member) {

@@ -51,7 +51,7 @@ class RelationalMappingTest {
     member1 = Member.builder()
         .name("홍길동")
         .email("hong@gmail.com")
-        .birth(810502)
+        .birth("890505")
         .password("1234")
         .address(new Address("서울", "경기", "1234"))
         .build();
@@ -68,7 +68,7 @@ class RelationalMappingTest {
     member2 = Member.builder()
         .name("젠장")
         .email("jihwooon@gmail.com")
-        .birth(920505)
+        .birth("920505")
         .password("1234")
         .address(new Address("부산", "해운대", "1234"))
         .build();
@@ -121,80 +121,80 @@ class RelationalMappingTest {
     }
   }
 
-//  @Nested
-//  @DisplayName("세 조건 중 한 조건이라도 빠지는 경우")
-//  class Describe_testcase_Not_collect {
-//
-//    @Test
-//    @DisplayName("BoardClass와 MemberClass 연관관계 매핑")
-//    void it_board_member_class_with_test1() {
-//      Member memberId = memberRepository.save(member1);
-//      Board boardId = boardRepository.save(board1);
-//
-//      boardId.setMember(memberId);
-//
-//      assertThat(memberId.getId()).isEqualTo(boardId.getId());
-//    }
-//
-//    @Test
-//    @DisplayName("BoardClass와 MemberClass 연관관계 매핑")
-//    void it_board_member_class_with_test2() {
-//      Member memberId = memberRepository.save(member2);
-//      Board boardId = boardRepository.save(board2);
-//
-//      boardId.setMember(memberId);
-//
-//      assertThat(memberId.getId()).isEqualTo(boardId.getId());
-//    }
-//
-//    @Test
-//    @DisplayName("CommentClass와 MemberClass 연관관계 매핑")
-//    void testSave5() {
-//      Member memberId = memberRepository.save(member1);
-//      Comment commentId = commentRepository.save(comment1);
-//
-//      commentId.setMember(memberId);
-//      memberId.addComment(commentId);
-//
-//      assertThat(memberId.getId()).isEqualTo(commentId.getId());
-//      assertThat(commentId.getId()).isLessThan(2);
-//      assertThat(memberId.getId()).isLessThan(2);
-//    }
-//
-//    @Test
-//    @DisplayName("CommentClass와 MemberClass 연관관계 매핑")
-//    void testSave6() {
-//      Member memberId = memberRepository.save(member2);
-//      Comment commentId = commentRepository.save(comment2);
-//
-//      commentId.setMember(memberId);
-//      memberId.addComment(commentId);
-//
-//      assertThat(memberId.getId()).isEqualTo(commentId.getId());
-//      assertThat(commentId.getId()).isLessThan(2);
-//      assertThat(memberId.getId()).isLessThan(2);
-//    }
-//
-//    @Test
-//    @DisplayName("CommentClass와 BoardClass 연관관개 매핑")
-//    void testSave7() {
-//      Board boardId = boardRepository.save(board1);
-//      Comment commentId = commentRepository.save(comment1);
-//
-//      commentId.setBoard(boardId);
-//
-//      assertThat(boardId.getId()).isEqualTo(commentId.getId());
-//    }
-//
-//    @Test
-//    @DisplayName("CommentClass와 BoardClass 연관관개 매핑")
-//    void testSave8() {
-//      Board boardId = boardRepository.save(board2);
-//      Comment commentId = commentRepository.save(comment2);
-//
-//      commentId.setBoard(boardId);
-//
-//      assertThat(boardId.getId()).isEqualTo(commentId.getId());
-//    }
-//  }
+  @Nested
+  @DisplayName("세 조건 중 한 조건이라도 빠지는 경우")
+  class Describe_testcase_Not_collect {
+
+    @Test
+    @DisplayName("BoardClass와 MemberClass 연관관계 매핑")
+    void it_board_member_class_with_test1() {
+      Member memberId = memberRepository.save(member1);
+      Board boardId = boardRepository.save(board1);
+
+      boardId.setMember(memberId);
+
+      assertThat(memberId.getId()).isEqualTo(boardId.getId());
+    }
+
+    @Test
+    @DisplayName("BoardClass와 MemberClass 연관관계 매핑")
+    void it_board_member_class_with_test2() {
+      Member memberId = memberRepository.save(member2);
+      Board boardId = boardRepository.save(board2);
+
+      boardId.setMember(memberId);
+
+      assertThat(memberId.getId()).isEqualTo(boardId.getId());
+    }
+
+    @Test
+    @DisplayName("CommentClass와 MemberClass 연관관계 매핑")
+    void testSave5() {
+      Member memberId = memberRepository.save(member1);
+      Comment commentId = commentRepository.save(comment1);
+
+      commentId.setMember(memberId);
+      memberId.addComment(commentId);
+
+      assertThat(memberId.getId()).isEqualTo(commentId.getId());
+      assertThat(commentId.getId()).isLessThan(2);
+      assertThat(memberId.getId()).isLessThan(2);
+    }
+
+    @Test
+    @DisplayName("CommentClass와 MemberClass 연관관계 매핑")
+    void testSave6() {
+      Member memberId = memberRepository.save(member2);
+      Comment commentId = commentRepository.save(comment2);
+
+      commentId.setMember(memberId);
+      memberId.addComment(commentId);
+
+      assertThat(memberId.getId()).isEqualTo(commentId.getId());
+      assertThat(commentId.getId()).isLessThan(2);
+      assertThat(memberId.getId()).isLessThan(2);
+    }
+
+    @Test
+    @DisplayName("CommentClass와 BoardClass 연관관개 매핑")
+    void testSave7() {
+      Board boardId = boardRepository.save(board1);
+      Comment commentId = commentRepository.save(comment1);
+
+      commentId.setBoard(boardId);
+
+      assertThat(boardId.getId()).isEqualTo(commentId.getId());
+    }
+
+    @Test
+    @DisplayName("CommentClass와 BoardClass 연관관개 매핑")
+    void testSave8() {
+      Board boardId = boardRepository.save(board2);
+      Comment commentId = commentRepository.save(comment2);
+
+      commentId.setBoard(boardId);
+
+      assertThat(boardId.getId()).isEqualTo(commentId.getId());
+    }
+  }
 }

@@ -1,5 +1,3 @@
-//TODO
-//2. LocalDateTime 공통 엔티티로 옮기
 package jpa.imform.domain;
 
 import jpa.imform.dto.BoardDto;
@@ -7,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,17 +16,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Board extends BaseEntity{
+public class Board extends BaseEntity {
 
   @Id
   @GeneratedValue
@@ -47,10 +45,10 @@ public class Board extends BaseEntity{
   @OneToMany(mappedBy = "board")
   private List<Comment> comments = new ArrayList<>();
 
-  public void setMember(Member member) {
-    this.member = member;
-    member.getBoards().add(this);
-  }
+//  public void setMember(Member member) {
+//    this.member = member;
+//    member.getBoards().add(this);
+//  }
 
   public void addComment(Comment comment) {
     this.comments.add(comment);
@@ -58,10 +56,11 @@ public class Board extends BaseEntity{
   }
 
   @Builder
-  public Board(Long id, String title, String content) {
+  public Board(Long id, String title, String content, Member member) {
     this.id = id;
     this.title = title;
     this.content = content;
+    this.member = member;
   }
 
 
@@ -71,6 +70,7 @@ public class Board extends BaseEntity{
   }
 
   public void changeWith(BoardDto.BoardRequest update) {
-    this.id = update.getId();
+    this.title = update.getTitle();
+    this.content = update.getContent();
   }
 }

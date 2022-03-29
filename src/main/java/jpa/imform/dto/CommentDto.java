@@ -1,11 +1,12 @@
 package jpa.imform.dto;
 
 import jpa.imform.domain.Comment;
+import jpa.imform.domain.Member;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,16 +15,18 @@ public class CommentDto {
 
   @Data
   @AllArgsConstructor
+  @NoArgsConstructor
   public static class CommentRequest {
 
-    @NotNull(message = "id는 필수 값입니다.")
-    private Long id;
-    @NotEmpty()
+    @NotEmpty(message = "이름을 기입 해주세요")
     private String name;
+
+    private String content;
   }
 
   @Data
   public static class CommentResponse {
+    private String name;
     private String content;
     private LocalDateTime createDate;
     private LocalDateTime modifiedDate;
