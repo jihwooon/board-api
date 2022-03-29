@@ -26,20 +26,19 @@ public class BoardController {
   private final BoardService boardService;
 
   @GetMapping("member/{memberId}/board")
-  public List<BoardDto.BoardResponse> list(@PathVariable Long memberId) {
+  public List<BoardDto.CreateBoardResponse> list(@PathVariable Long memberId) {
     return boardService.getBoards(memberId);
   }
 
   @PostMapping("member/{memberId}/board")
   @ResponseStatus(HttpStatus.CREATED)
-  public BoardDto.BoardResponse create(@PathVariable Long memberId, @RequestBody @Valid BoardDto.BoardRequest request) {
+  public BoardDto.CreateBoardResponse create(@PathVariable Long memberId, @RequestBody @Valid BoardDto.CreateBoardRequest request) {
     return boardService.createBoard(memberId, request);
   }
 
-
-//  @GetMapping("/board/{id}")
-//  public BoardDto.BoardResponse detail(@PathVariable Long id) {
-//    return BoardDto.BoardResponse.of(boardService.getBoard(id));
+//  @GetMapping("member/{memberId}/board/{boardId}")
+//  public BoardDto.CreateBoardResponse detail(@PathVariable Long memberId, @PathVariable Long boardId) {
+//    return BoardDto.CreateBoardResponse.of(boardService.getBoard(memberId));
 //  }
 //
 //  @PatchMapping("board/{id}")
@@ -47,9 +46,9 @@ public class BoardController {
 //    return boardService.updateBoard(id, update);
 //  }
 //
-//  @DeleteMapping("/board/{id}")
-//  @ResponseStatus(HttpStatus.NO_CONTENT)
-//  public void remove(@PathVariable Long id) {
-//    boardService.deleteBoard(id);
-//  }
+  @DeleteMapping("member/{memberId}/board/{boardId}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void remove(@PathVariable Long memberId, @PathVariable Long boardId) {
+    boardService.deleteBoard(boardId);
+  }
 }

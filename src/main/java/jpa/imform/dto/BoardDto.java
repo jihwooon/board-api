@@ -1,6 +1,8 @@
 package jpa.imform.dto;
 
+import jpa.imform.domain.BaseEntity;
 import jpa.imform.domain.Board;
+import jpa.imform.domain.Comment;
 import jpa.imform.domain.Member;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,6 +47,41 @@ public class BoardDto {
           .map(o -> new BoardResponse(o))
           .collect(Collectors.toList());
     }
-
   }
+
+  @Data
+  @AllArgsConstructor
+  @NoArgsConstructor
+  public static class CreateBoardRequest {
+    private String content;
+    private String title;
+  }
+
+  @Getter
+  @AllArgsConstructor
+  public static class CreateBoardResponse {
+    private String content;
+    private String title;
+    private LocalDateTime createDate;
+    private LocalDateTime modifiedDate;
+    private Member member;
+
+    public CreateBoardResponse(Board board) {
+      this.content = board.getContent();
+      this.title = board.getTitle();
+      this.createDate = board.getCreateDate();
+      this.modifiedDate = board.getModifiedDate();
+    }
+
+    public static CreateBoardResponse of(final Board board) {
+      return new CreateBoardResponse(board);
+    }
+
+    public static List<CreateBoardResponse> of(final List<Board> board) {
+      return board.stream()
+          .map(o -> new CreateBoardResponse(o))
+          .collect(Collectors.toList());
+    }
+  }
+
 }

@@ -22,21 +22,20 @@ public class BoardServiceImpl implements BoardService {
   private final MemberService memberService;
 
   @Override
-  public List<BoardDto.BoardResponse> getBoards(Long id) {
+  public List<BoardDto.CreateBoardResponse> getBoards(Long id) {
     Member member = memberService.getMember(id);
-    return BoardDto.BoardResponse.of(boardRepository.findBoardByMember(member));
+    return BoardDto.CreateBoardResponse.of(boardRepository.findBoardByMember(member));
   }
 
   @Override
-  public BoardDto.BoardResponse createBoard(Long id, BoardDto.BoardRequest request) {
+  public BoardDto.CreateBoardResponse createBoard(Long id, BoardDto.CreateBoardRequest request) {
     Member member = memberService.getMember(id);
-
     Board board = Board.builder()
         .title(request.getTitle())
         .content(request.getContent())
         .member(member)
         .build();
-    return BoardDto.BoardResponse.of(boardRepository.save(board));
+    return BoardDto.CreateBoardResponse.of(boardRepository.save(board));
   }
 
   @Override

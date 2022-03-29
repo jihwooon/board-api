@@ -20,7 +20,6 @@ public class CommentDto {
 
     @NotEmpty(message = "이름을 기입 해주세요")
     private String name;
-
     private String content;
   }
 
