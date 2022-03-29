@@ -14,36 +14,35 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/member")
 @RequiredArgsConstructor
 public class MemberController {
 
   private final MemberService memberService;
 
-  @GetMapping
+  @GetMapping("member")
   public List<MemberDto.MemberResponse> list() {
     return memberService.getMembers();
   }
 
-  @GetMapping("{id}")
-  public MemberDto.MemberResponse detail(@PathVariable Long id) {
-    return MemberDto.MemberResponse.of(memberService.getMember(id));
+  @GetMapping("member/{memberId}")
+  public MemberDto.MemberResponse detail(@PathVariable Long memberId) {
+    return MemberDto.MemberResponse.of(memberService.getMember(memberId));
   }
 
-  @PostMapping
+  @PostMapping("member")
   @ResponseStatus(HttpStatus.CREATED)
   public MemberDto.MemberResponse create(@RequestBody @Valid MemberDto.MemberRequest request) {
     return memberService.createMember(request);
   }
 
-  @PatchMapping("{id}")
-  public MemberDto.MemberResponse update(@PathVariable Long id, @RequestBody @Valid MemberDto.MemberRequest request) {
-    return memberService.updateMember(id, request);
+  @PatchMapping("member/{memberId}")
+  public MemberDto.MemberResponse update(@PathVariable Long memberId, @RequestBody @Valid MemberDto.MemberRequest request) {
+    return memberService.updateMember(memberId, request);
   }
 
-  @DeleteMapping("{id}")
+  @DeleteMapping("member/{memberId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void remove(@PathVariable Long id) {
-    memberService.delete(id);
+  public void remove(@PathVariable Long memberId) {
+    memberService.delete(memberId);
   }
 }

@@ -29,15 +29,15 @@ public class CommentController {
     return commentService.getComments(memberId, boardId);
   }
 
-  @GetMapping("/comment/{id}")
-  public Comment detail(@PathVariable Long id) {
-    return commentService.getComment(id);
-  }
-
   @PostMapping("member/{memberId}/board/{boardId}/comment")
   @ResponseStatus(HttpStatus.CREATED)
   public CommentDto.CommentResponse create(@PathVariable Long memberId, @PathVariable Long boardId, @RequestBody @Valid CommentDto.CommentRequest request) {
     return commentService.createComment(memberId, boardId, request);
+  }
+
+  @GetMapping("/comment/{id}")
+  public Comment detail(@PathVariable Long id) {
+    return commentService.getComment(id);
   }
 
   @PatchMapping("/comment/{id}")
