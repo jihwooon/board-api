@@ -3,6 +3,7 @@ package jpa.imform.controller;
 import jpa.imform.domain.Board;
 import jpa.imform.dto.BoardDto;
 import jpa.imform.service.BoardService;
+import jpa.imform.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
@@ -38,8 +39,8 @@ public class BoardController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public Long create(@RequestBody @Valid BoardDto.BoardRequest request) {
-    return boardService.createBoard(request).getId();
+  public BoardDto.BoardResponse create(@RequestBody @Valid BoardDto.BoardRequest request) {
+    return boardService.createBoard(request);
   }
 
   @PatchMapping("{id}")

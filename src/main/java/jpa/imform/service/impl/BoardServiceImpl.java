@@ -30,13 +30,13 @@ public class BoardServiceImpl implements BoardService {
   }
 
   @Override
-  public Board createBoard(BoardDto.BoardRequest request) {
+  public BoardDto.BoardResponse createBoard(BoardDto.BoardRequest request) {
     Board board = Board.builder()
         .id(request.getId())
         .title(request.getTitle())
         .content(request.getContent())
         .build();
-    return boardRepository.save(board);
+    return BoardDto.BoardResponse.of(board);
   }
 
   @Override

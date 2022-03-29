@@ -1,5 +1,3 @@
-//TODO
-//2. LocalDateTime 공통 엔티티로 옮기
 package jpa.imform.domain;
 
 import jpa.imform.dto.BoardDto;
@@ -17,8 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +23,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Board extends BaseEntity{
+public class Board extends BaseEntity {
 
   @Id
   @GeneratedValue
@@ -63,7 +59,6 @@ public class Board extends BaseEntity{
     this.title = title;
     this.content = content;
   }
-
 
   public void change(Board update) {
     this.title = update.getTitle();

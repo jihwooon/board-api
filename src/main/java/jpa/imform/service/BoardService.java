@@ -11,7 +11,7 @@ public interface BoardService {
 
   Board getBoard(Long id);
 
-  Board createBoard(BoardDto.BoardRequest request);
+  BoardDto.BoardResponse createBoard(BoardDto.BoardRequest request);
 
   BoardDto.BoardResponse updateBoard(Long id, BoardDto.BoardRequest update);
 
