@@ -66,6 +66,7 @@ public class Board extends BaseEntity {
   }
 
   public void changeWith(BoardDto.BoardRequest update) {
-    this.id = update.getId();
+    this.title = update.getTitle();
+    this.content = update.getContent();
   }
 }
