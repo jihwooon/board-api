@@ -12,7 +12,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 

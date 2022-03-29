@@ -5,16 +5,15 @@ import jpa.imform.domain.Comment;
 import jpa.imform.domain.Member;
 import jpa.imform.dto.CommentDto;
 import jpa.imform.error.CommentNotFoundException;
-import jpa.imform.repository.BoardRepository;
 import jpa.imform.repository.CommentRepository;
-import jpa.imform.repository.MemberRepository;
+import jpa.imform.service.BoardService;
 import jpa.imform.service.CommentService;
+import jpa.imform.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -22,27 +21,28 @@ import java.util.Optional;
 public class CommentServiceImpl implements CommentService {
 
   private final CommentRepository commentRepository;
-  private final BoardRepository boardRepository;
-  private final MemberRepository memberRepository;
+  private final BoardService boardService;
+  private final MemberService memberService;
 
   @Override
   public List<CommentDto.CommentResponse> getComments(Long memberId, Long boardId) {
-    Member member = memberRepository.findById(memberId).get();
-    Board board = boardRepository.findById(boardId).get();
+    Member member = memberService.getMember(memberId);
+    Board board = boardService.getBoard(boardId);
     return CommentDto.CommentResponse.of(commentRepository.findByMemberAndBoard(member, board));
   }
 
   @Override
   public CommentDto.CommentResponse createComment(Long memberId, Long boardId, CommentDto.CommentRequest request) {
-    Optional<Board> board = boardRepository.findById(boardId);
-    Optional<Member> member = memberRepository.findById(memberId);
+    Member member = memberService.getMember(memberId);
+    Board board = boardService.getBoard(boardId);
     Comment comment = Comment.builder()
         .content(request.getContent())
-        .member(member.get())
-        .board(board.get())
+        .member(member)
+        .board(board)
         .build();
     return CommentDto.CommentResponse.of(commentRepository.save(comment));
   }
+
 
   @Override
   public Comment getComment(Long id) {

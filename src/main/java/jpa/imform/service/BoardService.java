@@ -9,11 +9,11 @@ public interface BoardService {
 
   List<BoardDto.BoardResponse> getBoards(Long id);
 
+  BoardDto.BoardResponse createBoard(Long id, BoardDto.BoardRequest request);
+
   Board getBoard(Long id);
 
-//  Board createdBoard(Long id,Board board);
-
-  BoardDto.BoardResponse createBoard(Long id, BoardDto.BoardRequest request);
+  //  Board createdBoard(Long id,Board board);
 
   BoardDto.BoardResponse updateBoard(Long id, BoardDto.BoardRequest update);
 

@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,12 +39,13 @@ public class MemberDto {
     private String name;
     private String birth;
     private String email;
+    private List<BoardDto.BoardResponse> boards;
 
     public MemberResponse(Member member) {
       this.name = member.getName();
       this.birth = member.getBirth();
       this.email = member.getEmail();
-
+      this.boards = BoardDto.BoardResponse.of(member.getBoards());
     }
 
     public static MemberResponse of(final Member member) {

@@ -41,7 +41,6 @@ public class Member {
   private String email;
 
   @Embedded
-  @Column(name = "member_address")
   private Address address;
 
   @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
