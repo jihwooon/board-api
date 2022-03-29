@@ -1,6 +1,7 @@
 package jpa.imform.dto;
 
 import jpa.imform.domain.Board;
+import jpa.imform.domain.Member;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;

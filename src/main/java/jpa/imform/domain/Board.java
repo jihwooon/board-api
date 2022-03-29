@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +22,7 @@ import java.util.List;
 @Entity
 @Table
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Board extends BaseEntity {
@@ -43,10 +45,10 @@ public class Board extends BaseEntity {
   @OneToMany(mappedBy = "board")
   private List<Comment> comments = new ArrayList<>();
 
-  public void setMember(Member member) {
-    this.member = member;
-    member.getBoards().add(this);
-  }
+//  public void setMember(Member member) {
+//    this.member = member;
+//    member.getBoards().add(this);
+//  }
 
   public void addComment(Comment comment) {
     this.comments.add(comment);
@@ -54,11 +56,13 @@ public class Board extends BaseEntity {
   }
 
   @Builder
-  public Board(Long id, String title, String content) {
+  public Board(Long id, String title, String content, Member member) {
     this.id = id;
     this.title = title;
     this.content = content;
+    this.member = member;
   }
+
 
   public void change(Board update) {
     this.title = update.getTitle();

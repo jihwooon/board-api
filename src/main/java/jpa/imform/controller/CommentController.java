@@ -1,6 +1,7 @@
 package jpa.imform.controller;
 
 import jpa.imform.domain.Comment;
+import jpa.imform.dto.CommentDto;
 import jpa.imform.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,34 +19,33 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/comment")
 @RequiredArgsConstructor
 public class CommentController {
 
   private final CommentService commentService;
 
-  @GetMapping
-  public List<Comment> list() {
-    return commentService.getComments();
+  @GetMapping("member/{memberId}/board/{boardId}/comment")
+  public List<CommentDto.CommentResponse> list(@PathVariable Long memberId, @PathVariable Long boardId) {
+    return commentService.getComments(memberId, boardId);
   }
 
-  @GetMapping("{id}")
+  @GetMapping("/comment/{id}")
   public Comment detail(@PathVariable Long id) {
     return commentService.getComment(id);
   }
 
-  @PostMapping
+  @PostMapping("member/{memberId}/board/{boardId}/comment")
   @ResponseStatus(HttpStatus.CREATED)
-  public Comment create(@RequestBody @Valid Comment comment) {
-    return commentService.createComment(comment);
+  public CommentDto.CommentResponse create(@PathVariable Long memberId, @PathVariable Long boardId, @RequestBody @Valid CommentDto.CommentRequest request) {
+    return commentService.createComment(memberId, boardId, request);
   }
 
-  @PatchMapping("{id}")
+  @PatchMapping("/comment/{id}")
   public Comment update(@PathVariable Long id, @RequestBody @Valid Comment comment) {
     return commentService.updateComment(id, comment);
   }
 
-  @DeleteMapping("{id}")
+  @DeleteMapping("/comment/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void remove(@PathVariable Long id) {
     commentService.deleteComment(id);

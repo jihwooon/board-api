@@ -4,6 +4,7 @@ import jpa.imform.domain.Comment;
 import jpa.imform.domain.Member;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
@@ -14,16 +15,18 @@ public class CommentDto {
 
   @Data
   @AllArgsConstructor
+  @NoArgsConstructor
   public static class CommentRequest {
 
     @NotEmpty(message = "이름을 기입 해주세요")
     private String name;
 
-    private Member member;
+    private String content;
   }
 
   @Data
   public static class CommentResponse {
+    private String name;
     private String content;
     private LocalDateTime createDate;
     private LocalDateTime modifiedDate;

@@ -19,7 +19,7 @@ class MemberRepositoryTest {
     Member member1 = Member.builder()
         .name("안지환")
         .email("jihwooon@gmail.com")
-        .birth(920303)
+        .birth("920303")
         .password("1234")
         .address(new Address("서울", "경기","1234"))
         .build();
@@ -38,7 +38,7 @@ class MemberRepositoryTest {
     Member member2 = Member.builder()
         .name("홍길동")
         .email("hong@gmail.com")
-        .birth(810502)
+        .birth("810502")
         .password("1234")
         .address(new Address("서울", "경기","1234"))
         .build();
