@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -12,18 +13,10 @@ import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Getter
+
 public class MemberDto {
 
-  @Data
-  @AllArgsConstructor
-  @NoArgsConstructor
-  public static class ListMemberRequest {
-    @NotNull
-    private Long id;
-  }
-
-  @Data
+  @Getter
   public static class ListMemberResponse {
     private String name;
     private String birth;
@@ -44,17 +37,7 @@ public class MemberDto {
     }
   }
 
-  @Data
-  @AllArgsConstructor
-  @NoArgsConstructor
-  public static class DetailMemberRequest {
-
-    @NotBlank(message = "이름을 입력해주세요")
-    private String name;
-
-  }
-
-  @Data
+  @Getter
   public static class DetailMemberResponse {
     private String name;
     private String birth;
@@ -71,9 +54,7 @@ public class MemberDto {
     }
   }
 
-  @Data
-  @AllArgsConstructor
-  @NoArgsConstructor
+  @Getter @Setter
   public static class CreateMemberRequest {
 
     @NotBlank(message = "이름을 입력해주세요")
@@ -91,7 +72,7 @@ public class MemberDto {
 
   }
 
-  @Data
+  @Getter
   public static class CreateMemberResponse {
     private String name;
     private String birth;
@@ -116,9 +97,7 @@ public class MemberDto {
     }
   }
 
-  @Data
-  @AllArgsConstructor
-  @NoArgsConstructor
+  @Getter @Setter
   public static class UpdateMemberRequest {
 
     @NotBlank(message = "이름을 입력해주세요")
@@ -136,7 +115,7 @@ public class MemberDto {
 
   }
 
-  @Data
+  @Getter
   public static class UpdateMemberResponse {
     private String name;
     private String birth;
@@ -160,5 +139,4 @@ public class MemberDto {
           .collect(Collectors.toList());
     }
   }
-
 }

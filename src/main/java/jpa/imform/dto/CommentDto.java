@@ -14,9 +14,8 @@ import java.util.stream.Collectors;
 
 public class CommentDto {
 
-  @Data
+  @Getter
   public static class ListCommentResponse {
-    private String name;
     private String content;
     private LocalDateTime createDate;
     private LocalDateTime modifiedDate;
@@ -34,7 +33,7 @@ public class CommentDto {
     }
   }
 
-  @Data
+  @Getter
   public static class getCommentResponse {
     private String name;
     private String content;
@@ -53,8 +52,7 @@ public class CommentDto {
     }
   }
 
-
-  @Data
+  @Getter @Setter
   public static class CreateCommentRequest {
 
     @NotEmpty(message = "이름을 기입 해주세요")
@@ -65,7 +63,6 @@ public class CommentDto {
 
   @Getter
   public static class CreateCommentResponse {
-    private String name;
     private String content;
     private LocalDateTime createDate;
     private LocalDateTime modifiedDate;
@@ -94,9 +91,8 @@ public class CommentDto {
     private String content;
   }
 
-  @Getter @Setter
+  @Getter
   public static class UpdateCommentResponse {
-    private String name;
     private String content;
     private LocalDateTime createDate;
     private LocalDateTime modifiedDate;
