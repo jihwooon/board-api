@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,17 +21,18 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping("/member/{memberId}")
 @RequiredArgsConstructor
 public class BoardController {
 
   private final BoardService boardService;
 
-  @GetMapping("member/{memberId}/board")
+  @GetMapping("/board")
   public List<BoardDto.CreateBoardResponse> list(@PathVariable Long memberId) {
     return boardService.getBoards(memberId);
   }
 
-  @PostMapping("member/{memberId}/board")
+  @PostMapping("/board")
   @ResponseStatus(HttpStatus.CREATED)
   public BoardDto.CreateBoardResponse create(@PathVariable Long memberId, @RequestBody @Valid BoardDto.CreateBoardRequest request) {
     return boardService.createBoard(memberId, request);
@@ -46,7 +48,7 @@ public class BoardController {
 //    return boardService.updateBoard(id, update);
 //  }
 //
-  @DeleteMapping("member/{memberId}/board/{boardId}")
+  @DeleteMapping("/board/{boardId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void remove(@PathVariable Long memberId, @PathVariable Long boardId) {
     boardService.deleteBoard(boardId);
