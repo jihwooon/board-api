@@ -1,5 +1,6 @@
 package jpa.imform.domain;
 
+import jpa.imform.dto.CommentDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -53,10 +54,7 @@ public class Comment extends BaseEntity{
     this.board = board;
   }
 
-  public void change(Comment source) {
-    this.content = source.getContent();
-    this.board = source.getBoard();
-    this.member = source.getMember();
+  public void changeRequest(Member member, Board board, Comment comment, CommentDto.UpdateCommentRequest request) {
+    this.content = request.getContent();
   }
-
 }

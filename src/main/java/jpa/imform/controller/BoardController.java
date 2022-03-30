@@ -50,10 +50,9 @@ public class BoardController {
     return boardService.updateBoard(memberId, boardId, update);
   }
 
-  @DeleteMapping("member/{memberId}/board/{boardId}")
+  @DeleteMapping("/board/{boardId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void remove(@PathVariable final Long memberId,
-                     @PathVariable final Long boardId) {
-    boardService.deleteBoard(boardId);
+  public void remove(@PathVariable final Long boardId) {
+    boardService.remove(boardId);
   }
 }

@@ -15,9 +15,8 @@ public interface BoardService {
 
   BoardDto.getBoardResponse getBoardByIdAndMemberId(Long memberId, Long boardId);
 
+  void remove(Long id);
+
   Board getBoard(Long id);
 
-  void deleteBoard(Long id);
-
-  List<Board> getBoardsByMember(Long id);
 }

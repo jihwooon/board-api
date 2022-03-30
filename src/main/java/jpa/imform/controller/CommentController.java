@@ -1,3 +1,6 @@
+//TODO :
+//1 Comment 단건조회 -> 구현하기
+//2. CommentDto 구현하기
 package jpa.imform.controller;
 
 import jpa.imform.domain.Comment;
@@ -24,29 +27,38 @@ public class CommentController {
   private final CommentService commentService;
 
   @GetMapping("member/{memberId}/board/{boardId}/comment")
-  public List<CommentDto.CommentResponse> list(@PathVariable Long memberId, @PathVariable Long boardId) {
+  public List<CommentDto.ListCommentResponse> list(@PathVariable final Long memberId,
+                                                   @PathVariable final Long boardId) {
     return commentService.getComments(memberId, boardId);
+  }
+
+  @GetMapping("member/{memberId}/board/{boardId}/comment/{commentId}")
+  public CommentDto.getCommentResponse detail(@PathVariable final Long memberId,
+                                              @PathVariable final Long boardId,
+                                              @PathVariable final Long commentId) {
+    return commentService.getCommentById(memberId, boardId, commentId);
+
   }
 
   @PostMapping("member/{memberId}/board/{boardId}/comment")
   @ResponseStatus(HttpStatus.CREATED)
-  public CommentDto.CommentResponse create(@PathVariable Long memberId, @PathVariable Long boardId, @RequestBody @Valid CommentDto.CommentRequest request) {
+  public CommentDto.CreateCommentResponse create(@PathVariable final Long memberId,
+                                                 @PathVariable final Long boardId,
+                                                 @RequestBody @Valid final CommentDto.CreateCommentRequest request) {
     return commentService.createComment(memberId, boardId, request);
   }
 
-  @GetMapping("/comment/{id}")
-  public Comment detail(@PathVariable Long id) {
-    return commentService.getComment(id);
+  @PatchMapping("member/{memberId}/board/{boardId}/comment/{commentId}")
+  public CommentDto.UpdateCommentResponse update(@PathVariable final Long memberId,
+                                                @PathVariable final Long boardId,
+                                                @PathVariable final Long commentId,
+                                                @RequestBody @Valid final CommentDto.UpdateCommentRequest request) {
+    return commentService.updateComment(memberId, boardId, commentId, request);
   }
 
-  @PatchMapping("/comment/{id}")
-  public Comment update(@PathVariable Long id, @RequestBody @Valid Comment comment) {
-    return commentService.updateComment(id, comment);
-  }
-
-  @DeleteMapping("/comment/{id}")
+  @DeleteMapping("/comment/{commentId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void remove(@PathVariable Long id) {
-    commentService.deleteComment(id);
+  public void remove(@PathVariable Long commentId) {
+    commentService.deleteComment(commentId);
   }
 }

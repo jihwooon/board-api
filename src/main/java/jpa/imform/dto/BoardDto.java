@@ -8,7 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +38,7 @@ public class BoardDto {
     private String content;
     private String title;
 
-    public getBoardResponse(Member member, Board board) {
+    public getBoardResponse(final Member member, final Board board) {
       this.content = board.getContent();
       this.title = board.getTitle();
     }
@@ -45,7 +47,6 @@ public class BoardDto {
       return new getBoardResponse(member, board);
     }
   }
-
 
   @Data
   @AllArgsConstructor
@@ -144,8 +145,5 @@ public class BoardDto {
       return new UpdateBoardResponse(member, board);
     }
   }
-
-
-
 
 }

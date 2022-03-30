@@ -11,10 +11,12 @@ import jpa.imform.service.CommentService;
 import jpa.imform.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
 
@@ -23,14 +25,17 @@ public class CommentServiceImpl implements CommentService {
   private final MemberService memberService;
 
   @Override
-  public List<CommentDto.CommentResponse> getComments(Long memberId, Long boardId) {
+  public List<CommentDto.ListCommentResponse> getComments(final Long memberId,
+                                                          final Long boardId) {
     Member member = memberService.getMember(memberId);
     Board board = boardService.getBoard(boardId);
-    return CommentDto.CommentResponse.of(commentRepository.findByMemberAndBoard(member, board));
+    return CommentDto.ListCommentResponse.of(commentRepository.findByMemberAndBoard(member, board));
   }
 
   @Override
-  public CommentDto.CommentResponse createComment(Long memberId, Long boardId, CommentDto.CommentRequest request) {
+  public CommentDto.CreateCommentResponse createComment(final Long memberId,
+                                                        final Long boardId,
+                                                        final CommentDto.CreateCommentRequest request) {
     Member member = memberService.getMember(memberId);
     Board board = boardService.getBoard(boardId);
     Comment comment = Comment.builder()
@@ -38,26 +43,43 @@ public class CommentServiceImpl implements CommentService {
         .member(member)
         .board(board)
         .build();
-    return CommentDto.CommentResponse.of(commentRepository.save(comment));
+    return CommentDto.CreateCommentResponse.of(comment);
   }
 
   @Override
-  public Comment getComment(Long id) {
-    return commentRepository.findById(id)
-        .orElseThrow(() -> new CommentNotFoundException(id));
+  public CommentDto.UpdateCommentResponse updateComment(final Long memberId,
+                                                        final Long boardId,
+                                                        final Long commentId,
+                                                        final CommentDto.UpdateCommentRequest request) {
+    Member member = memberService.getMember(memberId);
+    Board board = boardService.getBoard(boardId);
+    Comment comment = getComment(commentId);
+    comment.changeRequest(member, board, comment, request);
+
+    return CommentDto.UpdateCommentResponse.of(comment);
   }
 
   @Override
-  public Comment updateComment(Long id, Comment source) {
-    Comment comment = getComment(id);
-    comment.change(source);
-    return comment;
+  public CommentDto.getCommentResponse getCommentById(final Long memberId,
+                                                      final Long boardId,
+                                                      final Long commentId) {
+    Member member = memberService.getMember(memberId);
+    Board board = boardService.getBoard(boardId);
+    Comment comment = getComment(commentId);
+
+    return CommentDto.getCommentResponse.of(member, board,comment);
   }
 
   @Override
-  public Comment deleteComment(Long id) {
+  public Comment deleteComment(final Long id) {
     Comment comment = getComment(id);
     commentRepository.delete(comment);
     return comment;
+  }
+
+  @Override
+  public Comment getComment(final Long id) {
+    return commentRepository.findById(id)
+        .orElseThrow(() -> new CommentNotFoundException(id));
   }
 }

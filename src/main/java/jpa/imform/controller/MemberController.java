@@ -28,24 +28,25 @@ public class MemberController {
   }
 
   @GetMapping("member/{memberId}")
-  public MemberDto.DetailMemberResponse detail(@PathVariable Long memberId) {
+  public MemberDto.DetailMemberResponse detail(@PathVariable final Long memberId) {
     return MemberDto.DetailMemberResponse.of(memberService.getMember(memberId));
   }
 
   @PostMapping("member")
   @ResponseStatus(HttpStatus.CREATED)
-  public MemberDto.CreateMemberResponse create(@RequestBody @Valid MemberDto.CreateMemberRequest request) {
+  public MemberDto.CreateMemberResponse create(@RequestBody @Valid final MemberDto.CreateMemberRequest request) {
     return memberService.createMember(request);
   }
 
   @PatchMapping("member/{memberId}")
-  public MemberDto.UpdateMemberResponse update(@PathVariable Long memberId, @RequestBody @Valid MemberDto.UpdateMemberRequest request) {
+  public MemberDto.UpdateMemberResponse update(@PathVariable final Long memberId,
+                                               @RequestBody @Valid final MemberDto.UpdateMemberRequest request) {
     return memberService.updateMember(memberId, request);
   }
 
   @DeleteMapping("member/{memberId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void remove(@PathVariable Long memberId) {
+  public void remove(@PathVariable final Long memberId) {
     memberService.delete(memberId);
   }
 }

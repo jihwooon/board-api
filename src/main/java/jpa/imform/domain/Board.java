@@ -15,12 +15,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table
 @Getter
 @Setter
 @NoArgsConstructor
@@ -45,10 +43,10 @@ public class Board extends BaseEntity {
   @OneToMany(mappedBy = "board")
   private List<Comment> comments = new ArrayList<>();
 
-//  public void setMember(Member member) {
-//    this.member = member;
-//    member.getBoards().add(this);
-//  }
+  public void setMember(Member member) {
+    this.member = member;
+    member.getBoards().add(this);
+  }
 
   public void addComment(Comment comment) {
     this.comments.add(comment);
@@ -56,22 +54,16 @@ public class Board extends BaseEntity {
   }
 
   @Builder
-  public Board(Long id, String title, String content, Member member) {
-    this.id = id;
+  public Board(String title, String content, Member member) {
     this.title = title;
     this.content = content;
     this.member = member;
   }
 
-  public void change(Board update) {
-    this.title = update.getTitle();
-    this.content = update.getContent();
-  }
 
   public void changeRequest(Member member, BoardDto.UpdateBoardRequest update) {
     this.title = update.getTitle();
     this.content = update.getContent();
     this.member = member;
-
   }
 }

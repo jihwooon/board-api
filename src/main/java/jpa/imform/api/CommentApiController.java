@@ -20,35 +20,35 @@ import java.util.stream.Collectors;
 public class CommentApiController {
 
   private final CommentRepository commentRepository;
-
-  @GetMapping("/api/v1")
-  public List<CommentDto.CommentResponse> listV1() {
-    List<Comment> comments = commentRepository.findAll();
-    List<CommentDto.CommentResponse> result = comments.stream()
-        .map(o -> new CommentDto.CommentResponse(o))
-        .collect(Collectors.toList());
-
-    return result;
-  }
-
-  @GetMapping("/api/v1/{id}")
-  public CommentDto.CommentResponse detail(@PathVariable("id") Long id) {
-    Comment commend = commentRepository.findById(id)
-        .orElseThrow(() -> new CommentNotFoundException(id));
-
-    return CommentDto.CommentResponse.of(commend);
-
-  }
-
-  @GetMapping("/api/v2")
-  public List<CommentDto.CommentResponse> listV2() {
-    List<Comment> comments = commentRepository.findAllWithCommentThem();
-
-    List<CommentDto.CommentResponse> result = comments.stream()
-        .map(o -> new CommentDto.CommentResponse(o))
-        .collect(Collectors.toList());
-
-    return result;
-  }
+//
+//  @GetMapping("/api/v1")
+//  public List<CommentDto.CommentResponse> listV1() {
+//    List<Comment> comments = commentRepository.findAll();
+//    List<CommentDto.CommentResponse> result = comments.stream()
+//        .map(o -> new CommentDto.CommentResponse(o))
+//        .collect(Collectors.toList());
+//
+//    return result;
+//  }
+//
+//  @GetMapping("/api/v1/{id}")
+//  public CommentDto.CommentResponse detail(@PathVariable("id") Long id) {
+//    Comment commend = commentRepository.findById(id)
+//        .orElseThrow(() -> new CommentNotFoundException(id));
+//
+//    return CommentDto.CommentResponse.of(commend);
+//
+//  }
+//
+//  @GetMapping("/api/v2")
+//  public List<CommentDto.CommentResponse> listV2() {
+//    List<Comment> comments = commentRepository.findAllWithCommentThem();
+//
+//    List<CommentDto.CommentResponse> result = comments.stream()
+//        .map(o -> new CommentDto.CommentResponse(o))
+//        .collect(Collectors.toList());
+//
+//    return result;
+//  }
 
 }
