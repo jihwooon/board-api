@@ -44,16 +44,16 @@ public class CommentController {
   @ResponseStatus(HttpStatus.CREATED)
   public CommentDto.CreateCommentResponse create(@PathVariable final Long memberId,
                                                  @PathVariable final Long boardId,
-                                                 @RequestBody @Valid final CommentDto.CreateCommentRequest request) {
-    return commentService.createComment(memberId, boardId, request);
+                                                 @RequestBody @Valid final CommentDto.CreateCommentRequest create) {
+    return commentService.createComment(memberId, boardId, create);
   }
 
   @PatchMapping("member/{memberId}/board/{boardId}/comment/{commentId}")
   public CommentDto.UpdateCommentResponse update(@PathVariable final Long memberId,
                                                 @PathVariable final Long boardId,
                                                 @PathVariable final Long commentId,
-                                                @RequestBody @Valid final CommentDto.UpdateCommentRequest request) {
-    return commentService.updateComment(memberId, boardId, commentId, request);
+                                                @RequestBody @Valid final CommentDto.UpdateCommentRequest update) {
+    return commentService.updateComment(memberId, boardId, commentId, update);
   }
 
   @DeleteMapping("/comment/{commentId}")

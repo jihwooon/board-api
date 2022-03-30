@@ -61,7 +61,8 @@ public class CommentDto {
     }
   }
 
-  @Getter @Setter
+  @Getter
+  @Setter
   public static class CreateCommentRequest {
 
     @NotEmpty(message = "이름을 기입 해주세요")
@@ -85,15 +86,10 @@ public class CommentDto {
     public static CreateCommentResponse of(Comment comment) {
       return new CreateCommentResponse(comment);
     }
-
-    public static List<CreateCommentResponse> of(List<Comment> comment) {
-      return comment.stream()
-          .map(o -> new CreateCommentResponse(o))
-          .collect(Collectors.toList());
-    }
   }
 
-  @Getter @Setter
+  @Getter
+  @Setter
   public static class UpdateCommentRequest {
 
     @NotEmpty(message = "내용을 채워주세요")
@@ -114,12 +110,6 @@ public class CommentDto {
 
     public static UpdateCommentResponse of(Comment comment) {
       return new UpdateCommentResponse(comment);
-    }
-
-    public static List<UpdateCommentResponse> of(List<Comment> comment) {
-      return comment.stream()
-          .map(o -> new UpdateCommentResponse(o))
-          .collect(Collectors.toList());
     }
   }
 

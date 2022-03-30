@@ -56,7 +56,8 @@ public class MemberDto {
     }
   }
 
-  @Getter @Setter
+  @Getter
+  @Setter
   public static class CreateMemberRequest {
 
     @NotBlank(message = "이름을 입력해주세요")
@@ -91,15 +92,10 @@ public class MemberDto {
     public static CreateMemberResponse of(final Member member) {
       return new CreateMemberResponse(member);
     }
-
-    public static List<CreateMemberResponse> of(final List<Member> member) {
-      return member.stream()
-          .map(o -> new CreateMemberResponse(o))
-          .collect(Collectors.toList());
-    }
   }
 
-  @Getter @Setter
+  @Getter
+  @Setter
   public static class UpdateMemberRequest {
 
     @NotBlank(message = "이름을 입력해주세요")
@@ -133,12 +129,6 @@ public class MemberDto {
 
     public static UpdateMemberResponse of(final Member member) {
       return new UpdateMemberResponse(member);
-    }
-
-    public static List<UpdateMemberResponse> of(final List<Member> member) {
-      return member.stream()
-          .map(o -> new UpdateMemberResponse(o))
-          .collect(Collectors.toList());
     }
   }
 }
