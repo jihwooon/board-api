@@ -1,9 +1,14 @@
+//TODO :
+//request 시 @vadata 체크 -> 검증
+//회원 가입이 되지 못한 회원은 게시글, 댓글 불가능
+
 package jpa.imform.controller;
 
 import jpa.imform.dto.MemberDto;
 import jpa.imform.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
