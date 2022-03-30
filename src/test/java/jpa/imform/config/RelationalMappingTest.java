@@ -1,7 +1,6 @@
 
 package jpa.imform.config;
 
-import jpa.imform.domain.Address;
 import jpa.imform.domain.Board;
 import jpa.imform.domain.Comment;
 import jpa.imform.domain.Member;

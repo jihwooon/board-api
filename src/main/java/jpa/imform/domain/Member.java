@@ -40,9 +40,6 @@ public class Member {
   @Column(name = "member_email")
   private String email;
 
-  @Embedded
-  private Address address;
-
   @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
   private List<Board> boards = new ArrayList<>();
 
@@ -55,13 +52,12 @@ public class Member {
   }
 
   @Builder
-  public Member(Long id, String name, String password, String birth, String email, Address address) {
+  public Member(Long id, String name, String password, String birth, String email) {
     this.id = id;
     this.name = name;
     this.password = password;
     this.birth = birth;
     this.email = email;
-    this.address = address;
   }
 
   public void changeRequest(MemberDto.UpdateMemberRequest request) {

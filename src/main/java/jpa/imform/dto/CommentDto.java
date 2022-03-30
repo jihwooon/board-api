@@ -35,7 +35,6 @@ public class CommentDto {
 
   @Getter
   public static class getCommentResponse {
-    private String name;
     private String content;
     private LocalDateTime createDate;
     private LocalDateTime modifiedDate;
@@ -47,8 +46,18 @@ public class CommentDto {
       this.modifiedDate = comment.getModifiedDate();
     }
 
+    public getCommentResponse(Comment comment) {
+      this.content = comment.getContent();
+      this.createDate = comment.getCreateDate();
+      this.modifiedDate = comment.getModifiedDate();
+    }
+
     public static getCommentResponse of(Member member, Board board, Comment comment) {
       return new getCommentResponse(member, board, comment);
+    }
+
+    public static getCommentResponse of(Comment comment) {
+      return new getCommentResponse(comment);
     }
   }
 

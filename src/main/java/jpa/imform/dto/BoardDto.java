@@ -16,10 +16,12 @@ public class BoardDto {
   public static class ListBoardResponse {
     private String content;
     private String title;
+    private List<CommentDto.ListCommentResponse> comments;
 
     public ListBoardResponse(Board board) {
       this.content = board.getContent();
       this.title = board.getTitle();
+      this.comments = CommentDto.ListCommentResponse.of(board.getComments());
     }
 
     public static List<ListBoardResponse> of(final List<Board> board) {
@@ -44,7 +46,8 @@ public class BoardDto {
     }
   }
 
-  @Getter @Setter
+  @Getter
+  @Setter
   public static class CreateBoardRequest {
     @NotBlank(message = "내용은 필수 입니다.")
     private String content;
@@ -59,7 +62,6 @@ public class BoardDto {
     private String title;
     private LocalDateTime createDate;
     private LocalDateTime modifiedDate;
-    private Member member;
 
     public CreateBoardResponse(Board board) {
       this.content = board.getContent();
@@ -85,12 +87,13 @@ public class BoardDto {
           .collect(Collectors.toList());
     }
 
-    public static CreateBoardResponse of (final Member member, final Board board) {
+    public static CreateBoardResponse of(final Member member, final Board board) {
       return new CreateBoardResponse(member, board);
     }
   }
 
-  @Getter @Setter
+  @Getter
+  @Setter
   public static class UpdateBoardRequest {
     @NotBlank(message = "내용은 필수 입니다.")
     private String content;
@@ -99,7 +102,8 @@ public class BoardDto {
     private String title;
   }
 
-  @Getter @Setter
+  @Getter
+  @Setter
   public static class UpdateBoardResponse {
     private String content;
     private String title;
@@ -131,7 +135,7 @@ public class BoardDto {
           .collect(Collectors.toList());
     }
 
-    public static UpdateBoardResponse of (final Member member, final Board board) {
+    public static UpdateBoardResponse of(final Member member, final Board board) {
       return new UpdateBoardResponse(member, board);
     }
   }

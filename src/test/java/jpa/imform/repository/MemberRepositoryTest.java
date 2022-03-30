@@ -1,6 +1,5 @@
 package jpa.imform.repository;
 
-import jpa.imform.domain.Address;
 import jpa.imform.domain.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
