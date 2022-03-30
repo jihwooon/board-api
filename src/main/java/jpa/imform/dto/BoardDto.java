@@ -1,8 +1,6 @@
 package jpa.imform.dto;
 
-import jpa.imform.domain.BaseEntity;
 import jpa.imform.domain.Board;
-import jpa.imform.domain.Comment;
 import jpa.imform.domain.Member;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -73,6 +71,13 @@ public class BoardDto {
       this.modifiedDate = board.getModifiedDate();
     }
 
+    public CreateBoardResponse(Member member, Board board) {
+      this.content = board.getContent();
+      this.title = board.getTitle();
+      this.createDate = board.getCreateDate();
+      this.modifiedDate = board.getModifiedDate();
+    }
+
     public static CreateBoardResponse of(final Board board) {
       return new CreateBoardResponse(board);
     }
@@ -82,6 +87,60 @@ public class BoardDto {
           .map(o -> new CreateBoardResponse(o))
           .collect(Collectors.toList());
     }
+
+    public static CreateBoardResponse of (final Member member, final Board board) {
+      return new CreateBoardResponse(member, board);
+    }
   }
+
+
+  @Data
+  @AllArgsConstructor
+  @NoArgsConstructor
+  public static class UpdateBoardRequest {
+    private String content;
+    private String title;
+  }
+
+  @Getter
+  @AllArgsConstructor
+  public static class UpdateBoardResponse {
+    private String content;
+    private String title;
+    private LocalDateTime createDate;
+    private LocalDateTime modifiedDate;
+    private Member member;
+
+    public UpdateBoardResponse(Board board) {
+      this.content = board.getContent();
+      this.title = board.getTitle();
+      this.createDate = board.getCreateDate();
+      this.modifiedDate = board.getModifiedDate();
+    }
+
+    public UpdateBoardResponse(Member member, Board board) {
+      this.content = board.getContent();
+      this.title = board.getTitle();
+      this.createDate = board.getCreateDate();
+      this.modifiedDate = board.getModifiedDate();
+    }
+
+    public static CreateBoardResponse of(final Board board) {
+      return new CreateBoardResponse(board);
+    }
+
+    public static List<CreateBoardResponse> of(final List<Board> board) {
+      return board.stream()
+          .map(o -> new CreateBoardResponse(o))
+          .collect(Collectors.toList());
+    }
+
+    public static CreateBoardResponse of (final Member member, final Board board) {
+      return new CreateBoardResponse(member, board);
+    }
+  }
+
+
+
 
 }

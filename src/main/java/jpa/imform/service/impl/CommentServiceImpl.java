@@ -16,7 +16,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
 
@@ -42,7 +41,6 @@ public class CommentServiceImpl implements CommentService {
         .build();
     return CommentDto.CommentResponse.of(commentRepository.save(comment));
   }
-
 
   @Override
   public Comment getComment(Long id) {

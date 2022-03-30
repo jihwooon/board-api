@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface MemberService {
 
-  List<MemberDto.MemberResponse> getMembers();
+  List<MemberDto.ListMemberResponse> getMembers();
 
   Member getMember(Long id);
 
-  MemberDto.MemberResponse createMember(MemberDto.MemberRequest request);
+  MemberDto.CreateMemberResponse createMember(MemberDto.CreateMemberRequest request);
 
-  MemberDto.MemberResponse updateMember(Long id, MemberDto.MemberRequest request);
+  MemberDto.UpdateMemberResponse updateMember(Long id, MemberDto.UpdateMemberRequest request);
 
   void delete(Long id);
 }

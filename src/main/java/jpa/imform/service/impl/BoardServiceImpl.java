@@ -9,20 +9,19 @@ import jpa.imform.service.BoardService;
 import jpa.imform.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService {
 
   private final BoardRepository boardRepository;
+
   private final MemberService memberService;
 
   @Override
-  public List<BoardDto.CreateBoardResponse> getBoards(Long id) {
+    public List<BoardDto.CreateBoardResponse> getBoards(Long id) {
     Member member = memberService.getMember(id);
     return BoardDto.CreateBoardResponse.of(boardRepository.findBoardByMember(member));
   }
@@ -39,6 +38,16 @@ public class BoardServiceImpl implements BoardService {
   }
 
   @Override
+  public BoardDto.CreateBoardResponse updateBoard(Long memberId, Long boardId, BoardDto.CreateBoardRequest update) {
+    Member member = memberService.getMember(memberId);
+    Board board = getBoard(boardId);
+    board.change(member, update);
+
+    return BoardDto.CreateBoardResponse.of(board);
+  }
+
+
+  @Override
   public List<Board> getBoardsByMember(Long id) {
     Member member = memberService.getMember(id);
     return boardRepository.findBoardByMember(member);
@@ -50,13 +59,6 @@ public class BoardServiceImpl implements BoardService {
         .orElseThrow(() -> new BoardNotFoundException(id));
   }
 
-  @Override
-  public BoardDto.BoardResponse updateBoard(Long id, BoardDto.BoardRequest update) {
-    Board board = getBoard(id);
-    board.changeWith(update);
-
-    return BoardDto.BoardResponse.of(board);
-  }
 
   @Override
   public void deleteBoard(Long id) {

@@ -17,8 +17,8 @@ public class MemberServiceImpl implements MemberService {
 
   private final MemberRepository memberRepository;
 
-  public List<MemberDto.MemberResponse> getMembers() {
-    return MemberDto.MemberResponse.of(memberRepository.findAll());
+  public List<MemberDto.ListMemberResponse> getMembers() {
+    return MemberDto.ListMemberResponse.of(memberRepository.findAll());
   }
 
   public Member getMember(Long id) {
@@ -27,22 +27,22 @@ public class MemberServiceImpl implements MemberService {
   }
 
   @Override
-  public MemberDto.MemberResponse createMember(MemberDto.MemberRequest request) {
+  public MemberDto.CreateMemberResponse createMember(MemberDto.CreateMemberRequest request) {
     Member member = Member.builder()
         .name(request.getName())
         .password(request.getPassword())
         .birth(request.getBirth())
         .email(request.getEmail())
         .build();
-    return MemberDto.MemberResponse.of(memberRepository.save(member));
+    return MemberDto.CreateMemberResponse.of(memberRepository.save(member));
   }
 
   @Override
-  public MemberDto.MemberResponse updateMember(Long id, MemberDto.MemberRequest request) {
+  public MemberDto.UpdateMemberResponse updateMember(Long id, MemberDto.UpdateMemberRequest request) {
     Member member = getMember(id);
-    member.changeWith(request);
+    member.changeRequest(request);
 
-    return MemberDto.MemberResponse.of(member);
+    return MemberDto.UpdateMemberResponse.of(member);
   }
 
   @Override
