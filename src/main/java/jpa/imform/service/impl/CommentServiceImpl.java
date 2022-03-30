@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
 
@@ -43,7 +42,7 @@ public class CommentServiceImpl implements CommentService {
         .member(member)
         .board(board)
         .build();
-    return CommentDto.CreateCommentResponse.of(comment);
+    return CommentDto.CreateCommentResponse.of(commentRepository.save(comment));
   }
 
   @Override
@@ -56,7 +55,7 @@ public class CommentServiceImpl implements CommentService {
     Comment comment = getComment(commentId);
     comment.changeRequest(member, board, comment, request);
 
-    return CommentDto.UpdateCommentResponse.of(comment);
+    return CommentDto.UpdateCommentResponse.of(commentRepository.save(comment));
   }
 
   @Override

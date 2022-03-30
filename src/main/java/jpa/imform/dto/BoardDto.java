@@ -2,15 +2,11 @@ package jpa.imform.dto;
 
 import jpa.imform.domain.Board;
 import jpa.imform.domain.Member;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,9 +44,7 @@ public class BoardDto {
     }
   }
 
-  @Data
-  @AllArgsConstructor
-  @NoArgsConstructor
+  @Getter @Setter
   public static class CreateBoardRequest {
     @NotBlank(message = "내용은 필수 입니다.")
     private String content;
@@ -60,7 +54,6 @@ public class BoardDto {
   }
 
   @Getter
-  @AllArgsConstructor
   public static class CreateBoardResponse {
     private String content;
     private String title;
@@ -97,9 +90,7 @@ public class BoardDto {
     }
   }
 
-  @Data
-  @AllArgsConstructor
-  @NoArgsConstructor
+  @Getter @Setter
   public static class UpdateBoardRequest {
     @NotBlank(message = "내용은 필수 입니다.")
     private String content;
@@ -108,8 +99,7 @@ public class BoardDto {
     private String title;
   }
 
-  @Getter
-  @AllArgsConstructor
+  @Getter @Setter
   public static class UpdateBoardResponse {
     private String content;
     private String title;

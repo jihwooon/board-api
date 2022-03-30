@@ -3,10 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/imform
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: jdbc:mariadb://localhost:3306/imform
+    username: root
+    password: 1234
 
   jpa:
     hibernate:
