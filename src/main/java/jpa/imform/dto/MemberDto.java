@@ -22,12 +22,14 @@ public class MemberDto {
     private String birth;
     private String email;
     private List<BoardDto.ListBoardResponse> boards;
+    private List<CommentDto.ListCommentResponse> comments;
 
     public ListMemberResponse(Member member) {
       this.name = member.getName();
       this.birth = member.getBirth();
       this.email = member.getEmail();
       this.boards = BoardDto.ListBoardResponse.of(member.getBoards());
+      this.comments = CommentDto.ListCommentResponse.of(member.getComments());
     }
 
     public static List<ListMemberResponse> of(final List<Member> member) {
