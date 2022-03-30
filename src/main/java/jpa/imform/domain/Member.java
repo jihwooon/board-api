@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -52,8 +51,7 @@ public class Member {
   }
 
   @Builder
-  public Member(Long id, String name, String password, String birth, String email) {
-    this.id = id;
+  public Member(String name, String password, String birth, String email) {
     this.name = name;
     this.password = password;
     this.birth = birth;
