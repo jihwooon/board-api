@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +19,7 @@ public class MemberDto {
   @AllArgsConstructor
   @NoArgsConstructor
   public static class ListMemberRequest {
+    @NotNull
     private Long id;
   }
 
@@ -33,10 +35,6 @@ public class MemberDto {
       this.birth = member.getBirth();
       this.email = member.getEmail();
       this.boards = BoardDto.BoardResponse.of(member.getBoards());
-    }
-
-    public static ListMemberResponse of(final Member member) {
-      return new ListMemberResponse(member);
     }
 
     public static List<ListMemberResponse> of(final List<Member> member) {
@@ -71,12 +69,6 @@ public class MemberDto {
     public static DetailMemberResponse of(final Member member) {
       return new DetailMemberResponse(member);
     }
-
-    public static List<DetailMemberResponse> of(final List<Member> member) {
-      return member.stream()
-          .map(o -> new DetailMemberResponse(o))
-          .collect(Collectors.toList());
-    }
   }
 
   @Data
@@ -98,6 +90,7 @@ public class MemberDto {
     private String email;
 
   }
+
   @Data
   public static class CreateMemberResponse {
     private String name;
@@ -142,6 +135,7 @@ public class MemberDto {
     private String email;
 
   }
+
   @Data
   public static class UpdateMemberResponse {
     private String name;
