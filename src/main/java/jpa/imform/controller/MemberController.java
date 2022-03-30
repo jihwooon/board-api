@@ -39,14 +39,14 @@ public class MemberController {
 
   @PostMapping("member")
   @ResponseStatus(HttpStatus.CREATED)
-  public MemberDto.CreateMemberResponse create(@RequestBody @Valid final MemberDto.CreateMemberRequest request) {
-    return memberService.createMember(request);
+  public MemberDto.CreateMemberResponse create(@RequestBody @Valid final MemberDto.CreateMemberRequest create) {
+    return memberService.createMember(create);
   }
 
   @PatchMapping("member/{memberId}")
   public MemberDto.UpdateMemberResponse update(@PathVariable final Long memberId,
-                                               @RequestBody @Valid final MemberDto.UpdateMemberRequest request) {
-    return memberService.updateMember(memberId, request);
+                                               @RequestBody @Valid final MemberDto.UpdateMemberRequest update) {
+    return memberService.updateMember(memberId, update);
   }
 
   @DeleteMapping("member/{memberId}")
