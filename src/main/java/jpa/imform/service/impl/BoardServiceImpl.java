@@ -9,60 +9,66 @@ import jpa.imform.service.BoardService;
 import jpa.imform.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService {
 
   private final BoardRepository boardRepository;
+
   private final MemberService memberService;
 
   @Override
-  public List<BoardDto.BoardResponse> getBoards(Long id) {
-    Member member = memberService.getMember(id);
-    return BoardDto.BoardResponse.of(boardRepository.findBoardByMember(member));
+    public List<BoardDto.ListBoardResponse> getBoards(final Long memberId) {
+    Member member = memberService.getMember(memberId);
+
+    return BoardDto.ListBoardResponse.of(boardRepository.findBoardByMember(member));
   }
 
   @Override
-  public BoardDto.BoardResponse createBoard(Long id, BoardDto.BoardRequest request) {
-    Member member = memberService.getMember(id);
+  public BoardDto.getBoardResponse getBoardByIdAndMemberId(final Long memberId,
+                                                           final Long boardId) {
+    Member member = memberService.getMember(memberId);
+    Board board = getBoard(boardId);
 
+    return BoardDto.getBoardResponse.of(member, board);
+  }
+
+  @Override
+  public BoardDto.CreateBoardResponse createBoard(final Long id,
+                                                  final BoardDto.CreateBoardRequest request) {
+    Member member = memberService.getMember(id);
     Board board = Board.builder()
         .title(request.getTitle())
         .content(request.getContent())
         .member(member)
         .build();
-    return BoardDto.BoardResponse.of(boardRepository.save(board));
+
+    return BoardDto.CreateBoardResponse.of(boardRepository.save(board));
   }
 
   @Override
-  public List<Board> getBoardsByMember(Long id) {
-    Member member = memberService.getMember(id);
-    return boardRepository.findBoardByMember(member);
+  public BoardDto.UpdateBoardResponse updateBoard(final Long memberId,
+                                                  final Long boardId,
+                                                  final BoardDto.UpdateBoardRequest update) {
+    Member member = memberService.getMember(memberId);
+    Board board = getBoard(boardId);
+    board.changeRequest(member, update);
+
+    return BoardDto.UpdateBoardResponse.of(boardRepository.save(board));
   }
 
   @Override
-  public Board getBoard(Long id) {
+  public void remove(final Long id) {
+    Board boardId = getBoard(id);
+    boardRepository.delete(boardId);
+  }
+
+  public Board getBoard(final Long id) {
     return boardRepository.findById(id)
         .orElseThrow(() -> new BoardNotFoundException(id));
-  }
-
-  @Override
-  public BoardDto.BoardResponse updateBoard(Long id, BoardDto.BoardRequest update) {
-    Board board = getBoard(id);
-    board.changeWith(update);
-
-    return BoardDto.BoardResponse.of(board);
-  }
-
-  @Override
-  public void deleteBoard(Long id) {
-    Board board = getBoard(id);
-    boardRepository.delete(board);
   }
 
 }

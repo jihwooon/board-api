@@ -1,10 +1,10 @@
+//TODO :
+//1. 기능 단위 DTO 변환
+//2. CRUD 추가
 package jpa.imform.controller;
 
-import jpa.imform.domain.Board;
-import jpa.imform.domain.Member;
 import jpa.imform.dto.BoardDto;
 import jpa.imform.service.BoardService;
-import jpa.imform.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,30 +26,33 @@ public class BoardController {
   private final BoardService boardService;
 
   @GetMapping("member/{memberId}/board")
-  public List<BoardDto.BoardResponse> list(@PathVariable Long memberId) {
+  public List<BoardDto.ListBoardResponse> list(@PathVariable final Long memberId) {
     return boardService.getBoards(memberId);
   }
 
   @PostMapping("member/{memberId}/board")
   @ResponseStatus(HttpStatus.CREATED)
-  public BoardDto.BoardResponse create(@PathVariable Long memberId, @RequestBody @Valid BoardDto.BoardRequest request) {
-    return boardService.createBoard(memberId, request);
+  public BoardDto.CreateBoardResponse create(@PathVariable final Long memberId,
+                                             @RequestBody @Valid final BoardDto.CreateBoardRequest create) {
+    return boardService.createBoard(memberId, create);
   }
 
+  @GetMapping("member/{memberId}/board/{boardId}")
+  public BoardDto.getBoardResponse detail(@PathVariable final Long memberId,
+                                          @PathVariable final Long boardId) {
+    return boardService.getBoardByIdAndMemberId(memberId, boardId);
+  }
 
-//  @GetMapping("/board/{id}")
-//  public BoardDto.BoardResponse detail(@PathVariable Long id) {
-//    return BoardDto.BoardResponse.of(boardService.getBoard(id));
-//  }
-//
-//  @PatchMapping("board/{id}")
-//  public BoardDto.BoardResponse update(@PathVariable Long id, @RequestBody @Valid BoardDto.BoardRequest update) {
-//    return boardService.updateBoard(id, update);
-//  }
-//
-//  @DeleteMapping("/board/{id}")
-//  @ResponseStatus(HttpStatus.NO_CONTENT)
-//  public void remove(@PathVariable Long id) {
-//    boardService.deleteBoard(id);
-//  }
+  @PatchMapping("member/{memberId}/board/{boardId}")
+  public BoardDto.UpdateBoardResponse update(@PathVariable final Long memberId,
+                                             @PathVariable final Long boardId,
+                                             @RequestBody @Valid final BoardDto.UpdateBoardRequest update) {
+    return boardService.updateBoard(memberId, boardId, update);
+  }
+
+  @DeleteMapping("/board/{boardId}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void remove(@PathVariable final Long boardId) {
+    boardService.remove(boardId);
+  }
 }

@@ -7,17 +7,16 @@ import java.util.List;
 
 public interface BoardService {
 
-  List<BoardDto.BoardResponse> getBoards(Long id);
+  List<BoardDto.ListBoardResponse> getBoards(Long memberId);
 
-  BoardDto.BoardResponse createBoard(Long id, BoardDto.BoardRequest request);
+  BoardDto.CreateBoardResponse createBoard(Long memberId, BoardDto.CreateBoardRequest request);
+
+  BoardDto.UpdateBoardResponse updateBoard(Long memberId, Long boardId, BoardDto.UpdateBoardRequest update);
+
+  BoardDto.getBoardResponse getBoardByIdAndMemberId(Long memberId, Long boardId);
+
+  void remove(Long id);
 
   Board getBoard(Long id);
 
-  //  Board createdBoard(Long id,Board board);
-
-  BoardDto.BoardResponse updateBoard(Long id, BoardDto.BoardRequest update);
-
-  void deleteBoard(Long id);
-
-  List<Board> getBoardsByMember(Long id);
 }

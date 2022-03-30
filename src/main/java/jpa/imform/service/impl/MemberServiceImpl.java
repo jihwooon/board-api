@@ -8,7 +8,6 @@ import jpa.imform.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -17,36 +16,36 @@ public class MemberServiceImpl implements MemberService {
 
   private final MemberRepository memberRepository;
 
-  public List<MemberDto.MemberResponse> getMembers() {
-    return MemberDto.MemberResponse.of(memberRepository.findAll());
+  public List<MemberDto.ListMemberResponse> getMembers() {
+    return MemberDto.ListMemberResponse.of(memberRepository.findAll());
   }
 
-  public Member getMember(Long id) {
+  public Member getMember(final Long id) {
     return memberRepository.findById(id)
-        .orElseThrow(() -> new MemberNotFoundException("id값을 다시 반환 해주세요"));
+        .orElseThrow(() -> new MemberNotFoundException("return value of id"));
   }
 
   @Override
-  public MemberDto.MemberResponse createMember(MemberDto.MemberRequest request) {
+  public MemberDto.CreateMemberResponse createMember(final MemberDto.CreateMemberRequest request) {
     Member member = Member.builder()
         .name(request.getName())
         .password(request.getPassword())
         .birth(request.getBirth())
         .email(request.getEmail())
         .build();
-    return MemberDto.MemberResponse.of(memberRepository.save(member));
+    return MemberDto.CreateMemberResponse.of(memberRepository.save(member));
   }
 
   @Override
-  public MemberDto.MemberResponse updateMember(Long id, MemberDto.MemberRequest request) {
+  public MemberDto.UpdateMemberResponse updateMember(final Long id, final MemberDto.UpdateMemberRequest request) {
     Member member = getMember(id);
-    member.changeWith(request);
+    member.changeRequest(request);
 
-    return MemberDto.MemberResponse.of(member);
+    return MemberDto.UpdateMemberResponse.of(member);
   }
 
   @Override
-  public void delete(Long id) {
+  public void delete(final Long id) {
     Member memberId = getMember(id);
     memberRepository.delete(memberId);
   }

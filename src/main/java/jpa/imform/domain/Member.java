@@ -64,14 +64,7 @@ public class Member {
     this.address = address;
   }
 
-  public void change(Member update) {
-    this.name = update.getName();
-    this.password = update.getPassword();
-    this.birth = update.getBirth();
-    this.email = update.getEmail();
-  }
-
-  public void changeWith(MemberDto.MemberRequest request) {
+  public void changeRequest(MemberDto.UpdateMemberRequest request) {
     this.name = request.getName();
     this.password = request.getPassword();
     this.birth = request.getBirth();
