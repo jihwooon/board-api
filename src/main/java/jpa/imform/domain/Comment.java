@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @Getter
 @Table(name = "comment")
 @NoArgsConstructor
-public class Comment extends BaseEntity{
+public class Comment extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,5 +56,7 @@ public class Comment extends BaseEntity{
 
   public void changeRequest(Member member, Board board, Comment comment, CommentDto.UpdateCommentRequest request) {
     this.content = request.getContent();
+    this.member = member;
+    this.board = board;
   }
 }

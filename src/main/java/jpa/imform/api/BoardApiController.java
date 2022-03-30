@@ -3,6 +3,7 @@ package jpa.imform.api;
 import jpa.imform.domain.Board;
 import jpa.imform.dto.BoardDto;
 import jpa.imform.repository.BoardRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,13 +11,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequiredArgsConstructor
 public class BoardApiController {
 
   private final BoardRepository boardRepository;
-
-  public BoardApiController(BoardRepository boardRepository) {
-    this.boardRepository = boardRepository;
-  }
 
   @GetMapping("/board/api")
   public List<BoardDto.ListBoardResponse> list() {
