@@ -63,18 +63,12 @@ public class Board extends BaseEntity {
     this.member = member;
   }
 
-
-//  public void change(Board update) {
-//    this.title = update.getTitle();
-//    this.content = update.getContent();
-//  }
-
-  public void changeWith(BoardDto.BoardRequest update) {
+  public void change(Board update) {
     this.title = update.getTitle();
     this.content = update.getContent();
   }
 
-  public void change(Member member, BoardDto.CreateBoardRequest update) {
+  public void changeRequest(Member member, BoardDto.UpdateBoardRequest update) {
     this.title = update.getTitle();
     this.content = update.getContent();
     this.member = member;

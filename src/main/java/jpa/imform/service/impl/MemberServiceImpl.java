@@ -8,7 +8,6 @@ import jpa.imform.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -23,7 +22,7 @@ public class MemberServiceImpl implements MemberService {
 
   public Member getMember(Long id) {
     return memberRepository.findById(id)
-        .orElseThrow(() -> new MemberNotFoundException("id값을 다시 반환 해주세요"));
+        .orElseThrow(() -> new MemberNotFoundException("return value of id"));
   }
 
   @Override

@@ -28,13 +28,13 @@ public class MemberDto {
     private String name;
     private String birth;
     private String email;
-    private List<BoardDto.BoardResponse> boards;
+    private List<BoardDto.ListBoardResponse> boards;
 
     public ListMemberResponse(Member member) {
       this.name = member.getName();
       this.birth = member.getBirth();
       this.email = member.getEmail();
-      this.boards = BoardDto.BoardResponse.of(member.getBoards());
+      this.boards = BoardDto.ListBoardResponse.of(member.getBoards());
     }
 
     public static List<ListMemberResponse> of(final List<Member> member) {
@@ -96,13 +96,13 @@ public class MemberDto {
     private String name;
     private String birth;
     private String email;
-    private List<BoardDto.BoardResponse> boards;
+    private List<BoardDto.CreateBoardResponse> boards;
 
     public CreateMemberResponse(Member member) {
       this.name = member.getName();
       this.birth = member.getBirth();
       this.email = member.getEmail();
-      this.boards = BoardDto.BoardResponse.of(member.getBoards());
+      this.boards = BoardDto.CreateBoardResponse.of(member.getBoards());
     }
 
     public static CreateMemberResponse of(final Member member) {
@@ -141,13 +141,13 @@ public class MemberDto {
     private String name;
     private String birth;
     private String email;
-    private List<BoardDto.BoardResponse> boards;
+    private List<BoardDto.CreateBoardResponse> boards;
 
     public UpdateMemberResponse(Member member) {
       this.name = member.getName();
       this.birth = member.getBirth();
       this.email = member.getEmail();
-      this.boards = BoardDto.BoardResponse.of(member.getBoards());
+      this.boards = BoardDto.UpdateBoardResponse.of(member.getBoards());
     }
 
     public static UpdateMemberResponse of(final Member member) {

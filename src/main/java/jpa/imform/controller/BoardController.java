@@ -26,29 +26,34 @@ public class BoardController {
   private final BoardService boardService;
 
   @GetMapping("member/{memberId}/board")
-  public List<BoardDto.CreateBoardResponse> list(@PathVariable Long memberId) {
+  public List<BoardDto.ListBoardResponse> list(@PathVariable final Long memberId) {
     return boardService.getBoards(memberId);
   }
 
   @PostMapping("member/{memberId}/board")
   @ResponseStatus(HttpStatus.CREATED)
-  public BoardDto.CreateBoardResponse create(@PathVariable Long memberId, @RequestBody @Valid BoardDto.CreateBoardRequest request) {
-    return boardService.createBoard(memberId, request);
+  public BoardDto.CreateBoardResponse create(@PathVariable final Long memberId,
+                                             @RequestBody @Valid final BoardDto.CreateBoardRequest create) {
+    return boardService.createBoard(memberId, create);
   }
 
-//  @GetMapping("member/{memberId}/board/{boardId}")
-//  public BoardDto.CreateBoardResponse detail(@PathVariable Long memberId, @PathVariable Long boardId) {
-//    return BoardDto.CreateBoardResponse.of(boardService.getBoard(memberId));
-//  }
+  @GetMapping("member/{memberId}/board/{boardId}")
+  public BoardDto.getBoardResponse detail(@PathVariable final Long memberId,
+                                          @PathVariable final Long boardId) {
+    return boardService.getBoardByIdAndMemberId(memberId, boardId);
+  }
 
   @PatchMapping("member/{memberId}/board/{boardId}")
-  public BoardDto.CreateBoardResponse update(@PathVariable Long memberId, @PathVariable Long boardId, @RequestBody @Valid BoardDto.CreateBoardRequest update) {
+  public BoardDto.UpdateBoardResponse update(@PathVariable final Long memberId,
+                                             @PathVariable final Long boardId,
+                                             @RequestBody @Valid final BoardDto.UpdateBoardRequest update) {
     return boardService.updateBoard(memberId, boardId, update);
   }
 
   @DeleteMapping("member/{memberId}/board/{boardId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void remove(@PathVariable Long memberId, @PathVariable Long boardId) {
+  public void remove(@PathVariable final Long memberId,
+                     @PathVariable final Long boardId) {
     boardService.deleteBoard(boardId);
   }
 }

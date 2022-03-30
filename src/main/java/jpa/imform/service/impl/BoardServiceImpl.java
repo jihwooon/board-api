@@ -21,9 +21,9 @@ public class BoardServiceImpl implements BoardService {
   private final MemberService memberService;
 
   @Override
-    public List<BoardDto.CreateBoardResponse> getBoards(Long id) {
-    Member member = memberService.getMember(id);
-    return BoardDto.CreateBoardResponse.of(boardRepository.findBoardByMember(member));
+    public List<BoardDto.ListBoardResponse> getBoards(Long memberId) {
+    Member member = memberService.getMember(memberId);
+    return BoardDto.ListBoardResponse.of(boardRepository.findBoardByMember(member));
   }
 
   @Override
@@ -38,27 +38,21 @@ public class BoardServiceImpl implements BoardService {
   }
 
   @Override
-  public BoardDto.CreateBoardResponse updateBoard(Long memberId, Long boardId, BoardDto.CreateBoardRequest update) {
+  public BoardDto.UpdateBoardResponse updateBoard(Long memberId, Long boardId, BoardDto.UpdateBoardRequest update) {
     Member member = memberService.getMember(memberId);
     Board board = getBoard(boardId);
-    board.change(member, update);
+    board.changeRequest(member, update);
 
-    return BoardDto.CreateBoardResponse.of(board);
-  }
-
-
-  @Override
-  public List<Board> getBoardsByMember(Long id) {
-    Member member = memberService.getMember(id);
-    return boardRepository.findBoardByMember(member);
+    return BoardDto.UpdateBoardResponse.of(board);
   }
 
   @Override
-  public Board getBoard(Long id) {
-    return boardRepository.findById(id)
-        .orElseThrow(() -> new BoardNotFoundException(id));
-  }
+  public BoardDto.getBoardResponse getBoardByIdAndMemberId(Long memberId, Long boardId) {
+    Member member = memberService.getMember(memberId);
+    Board board = getBoard(boardId);
 
+    return BoardDto.getBoardResponse.of(member, board);
+  }
 
   @Override
   public void deleteBoard(Long id) {
@@ -66,4 +60,14 @@ public class BoardServiceImpl implements BoardService {
     boardRepository.delete(board);
   }
 
+  @Override
+  public List<Board> getBoardsByMember(Long id) {
+    Member member = memberService.getMember(id);
+    return boardRepository.findBoardByMember(member);
+  }
+
+  public Board getBoard(Long id) {
+    return boardRepository.findById(id)
+        .orElseThrow(() -> new BoardNotFoundException(id));
+  }
 }

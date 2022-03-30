@@ -14,44 +14,47 @@ import java.util.stream.Collectors;
 
 public class BoardDto {
 
-  @Data
-  @AllArgsConstructor
-  @NoArgsConstructor
-  public static class BoardRequest {
-
-    @NotBlank(message = "값을 채워 주세요.")
-    private String content;
-
-    @NotBlank(message = "값을 채워 주세요.")
-    private String title;
-  }
-
   @Getter
-  public static class BoardResponse {
+  public static class ListBoardResponse {
     private String content;
     private String title;
 
-    public BoardResponse(Board board) {
+    public ListBoardResponse(Board board) {
       this.content = board.getContent();
       this.title = board.getTitle();
     }
 
-    public static BoardResponse of(final Board board) {
-      return new BoardResponse(board);
-    }
-
-    public static List<BoardResponse> of(final List<Board> board) {
+    public static List<ListBoardResponse> of(final List<Board> board) {
       return board.stream()
-          .map(o -> new BoardResponse(o))
+          .map(o -> new ListBoardResponse(o))
           .collect(Collectors.toList());
     }
   }
+
+  @Getter
+  public static class getBoardResponse {
+    private String content;
+    private String title;
+
+    public getBoardResponse(Member member, Board board) {
+      this.content = board.getContent();
+      this.title = board.getTitle();
+    }
+
+    public static getBoardResponse of(final Member member, final Board board) {
+      return new getBoardResponse(member, board);
+    }
+  }
+
 
   @Data
   @AllArgsConstructor
   @NoArgsConstructor
   public static class CreateBoardRequest {
+    @NotBlank(message = "내용은 필수 입니다.")
     private String content;
+
+    @NotBlank(message = "제목을 입력 해주세요")
     private String title;
   }
 
@@ -93,12 +96,14 @@ public class BoardDto {
     }
   }
 
-
   @Data
   @AllArgsConstructor
   @NoArgsConstructor
   public static class UpdateBoardRequest {
+    @NotBlank(message = "내용은 필수 입니다.")
     private String content;
+
+    @NotBlank(message = "제목을 입력 해주세요")
     private String title;
   }
 
@@ -125,8 +130,8 @@ public class BoardDto {
       this.modifiedDate = board.getModifiedDate();
     }
 
-    public static CreateBoardResponse of(final Board board) {
-      return new CreateBoardResponse(board);
+    public static UpdateBoardResponse of(final Board board) {
+      return new UpdateBoardResponse(board);
     }
 
     public static List<CreateBoardResponse> of(final List<Board> board) {
@@ -135,8 +140,8 @@ public class BoardDto {
           .collect(Collectors.toList());
     }
 
-    public static CreateBoardResponse of (final Member member, final Board board) {
-      return new CreateBoardResponse(member, board);
+    public static UpdateBoardResponse of (final Member member, final Board board) {
+      return new UpdateBoardResponse(member, board);
     }
   }
 

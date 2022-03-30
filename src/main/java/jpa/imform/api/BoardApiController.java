@@ -24,19 +24,12 @@ public class BoardApiController {
   }
 
   @GetMapping
-  public List<BoardDto.BoardResponse> list() {
+  public List<BoardDto.ListBoardResponse> list() {
     List<Board> boards = boardRepository.findAll();
-    List<BoardDto.BoardResponse> result = boards.stream()
-        .map(o -> new BoardDto.BoardResponse(o))
+    List<BoardDto.ListBoardResponse> result = boards.stream()
+        .map(o -> new BoardDto.ListBoardResponse(o))
         .collect(Collectors.toList());
 
     return result;
-  }
-
-  @GetMapping("/{id}")
-  public BoardDto.BoardResponse detail(@PathVariable("id") Long id) {
-    Board board = boardRepository.findById(id)
-        .orElseThrow(() -> new BoardNotFoundException(id));
-    return BoardDto.BoardResponse.of(board);
   }
 }
