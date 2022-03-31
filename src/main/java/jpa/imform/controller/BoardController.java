@@ -1,6 +1,3 @@
-//TODO :
-//1. 기능 단위 DTO 변환
-//2. CRUD 추가
 package jpa.imform.controller;
 
 import jpa.imform.dto.BoardDto;

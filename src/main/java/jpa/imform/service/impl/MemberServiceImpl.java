@@ -30,7 +30,7 @@ public class MemberServiceImpl implements MemberService {
     Member member = Member.builder()
         .name(request.getName())
         .password(request.getPassword())
-        .birth(request.getBirth())
+        .phone(request.getPhone())
         .email(request.getEmail())
         .build();
     return MemberDto.CreateMemberResponse.of(memberRepository.save(member));
@@ -41,7 +41,7 @@ public class MemberServiceImpl implements MemberService {
     Member member = getMember(id);
     member.changeRequest(request);
 
-    return MemberDto.UpdateMemberResponse.of(member);
+    return MemberDto.UpdateMemberResponse.of(memberRepository.save(member));
   }
 
   @Override

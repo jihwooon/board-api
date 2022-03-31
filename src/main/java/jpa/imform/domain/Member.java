@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,19 +23,14 @@ public class Member {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "member_id")
   private Long id;
 
-  @Column(name = "member_name")
   private String name;
 
-  @Column(name = "member_password")
   private String password;
 
-  @Column(name = "member_birth")
-  private String birth;
+  private String phone;
 
-  @Column(name = "member_email")
   private String email;
 
   @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
@@ -51,17 +45,17 @@ public class Member {
   }
 
   @Builder
-  public Member(String name, String password, String birth, String email) {
+  public Member(String name, String password, String phone, String email) {
     this.name = name;
     this.password = password;
-    this.birth = birth;
+    this.phone = phone;
     this.email = email;
   }
 
   public void changeRequest(MemberDto.UpdateMemberRequest request) {
     this.name = request.getName();
     this.password = request.getPassword();
-    this.birth = request.getBirth();
+    this.phone = request.getPhone();
     this.email = request.getEmail();
   }
 
