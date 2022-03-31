@@ -27,13 +27,10 @@ public class Board extends BaseEntity {
 
   @Id
   @GeneratedValue
-  @Column(name = "board_id")
   private Long id;
 
-  @Column(name = "board_title")
   private String title;
 
-  @Column(name = "board_content")
   private String content;
 
   @ManyToOne(fetch = FetchType.LAZY)

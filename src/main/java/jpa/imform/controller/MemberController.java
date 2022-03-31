@@ -1,7 +1,3 @@
-//TODO :
-//request 시 @vadata 체크 -> 검증
-//회원 가입이 되지 못한 회원은 게시글, 댓글 불가능
-
 package jpa.imform.controller;
 
 import jpa.imform.dto.MemberDto;

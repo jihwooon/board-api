@@ -29,7 +29,7 @@ public class CommentApiController {
   }
 
   @GetMapping("/comment/api/v1/{commentId}")
-  public CommentDto.getCommentResponse detail(@PathVariable Long commentId) {
+  public CommentDto.getCommentResponse detail(@PathVariable final Long commentId) {
     Comment commend = commentRepository.findById(commentId)
         .orElseThrow(() -> new CommentNotFoundException(commentId));
 
@@ -47,5 +47,17 @@ public class CommentApiController {
 
     return result;
   }
+
+  @GetMapping("/comment/api/v3")
+  public List<CommentDto.ListCommentResponse> listV3() {
+    List<Comment> comments = commentRepository.findAll();
+
+    List<CommentDto.ListCommentResponse> result = comments.stream()
+        .map(o -> new CommentDto.ListCommentResponse(o))
+        .collect(Collectors.toList());
+
+    return result;
+  }
+
 
 }

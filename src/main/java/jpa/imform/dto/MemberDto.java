@@ -1,14 +1,10 @@
 package jpa.imform.dto;
 
 import jpa.imform.domain.Member;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,14 +15,14 @@ public class MemberDto {
   @Getter
   public static class ListMemberResponse {
     private String name;
-    private String birth;
+    private String phone;
     private String email;
     private List<BoardDto.ListBoardResponse> boards;
     private List<CommentDto.ListCommentResponse> comments;
 
     public ListMemberResponse(Member member) {
       this.name = member.getName();
-      this.birth = member.getBirth();
+      this.phone = member.getPhone();
       this.email = member.getEmail();
       this.boards = BoardDto.ListBoardResponse.of(member.getBoards());
       this.comments = CommentDto.ListCommentResponse.of(member.getComments());
@@ -42,12 +38,12 @@ public class MemberDto {
   @Getter
   public static class DetailMemberResponse {
     private String name;
-    private String birth;
+    private String phone;
     private String email;
 
     public DetailMemberResponse(Member member) {
       this.name = member.getName();
-      this.birth = member.getBirth();
+      this.phone = member.getPhone();
       this.email = member.getEmail();
     }
 
@@ -67,8 +63,8 @@ public class MemberDto {
     @Size(min = 4, max = 1024)
     private String password;
 
-    @NotBlank(message = "생년월일을 입력해주세요")
-    private String birth;
+    @NotBlank(message = "전화번호을 입력해주세요")
+    private String phone;
 
     @NotBlank(message = "이메일을 입력해주세요")
     private String email;
@@ -78,13 +74,13 @@ public class MemberDto {
   @Getter
   public static class CreateMemberResponse {
     private String name;
-    private String birth;
+    private String phone;
     private String email;
     private List<BoardDto.CreateBoardResponse> boards;
 
     public CreateMemberResponse(Member member) {
       this.name = member.getName();
-      this.birth = member.getBirth();
+      this.phone = member.getPhone();
       this.email = member.getEmail();
       this.boards = BoardDto.CreateBoardResponse.of(member.getBoards());
     }
@@ -106,7 +102,7 @@ public class MemberDto {
     private String password;
 
     @NotBlank(message = "생년월일을 입력해주세요")
-    private String birth;
+    private String phone;
 
     @NotBlank(message = "이메일을 입력해주세요")
     private String email;
@@ -116,13 +112,13 @@ public class MemberDto {
   @Getter
   public static class UpdateMemberResponse {
     private String name;
-    private String birth;
+    private String phone;
     private String email;
     private List<BoardDto.CreateBoardResponse> boards;
 
     public UpdateMemberResponse(Member member) {
       this.name = member.getName();
-      this.birth = member.getBirth();
+      this.phone = member.getPhone();
       this.email = member.getEmail();
       this.boards = BoardDto.UpdateBoardResponse.of(member.getBoards());
     }

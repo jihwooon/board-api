@@ -1,9 +1,5 @@
-//TODO :
-//1 Comment 단건조회 -> 구현하기
-//2. CommentDto 구현하기
 package jpa.imform.controller;
 
-import jpa.imform.domain.Comment;
 import jpa.imform.dto.CommentDto;
 import jpa.imform.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -58,7 +54,7 @@ public class CommentController {
 
   @DeleteMapping("/comment/{commentId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void remove(@PathVariable Long commentId) {
+  public void remove(@PathVariable final Long commentId) {
     commentService.deleteComment(commentId);
   }
 }
