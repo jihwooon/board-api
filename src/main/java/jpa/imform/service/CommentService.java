@@ -11,7 +11,7 @@ public interface CommentService {
 
   CommentDto.CreateCommentResponse createComment(Long memberId, Long boardId, CommentDto.CreateCommentRequest request);
 
-  CommentDto.UpdateCommentResponse updateComment(Long memberId, Long boardId, Long commentId, final CommentDto.UpdateCommentRequest request);
+  CommentDto.UpdateCommentResponse updateComment(Long memberId, Long boardId, Long commentId, CommentDto.UpdateCommentRequest request);
 
   CommentDto.getCommentResponse getCommentById(Long memberId, Long boardId, Long commentId);
 

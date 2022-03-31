@@ -26,8 +26,8 @@ public class CommentDto {
       this.modifiedDate = comment.getModifiedDate();
     }
 
-    public static List<ListCommentResponse> of(List<Comment> comment) {
-      return comment.stream()
+    public static List<ListCommentResponse> of(List<Comment> comments) {
+      return comments.stream()
           .map(o -> new ListCommentResponse(o))
           .collect(Collectors.toList());
     }

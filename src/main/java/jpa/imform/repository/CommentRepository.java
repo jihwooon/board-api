@@ -3,7 +3,6 @@ package jpa.imform.repository;
 import jpa.imform.domain.Board;
 import jpa.imform.domain.Comment;
 import jpa.imform.domain.Member;
-import jpa.imform.dto.CommentDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
