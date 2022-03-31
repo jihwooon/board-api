@@ -50,9 +50,8 @@ class RelationalMappingTest {
     member1 = Member.builder()
         .name("홍길동")
         .email("hong@gmail.com")
-        .birth("890505")
+        .phone("890505")
         .password("1234")
-        .address(new Address("서울", "경기", "1234"))
         .build();
 
     comment1 = Comment.builder()
@@ -67,9 +66,8 @@ class RelationalMappingTest {
     member2 = Member.builder()
         .name("젠장")
         .email("jihwooon@gmail.com")
-        .birth("920505")
+        .phone("920505")
         .password("1234")
-        .address(new Address("부산", "해운대", "1234"))
         .build();
 
     comment2 = Comment.builder()

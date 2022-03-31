@@ -93,7 +93,6 @@ public class BoardDto {
   }
 
   @Getter
-  @Setter
   public static class UpdateBoardRequest {
     @NotBlank(message = "내용은 필수 입니다.")
     private String content;
@@ -103,7 +102,6 @@ public class BoardDto {
   }
 
   @Getter
-  @Setter
   public static class UpdateBoardResponse {
     private String content;
     private String title;

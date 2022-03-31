@@ -20,11 +20,6 @@ public class MemberServiceImpl implements MemberService {
     return MemberDto.ListMemberResponse.of(memberRepository.findAll());
   }
 
-  public Member getMember(final Long id) {
-    return memberRepository.findById(id)
-        .orElseThrow(() -> new MemberNotFoundException("return value of id"));
-  }
-
   @Override
   public MemberDto.CreateMemberResponse createMember(final MemberDto.CreateMemberRequest request) {
     Member member = Member.builder()
@@ -42,6 +37,12 @@ public class MemberServiceImpl implements MemberService {
     member.changeRequest(request);
 
     return MemberDto.UpdateMemberResponse.of(memberRepository.save(member));
+  }
+
+  @Override
+  public Member getMember(final Long id) {
+    return memberRepository.findById(id)
+        .orElseThrow(() -> new MemberNotFoundException("return value of id"));
   }
 
   @Override
