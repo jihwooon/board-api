@@ -1,6 +1,7 @@
 package jpa.imform.dto;
 
 import jpa.imform.domain.Member;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -52,7 +53,7 @@ public class MemberDto {
   }
 
   @Getter
-  @Setter
+  @Builder
   public static class CreateMemberRequest {
 
     @NotBlank(message = "이름을 입력해주세요")
