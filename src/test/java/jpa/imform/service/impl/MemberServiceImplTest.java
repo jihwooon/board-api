@@ -1,19 +1,17 @@
 package jpa.imform.service.impl;
 
 import jpa.imform.domain.Member;
-import jpa.imform.dto.BoardDto;
 import jpa.imform.dto.MemberDto;
 import jpa.imform.error.MemberNotFoundException;
 import jpa.imform.repository.MemberRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
@@ -44,7 +42,6 @@ class MemberServiceImplTest {
           .email(source.getEmail())
           .build();
     });
-
   }
 
   @Test
@@ -58,7 +55,7 @@ class MemberServiceImplTest {
   }
 
   @Test
-  public void getMember() {
+  public void getMemberExistedId() {
     Member member = memberService.getMember(1L);
 
     assertThat(member).isNotNull();
@@ -78,12 +75,15 @@ class MemberServiceImplTest {
   public void createMember() {
     MemberDto.CreateMemberRequest request = MemberDto.CreateMemberRequest.builder()
         .name("안지환")
+        .password("1234")
+        .phone("010-123-2453")
         .email("jihwooon@gmail.com")
         .build();
     MemberDto.CreateMemberResponse member = memberService.createMember(request);
 
     assertThat(member.getName()).isEqualTo("안지환");
     assertThat(member.getEmail()).isEqualTo("jihwooon@gmail.com");
+    assertThat(member.getPhone()).isEqualTo("1234");
 
     verify(memberRepository).save(any());
   }
