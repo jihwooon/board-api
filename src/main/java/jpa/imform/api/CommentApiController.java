@@ -58,6 +58,4 @@ public class CommentApiController {
 
     return result;
   }
-
-
 }

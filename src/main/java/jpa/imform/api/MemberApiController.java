@@ -2,7 +2,6 @@ package jpa.imform.api;
 
 
 import jpa.imform.domain.Member;
-import jpa.imform.dto.BoardDto;
 import jpa.imform.dto.MemberDto;
 import jpa.imform.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
