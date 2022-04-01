@@ -57,4 +57,10 @@ class MemberServiceImplTest {
 
     verify(memberRepository).findById(1L);
   }
+
+  @Test
+  public void getMemberNotExistedId() {
+    assertThatThrownBy(() -> memberService.getMember(100L))
+        .isInstanceOf(MemberNotFoundException.class);
+  }
 }
