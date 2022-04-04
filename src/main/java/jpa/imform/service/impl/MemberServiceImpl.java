@@ -17,7 +17,7 @@ public class MemberServiceImpl implements MemberService {
   private final MemberRepository memberRepository;
 
   public List<MemberDto.ListMemberResponse> getMembers() {
-    return MemberDto.ListMemberResponse.of(memberRepository.findAll());
+    return MemberDto.ListMemberResponse.of(memberRepository.findAllWithDevelop());
   }
 
   @Override
@@ -41,8 +41,8 @@ public class MemberServiceImpl implements MemberService {
 
   @Override
   public Member getMember(final Long id) {
-    return memberRepository.findById(id)
-        .orElseThrow(() -> new MemberNotFoundException("return value of id"));
+    return memberRepository.findIdWithDevelop(id);
+//        .orElseThrow(() -> new MemberNotFoundException("return value of id"));
   }
 
   @Override

@@ -27,7 +27,7 @@ public class CommentServiceImpl implements CommentService {
                                                           final Long boardId) {
     Member member = memberService.getMember(memberId);
     Board board = boardService.getBoard(boardId);
-    return CommentDto.ListCommentResponse.of(commentRepository.findByMemberAndBoard(member, board));
+    return CommentDto.ListCommentResponse.of(commentRepository.findAllWithDevelop(member, board));
   }
 
   @Override
@@ -77,7 +77,7 @@ public class CommentServiceImpl implements CommentService {
 
   @Override
   public Comment getComment(final Long id) {
-    return commentRepository.findById(id)
-        .orElseThrow(() -> new CommentNotFoundException(id));
+    return commentRepository.findIdWithDevelop(id);
+//        .orElseThrow(() -> new CommentNotFoundException(id));
   }
 }
