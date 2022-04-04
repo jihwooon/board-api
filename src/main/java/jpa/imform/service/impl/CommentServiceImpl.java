@@ -5,11 +5,13 @@ import jpa.imform.domain.Comment;
 import jpa.imform.domain.Member;
 import jpa.imform.dto.CommentDto;
 import jpa.imform.error.CommentNotFoundException;
+import jpa.imform.repository.CommentJpaRepository;
 import jpa.imform.repository.CommentRepository;
 import jpa.imform.service.BoardService;
 import jpa.imform.service.CommentService;
 import jpa.imform.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +21,9 @@ import java.util.List;
 public class CommentServiceImpl implements CommentService {
 
   private final CommentRepository commentRepository;
+  @Autowired
+  private final CommentJpaRepository commentJpaRepository;
+
   private final BoardService boardService;
   private final MemberService memberService;
 
@@ -27,7 +32,8 @@ public class CommentServiceImpl implements CommentService {
                                                           final Long boardId) {
     Member member = memberService.getMember(memberId);
     Board board = boardService.getBoard(boardId);
-    return CommentDto.ListCommentResponse.of(commentRepository.findAllWithDevelop(member, board));
+    return CommentDto.ListCommentResponse.of(commentJpaRepository.findAllByMemberAndBoard(member, board));
+    //commentRepository.findAllWithDevelop(member, board)
   }
 
   @Override

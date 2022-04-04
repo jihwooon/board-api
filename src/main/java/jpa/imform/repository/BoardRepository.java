@@ -18,5 +18,4 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
   @Query(value = "select b from Board b where b.id = :id")
   Board findIdWithDevelop(@Param("id") final Long id);
 
-
 }
