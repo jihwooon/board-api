@@ -90,7 +90,7 @@ public class CommentServiceImpl implements CommentService {
 
   @Override
   public Comment getComment(final Long id) {
-    return commentRepository.findIdWithDevelop(id);
-//        .orElseThrow(() -> new CommentNotFoundException(id));
+    return commentRepository.findIdWithDevelop(id)
+        .orElseThrow(() -> new CommentNotFoundException(id));
   }
 }

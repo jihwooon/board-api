@@ -77,8 +77,8 @@ public class BoardServiceImpl implements BoardService {
   }
 
   public Board getBoard(final Long id) {
-    return boardRepository.findIdWithDevelop(id);
-//        .orElseThrow(() -> new BoardNotFoundException(id));
+    return boardRepository.findIdWithDevelop(id)
+        .orElseThrow(() -> new BoardNotFoundException(id));
   }
 
 }

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
@@ -13,6 +14,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
   List<Member> findAllWithDevelop();
 
   @Query(value = "select m from Member m where m.id = :id")
-  Member findIdWithDevelop(@Param("id") final Long id);
+  Optional<Member> findIdWithDevelop(@Param("id") final Long id);
 
 }

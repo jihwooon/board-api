@@ -47,8 +47,8 @@ public class MemberServiceImpl implements MemberService {
 
   @Override
   public Member getMember(final Long id) {
-    return memberRepository.findIdWithDevelop(id);
-//        .orElseThrow(() -> new MemberNotFoundException("return value of id"));
+    return memberRepository.findIdWithDevelop(id)
+        .orElseThrow(() -> new MemberNotFoundException("return value of id"));
   }
 
   @Override

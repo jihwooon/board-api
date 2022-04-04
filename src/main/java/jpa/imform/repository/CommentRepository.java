@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
@@ -24,6 +25,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
                                    @Param("board") final Board board);
 
   @Query(value = "select c from Comment c where c.id = :id")
-  Comment findIdWithDevelop(@Param("id") final Long id);
+  Optional<Comment> findIdWithDevelop(@Param("id") final Long id);
 
 }
