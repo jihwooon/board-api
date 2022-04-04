@@ -33,7 +33,7 @@ public class BoardServiceImpl implements BoardService {
   public List<BoardDto.ListBoardResponse> getBoardsV2(final Long memberId) {
     Member member = memberService.getMember(memberId);
 
-    return BoardDto.ListBoardResponse.of(boardJpaRepository.findAllbyMember(member));
+    return BoardDto.ListBoardResponse.of(boardJpaRepository.findAllByMember(member));
   }
 
   @Override

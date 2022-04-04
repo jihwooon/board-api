@@ -14,7 +14,7 @@ public class BoardJpaRepository {
   @PersistenceContext
   private EntityManager em;
 
-  public List<Board> findAllbyMember(final Member member) {
+  public List<Board> findAllByMember(final Member member) {
     return em.createQuery(
         "select b from Board b where b.member = :member", Board.class)
         .setParameter("member", member)
@@ -24,6 +24,5 @@ public class BoardJpaRepository {
   public Board fineOne(final Long id) {
     return em.find(Board.class, id);
   }
-
 
 }
