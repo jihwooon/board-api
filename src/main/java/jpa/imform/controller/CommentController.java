@@ -22,10 +22,17 @@ public class CommentController {
 
   private final CommentService commentService;
 
+  //CommentRepository Interface
   @GetMapping("member/{memberId}/board/{boardId}/comment")
   public List<CommentDto.ListCommentResponse> list(@PathVariable final Long memberId,
                                                    @PathVariable final Long boardId) {
     return commentService.getComments(memberId, boardId);
+  }
+  //CommentJpaRepository
+  @GetMapping("member/{memberId}/board/{boardId}/commentV2")
+  public List<CommentDto.ListCommentResponse> listV2(@PathVariable final Long memberId,
+                                                   @PathVariable final Long boardId) {
+    return commentService.getCommentsV2(memberId, boardId);
   }
 
   @GetMapping("member/{memberId}/board/{boardId}/comment/{commentId}")

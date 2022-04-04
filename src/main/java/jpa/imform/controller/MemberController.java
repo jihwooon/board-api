@@ -23,9 +23,16 @@ public class MemberController {
 
   private final MemberService memberService;
 
+  //MemberRepository Interface
   @GetMapping("member")
   public List<MemberDto.ListMemberResponse> list() {
     return memberService.getMembers();
+  }
+
+  //MemberJpaRepository
+  @GetMapping("memberV2")
+  public List<MemberDto.ListMemberResponse> listV2() {
+    return memberService.getMembersV2();
   }
 
   @GetMapping("member/{memberId}")

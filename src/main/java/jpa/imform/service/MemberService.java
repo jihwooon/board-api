@@ -9,6 +9,8 @@ public interface MemberService {
 
   List<MemberDto.ListMemberResponse> getMembers();
 
+  List<MemberDto.ListMemberResponse> getMembersV2();
+
   Member getMember(Long id);
 
   MemberDto.CreateMemberResponse createMember(MemberDto.CreateMemberRequest request);
@@ -16,4 +18,5 @@ public interface MemberService {
   MemberDto.UpdateMemberResponse updateMember(Long id, MemberDto.UpdateMemberRequest request);
 
   void delete(Long id);
+
 }

@@ -4,6 +4,7 @@ import jpa.imform.domain.Board;
 import jpa.imform.domain.Member;
 import jpa.imform.dto.BoardDto;
 import jpa.imform.error.BoardNotFoundException;
+import jpa.imform.repository.BoardJpaRepository;
 import jpa.imform.repository.BoardRepository;
 import jpa.imform.service.BoardService;
 import jpa.imform.service.MemberService;
@@ -18,6 +19,8 @@ public class BoardServiceImpl implements BoardService {
 
   private final BoardRepository boardRepository;
 
+  private final BoardJpaRepository boardJpaRepository;
+
   private final MemberService memberService;
 
   @Override
@@ -25,6 +28,13 @@ public class BoardServiceImpl implements BoardService {
     Member member = memberService.getMember(memberId);
 
     return BoardDto.ListBoardResponse.of(boardRepository.findAllWithDevelop(member));
+  }
+
+  @Override
+  public List<BoardDto.ListBoardResponse> getBoardsV2(final Long memberId) {
+    Member member = memberService.getMember(memberId);
+
+    return BoardDto.ListBoardResponse.of(boardJpaRepository.findAllbyMember(member));
   }
 
   @Override

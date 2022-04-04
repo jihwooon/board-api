@@ -32,8 +32,15 @@ public class CommentServiceImpl implements CommentService {
                                                           final Long boardId) {
     Member member = memberService.getMember(memberId);
     Board board = boardService.getBoard(boardId);
+    return CommentDto.ListCommentResponse.of(commentRepository.findAllWithDevelop(member, board));
+  }
+
+  @Override
+  public List<CommentDto.ListCommentResponse> getCommentsV2(final Long memberId,
+                                                          final Long boardId) {
+    Member member = memberService.getMember(memberId);
+    Board board = boardService.getBoard(boardId);
     return CommentDto.ListCommentResponse.of(commentJpaRepository.findAllByMemberAndBoard(member, board));
-    //commentRepository.findAllWithDevelop(member, board)
   }
 
   @Override

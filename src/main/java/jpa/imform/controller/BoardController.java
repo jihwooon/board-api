@@ -22,9 +22,16 @@ public class BoardController {
 
   private final BoardService boardService;
 
+  //BoardRepository Interface
   @GetMapping("member/{memberId}/board")
   public List<BoardDto.ListBoardResponse> list(@PathVariable final Long memberId) {
     return boardService.getBoards(memberId);
+  }
+
+  //BoardJpaRepository
+  @GetMapping("member/{memberId}/boardV2")
+  public List<BoardDto.ListBoardResponse> listV2(@PathVariable final Long memberId) {
+    return boardService.getBoardsV2(memberId);
   }
 
   @PostMapping("member/{memberId}/board")

@@ -9,6 +9,8 @@ public interface BoardService {
 
   List<BoardDto.ListBoardResponse> getBoards(Long memberId);
 
+  List<BoardDto.ListBoardResponse> getBoardsV2(Long memberId);
+
   BoardDto.CreateBoardResponse createBoard(Long memberId, BoardDto.CreateBoardRequest request);
 
   BoardDto.UpdateBoardResponse updateBoard(Long memberId, Long boardId, BoardDto.UpdateBoardRequest update);
