@@ -17,6 +17,7 @@ public class MemberJpaRepository {
     return em.createQuery("select m from Member m", Member.class)
         .getResultList();
   }
+
   public Member fineOne(final Long id) {
     return em.find(Member.class, id);
   }

@@ -20,7 +20,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
   List<Comment> findByMemberAndBoard(final Member member, final Board board);
 
   @Query(value = "select c from Comment c " +
-                 "where c.member = :member and c.board = :board")
+      "where c.member = :member and c.board = :board")
   List<Comment> findAllWithDevelop(@Param("member") final Member member,
                                    @Param("board") final Board board);
 

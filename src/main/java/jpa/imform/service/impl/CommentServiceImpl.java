@@ -21,7 +21,6 @@ import java.util.List;
 public class CommentServiceImpl implements CommentService {
 
   private final CommentRepository commentRepository;
-  @Autowired
   private final CommentJpaRepository commentJpaRepository;
 
   private final BoardService boardService;
@@ -37,7 +36,7 @@ public class CommentServiceImpl implements CommentService {
 
   @Override
   public List<CommentDto.ListCommentResponse> getCommentsV2(final Long memberId,
-                                                          final Long boardId) {
+                                                            final Long boardId) {
     Member member = memberService.getMember(memberId);
     Board board = boardService.getBoard(boardId);
     return CommentDto.ListCommentResponse.of(commentJpaRepository.findAllByMemberAndBoard(member, board));
@@ -78,7 +77,7 @@ public class CommentServiceImpl implements CommentService {
     Board board = boardService.getBoard(boardId);
     Comment comment = getComment(commentId);
 
-    return CommentDto.getCommentResponse.of(member, board,comment);
+    return CommentDto.getCommentResponse.of(member, board, comment);
   }
 
   @Override

@@ -18,13 +18,12 @@ import java.util.List;
 public class BoardServiceImpl implements BoardService {
 
   private final BoardRepository boardRepository;
-
   private final BoardJpaRepository boardJpaRepository;
 
   private final MemberService memberService;
 
   @Override
-    public List<BoardDto.ListBoardResponse> getBoards(final Long memberId) {
+  public List<BoardDto.ListBoardResponse> getBoards(final Long memberId) {
     Member member = memberService.getMember(memberId);
 
     return BoardDto.ListBoardResponse.of(boardRepository.findAllWithDevelop(member));
