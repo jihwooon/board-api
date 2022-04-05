@@ -19,10 +19,12 @@ public interface BoardService {
 
   BoardDto.getBoardResponse getBoardByIdAndMemberId(Long memberId, Long boardId);
 
-  BoardDto.getBoardResponse getBoardByIdAndMemberIdV2(Long memberId, Long boardId);
+  BoardDto.getBoardResponse getBoardByIdAndMemberIdV1(Long memberId, Long boardId);
 
   void remove(Long id);
 
   Board getBoard(Long id);
+
+  Board getBoardV1(Long id);
 
 }

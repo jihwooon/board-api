@@ -24,7 +24,7 @@ public class CommentJpaRepository {
         .getResultList();
   }
 
-  public Comment findone(final Long id) {
+  public Comment findOne(final Long id) {
     return em.find(Comment.class, id);
   }
 }

@@ -50,6 +50,28 @@ public class CommentServiceImpl implements CommentService {
   }
 
   @Override
+  public CommentDto.getCommentResponse getCommentById(final Long memberId,
+                                                      final Long boardId,
+                                                      final Long commentId) {
+    Member member = memberService.getMember(memberId);
+    Board board = boardService.getBoard(boardId);
+    Comment comment = getComment(commentId);
+
+    return CommentDto.getCommentResponse.of(member, board, comment);
+  }
+
+  @Override
+  public CommentDto.getCommentResponse getCommentByIdV1(final Long memberId,
+                                                        final Long boardId,
+                                                        final Long commentId) {
+    Member member = memberService.getMemberV1(memberId);
+    Board board = boardService.getBoardV1(boardId);
+    Comment comment = getCommentV1(commentId);
+
+    return CommentDto.getCommentResponse.of(member, board, comment);
+  }
+
+  @Override
   public CommentDto.CreateCommentResponse createComment(final Long memberId,
                                                         final Long boardId,
                                                         final CommentDto.CreateCommentRequest request) {
@@ -77,25 +99,18 @@ public class CommentServiceImpl implements CommentService {
   }
 
   @Override
-  public CommentDto.getCommentResponse getCommentById(final Long memberId,
-                                                      final Long boardId,
-                                                      final Long commentId) {
-    Member member = memberService.getMember(memberId);
-    Board board = boardService.getBoard(boardId);
-    Comment comment = getComment(commentId);
-
-    return CommentDto.getCommentResponse.of(member, board, comment);
-  }
-
-  @Override
   public Comment deleteComment(final Long id) {
     Comment comment = getComment(id);
     commentRepository.delete(comment);
     return comment;
   }
 
-  @Override
   public Comment getComment(final Long id) {
+    return commentRepository.findById(id)
+        .orElseThrow(() -> new CommentNotFoundException(id));
+  }
+
+  public Comment getCommentV1(final Long id) {
     return commentRepository.findIdWithDevelop(id)
         .orElseThrow(() -> new CommentNotFoundException(id));
   }

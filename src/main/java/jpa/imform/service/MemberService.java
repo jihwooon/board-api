@@ -15,7 +15,7 @@ public interface MemberService {
 
   Member getMember(Long id);
 
-  Member getMemberV2(Long id);
+  Member getMemberV1(Long id);
 
   MemberDto.CreateMemberResponse createMember(MemberDto.CreateMemberRequest request);
 

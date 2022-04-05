@@ -19,7 +19,11 @@ public interface CommentService {
 
   CommentDto.getCommentResponse getCommentById(Long memberId, Long boardId, Long commentId);
 
+  CommentDto.getCommentResponse getCommentByIdV1(Long memberId, Long boardId, Long commentId);
+
   Comment getComment(Long id);
+
+  Comment getCommentV1(Long id);
 
   Comment deleteComment(Long id);
 

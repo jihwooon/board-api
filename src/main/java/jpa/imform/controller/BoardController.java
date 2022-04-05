@@ -37,7 +37,7 @@ public class BoardController {
   }
 
   //BoardJpaRepository
-  @GetMapping("member/{memberId}/boardV2")
+  @GetMapping("memberV2/{memberId}/boardV2")
   public List<BoardDto.ListBoardResponse> listV2(@PathVariable final Long memberId) {
     return boardService.getBoardsV2(memberId);
   }
@@ -49,10 +49,10 @@ public class BoardController {
   }
 
   //BoardJpaRepository - DetailV2
-  @GetMapping("member/{memberId}/boardV2/{boardId}")
-  public BoardDto.getBoardResponse detailV2(@PathVariable final Long memberId,
+  @GetMapping("memberV2/{memberId}/boardV2/{boardId}")
+  public BoardDto.getBoardResponse detailV1(@PathVariable final Long memberId,
                                             @PathVariable final Long boardId) {
-    return boardService.getBoardByIdAndMemberIdV2(memberId, boardId);
+    return boardService.getBoardByIdAndMemberIdV1(memberId, boardId);
   }
 
   @PostMapping("member/{memberId}/board")

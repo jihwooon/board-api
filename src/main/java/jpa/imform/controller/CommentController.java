@@ -43,11 +43,20 @@ public class CommentController {
     return commentService.getCommentsV2(memberId, boardId);
   }
 
+  //CommentRepository getdetail -> Basic
   @GetMapping("member/{memberId}/board/{boardId}/comment/{commentId}")
   public CommentDto.getCommentResponse detail(@PathVariable final Long memberId,
                                               @PathVariable final Long boardId,
                                               @PathVariable final Long commentId) {
     return commentService.getCommentById(memberId, boardId, commentId);
+  }
+
+  //CommentRepository getdetail -> method name query
+  @GetMapping("memberV2/{memberId}/boardV2/{boardId}/commentV2/{commentId}")
+  public CommentDto.getCommentResponse detailV1(@PathVariable final Long memberId,
+                                                @PathVariable final Long boardId,
+                                                @PathVariable final Long commentId) {
+    return commentService.getCommentByIdV1(memberId, boardId, commentId);
   }
 
   @PostMapping("member/{memberId}/board/{boardId}/comment")

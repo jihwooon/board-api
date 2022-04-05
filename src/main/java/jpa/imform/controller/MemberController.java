@@ -47,10 +47,10 @@ public class MemberController {
     return MemberDto.DetailMemberResponse.of(memberService.getMember(memberId));
   }
 
-  //MemberJpaRepository -> getDetailV1
-  @GetMapping("memberV2/{memberId}")
-  public MemberDto.DetailMemberResponse detailV2(@PathVariable final Long memberId) {
-    return MemberDto.DetailMemberResponse.of(memberService.getMemberV2(memberId));
+  //MemberRepository -> getDetail method name query
+  @GetMapping("memberV1/{memberId}")
+  public MemberDto.DetailMemberResponse detailV1(@PathVariable final Long memberId) {
+    return MemberDto.DetailMemberResponse.of(memberService.getMemberV1(memberId));
   }
 
   @PostMapping("member")
