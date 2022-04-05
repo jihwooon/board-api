@@ -49,7 +49,7 @@ public class MemberController {
 
   //MemberJpaRepository -> getDetailV1
   @GetMapping("memberV2/{memberId}")
-  public MemberDto.DetailMemberResponse detailV1(@PathVariable final Long memberId) {
+  public MemberDto.DetailMemberResponse detailV2(@PathVariable final Long memberId) {
     return MemberDto.DetailMemberResponse.of(memberService.getMemberV2(memberId));
   }
 
