@@ -52,7 +52,7 @@ public class CommentController {
   }
 
   //CommentRepository getdetail -> method name query
-  @GetMapping("memberV2/{memberId}/boardV2/{boardId}/commentV2/{commentId}")
+  @GetMapping("memberV1/{memberId}/boardV1/{boardId}/commentV1/{commentId}")
   public CommentDto.getCommentResponse detailV1(@PathVariable final Long memberId,
                                                 @PathVariable final Long boardId,
                                                 @PathVariable final Long commentId) {
