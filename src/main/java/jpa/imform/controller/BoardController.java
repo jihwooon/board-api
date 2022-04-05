@@ -1,3 +1,5 @@
+//TODO : Repsoitorty 메소드별 추가
+
 package jpa.imform.controller;
 
 import jpa.imform.dto.BoardDto;
@@ -22,9 +24,35 @@ public class BoardController {
 
   private final BoardService boardService;
 
+  //BoardRepository Interface
   @GetMapping("member/{memberId}/board")
   public List<BoardDto.ListBoardResponse> list(@PathVariable final Long memberId) {
     return boardService.getBoards(memberId);
+  }
+
+  //BoardRepository Interface
+  @GetMapping("memberV1/{memberId}/boardV1")
+  public List<BoardDto.ListBoardResponse> listV1(@PathVariable final Long memberId) {
+    return boardService.getBoardsV1(memberId);
+  }
+
+  //BoardJpaRepository
+  @GetMapping("memberV2/{memberId}/boardV2")
+  public List<BoardDto.ListBoardResponse> listV2(@PathVariable final Long memberId) {
+    return boardService.getBoardsV2(memberId);
+  }
+
+  @GetMapping("member/{memberId}/board/{boardId}")
+  public BoardDto.getBoardResponse detail(@PathVariable final Long memberId,
+                                          @PathVariable final Long boardId) {
+    return boardService.getBoardByIdAndMemberId(memberId, boardId);
+  }
+
+  //BoardJpaRepository - DetailV2
+  @GetMapping("memberV1/{memberId}/boardV1/{boardId}")
+  public BoardDto.getBoardResponse detailV1(@PathVariable final Long memberId,
+                                            @PathVariable final Long boardId) {
+    return boardService.getBoardByIdAndMemberIdV1(memberId, boardId);
   }
 
   @PostMapping("member/{memberId}/board")
@@ -32,12 +60,6 @@ public class BoardController {
   public BoardDto.CreateBoardResponse create(@PathVariable final Long memberId,
                                              @RequestBody @Valid final BoardDto.CreateBoardRequest create) {
     return boardService.createBoard(memberId, create);
-  }
-
-  @GetMapping("member/{memberId}/board/{boardId}")
-  public BoardDto.getBoardResponse detail(@PathVariable final Long memberId,
-                                          @PathVariable final Long boardId) {
-    return boardService.getBoardByIdAndMemberId(memberId, boardId);
   }
 
   @PatchMapping("member/{memberId}/board/{boardId}")

@@ -22,18 +22,41 @@ public class CommentController {
 
   private final CommentService commentService;
 
+  //CommentRepository Basic
   @GetMapping("member/{memberId}/board/{boardId}/comment")
   public List<CommentDto.ListCommentResponse> list(@PathVariable final Long memberId,
                                                    @PathVariable final Long boardId) {
     return commentService.getComments(memberId, boardId);
   }
 
+  //CommentRepository method name query
+  @GetMapping("memberV1/{memberId}/boardV1/{boardId}/commentV1")
+  public List<CommentDto.ListCommentResponse> listV1(@PathVariable final Long memberId,
+                                                     @PathVariable final Long boardId) {
+    return commentService.getCommentsV1(memberId, boardId);
+  }
+
+  //CommentJpaRepository
+  @GetMapping("memberV2/{memberId}/boardV2/{boardId}/commentV2")
+  public List<CommentDto.ListCommentResponse> listV2(@PathVariable final Long memberId,
+                                                     @PathVariable final Long boardId) {
+    return commentService.getCommentsV2(memberId, boardId);
+  }
+
+  //CommentRepository getdetail -> Basic
   @GetMapping("member/{memberId}/board/{boardId}/comment/{commentId}")
   public CommentDto.getCommentResponse detail(@PathVariable final Long memberId,
                                               @PathVariable final Long boardId,
                                               @PathVariable final Long commentId) {
     return commentService.getCommentById(memberId, boardId, commentId);
+  }
 
+  //CommentRepository getdetail -> method name query
+  @GetMapping("memberV1/{memberId}/boardV1/{boardId}/commentV1/{commentId}")
+  public CommentDto.getCommentResponse detailV1(@PathVariable final Long memberId,
+                                                @PathVariable final Long boardId,
+                                                @PathVariable final Long commentId) {
+    return commentService.getCommentByIdV1(memberId, boardId, commentId);
   }
 
   @PostMapping("member/{memberId}/board/{boardId}/comment")
@@ -46,9 +69,9 @@ public class CommentController {
 
   @PatchMapping("member/{memberId}/board/{boardId}/comment/{commentId}")
   public CommentDto.UpdateCommentResponse update(@PathVariable final Long memberId,
-                                                @PathVariable final Long boardId,
-                                                @PathVariable final Long commentId,
-                                                @RequestBody @Valid final CommentDto.UpdateCommentRequest update) {
+                                                 @PathVariable final Long boardId,
+                                                 @PathVariable final Long commentId,
+                                                 @RequestBody @Valid final CommentDto.UpdateCommentRequest update) {
     return commentService.updateComment(memberId, boardId, commentId, update);
   }
 

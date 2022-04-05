@@ -1,6 +1,7 @@
 package jpa.imform.domain;
 
 import jpa.imform.dto.BoardDto;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,7 +22,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Board extends BaseEntity {
 

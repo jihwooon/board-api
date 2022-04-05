@@ -3,6 +3,7 @@ package jpa.imform.service.impl;
 import jpa.imform.domain.Member;
 import jpa.imform.dto.MemberDto;
 import jpa.imform.error.MemberNotFoundException;
+import jpa.imform.repository.MemberJpaRepository;
 import jpa.imform.repository.MemberRepository;
 import jpa.imform.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -15,9 +16,18 @@ import java.util.List;
 public class MemberServiceImpl implements MemberService {
 
   private final MemberRepository memberRepository;
+  private final MemberJpaRepository memberJpaRepository;
 
   public List<MemberDto.ListMemberResponse> getMembers() {
     return MemberDto.ListMemberResponse.of(memberRepository.findAll());
+  }
+
+  public List<MemberDto.ListMemberResponse> getMembersV1() {
+    return MemberDto.ListMemberResponse.of(memberRepository.findAllWithDevelop());
+  }
+
+  public List<MemberDto.ListMemberResponse> getMembersV2() {
+    return MemberDto.ListMemberResponse.of(memberJpaRepository.findAll());
   }
 
   @Override
@@ -42,6 +52,12 @@ public class MemberServiceImpl implements MemberService {
   @Override
   public Member getMember(final Long id) {
     return memberRepository.findById(id)
+        .orElseThrow(() -> new MemberNotFoundException("return value of id"));
+  }
+
+  @Override
+  public Member getMemberV1(final Long id) {
+    return memberRepository.findIdWithDevelop(id)
         .orElseThrow(() -> new MemberNotFoundException("return value of id"));
   }
 

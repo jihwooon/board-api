@@ -4,6 +4,7 @@ import jpa.imform.domain.Board;
 import jpa.imform.domain.Member;
 import jpa.imform.dto.BoardDto;
 import jpa.imform.error.BoardNotFoundException;
+import jpa.imform.repository.BoardJpaRepository;
 import jpa.imform.repository.BoardRepository;
 import jpa.imform.service.BoardService;
 import jpa.imform.service.MemberService;
@@ -17,14 +18,29 @@ import java.util.List;
 public class BoardServiceImpl implements BoardService {
 
   private final BoardRepository boardRepository;
+  private final BoardJpaRepository boardJpaRepository;
 
   private final MemberService memberService;
 
   @Override
-    public List<BoardDto.ListBoardResponse> getBoards(final Long memberId) {
+  public List<BoardDto.ListBoardResponse> getBoards(final Long memberId) {
     Member member = memberService.getMember(memberId);
 
     return BoardDto.ListBoardResponse.of(boardRepository.findBoardByMember(member));
+  }
+
+  @Override
+  public List<BoardDto.ListBoardResponse> getBoardsV1(final Long memberId) {
+    Member member = memberService.getMember(memberId);
+
+    return BoardDto.ListBoardResponse.of(boardRepository.findAllWithDevelop(member));
+  }
+
+  @Override
+  public List<BoardDto.ListBoardResponse> getBoardsV2(final Long memberId) {
+    Member member = memberService.getMember(memberId);
+
+    return BoardDto.ListBoardResponse.of(boardJpaRepository.findAllByMember(member));
   }
 
   @Override
@@ -32,6 +48,15 @@ public class BoardServiceImpl implements BoardService {
                                                            final Long boardId) {
     Member member = memberService.getMember(memberId);
     Board board = getBoard(boardId);
+
+    return BoardDto.getBoardResponse.of(member, board);
+  }
+
+  @Override
+  public BoardDto.getBoardResponse getBoardByIdAndMemberIdV1(final Long memberId,
+                                                             final Long boardId) {
+    Member member = memberService.getMemberV1(memberId);
+    Board board = getBoardV1(boardId);
 
     return BoardDto.getBoardResponse.of(member, board);
   }
@@ -68,6 +93,11 @@ public class BoardServiceImpl implements BoardService {
 
   public Board getBoard(final Long id) {
     return boardRepository.findById(id)
+        .orElseThrow(() -> new BoardNotFoundException(id));
+  }
+
+  public Board getBoardV1(final Long id) {
+    return boardRepository.findIdWithDevelop(id)
         .orElseThrow(() -> new BoardNotFoundException(id));
   }
 
