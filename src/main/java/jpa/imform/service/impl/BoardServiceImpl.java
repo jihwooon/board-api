@@ -26,6 +26,13 @@ public class BoardServiceImpl implements BoardService {
   public List<BoardDto.ListBoardResponse> getBoards(final Long memberId) {
     Member member = memberService.getMember(memberId);
 
+    return BoardDto.ListBoardResponse.of(boardRepository.findBoardByMember(member));
+  }
+
+  @Override
+  public List<BoardDto.ListBoardResponse> getBoardsV1(final Long memberId) {
+    Member member = memberService.getMember(memberId);
+
     return BoardDto.ListBoardResponse.of(boardRepository.findAllWithDevelop(member));
   }
 
@@ -41,6 +48,15 @@ public class BoardServiceImpl implements BoardService {
                                                            final Long boardId) {
     Member member = memberService.getMember(memberId);
     Board board = getBoard(boardId);
+
+    return BoardDto.getBoardResponse.of(member, board);
+  }
+
+  @Override
+  public BoardDto.getBoardResponse getBoardByIdAndMemberIdV2(final Long memberId,
+                                                             final Long boardId) {
+    Member member = memberService.getMemberV2(memberId); // 추후 V2 버전으로 변경할 예정
+    Board board = getBoardV2(boardId);
 
     return BoardDto.getBoardResponse.of(member, board);
   }
@@ -77,6 +93,11 @@ public class BoardServiceImpl implements BoardService {
 
   public Board getBoard(final Long id) {
     return boardRepository.findIdWithDevelop(id)
+        .orElseThrow(() -> new BoardNotFoundException(id));
+  }
+
+  public Board getBoardV2(final Long id) {
+    return boardRepository.findById(id)
         .orElseThrow(() -> new BoardNotFoundException(id));
   }
 

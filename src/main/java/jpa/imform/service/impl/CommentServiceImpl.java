@@ -11,7 +11,6 @@ import jpa.imform.service.BoardService;
 import jpa.imform.service.CommentService;
 import jpa.imform.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +28,14 @@ public class CommentServiceImpl implements CommentService {
   @Override
   public List<CommentDto.ListCommentResponse> getComments(final Long memberId,
                                                           final Long boardId) {
+    Member member = memberService.getMember(memberId);
+    Board board = boardService.getBoard(boardId);
+    return CommentDto.ListCommentResponse.of(commentRepository.findByMemberAndBoard(member, board));
+  }
+
+  @Override
+  public List<CommentDto.ListCommentResponse> getCommentsV1(final Long memberId,
+                                                            final Long boardId) {
     Member member = memberService.getMember(memberId);
     Board board = boardService.getBoard(boardId);
     return CommentDto.ListCommentResponse.of(commentRepository.findAllWithDevelop(member, board));

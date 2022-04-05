@@ -9,6 +9,8 @@ public interface BoardService {
 
   List<BoardDto.ListBoardResponse> getBoards(Long memberId);
 
+  List<BoardDto.ListBoardResponse> getBoardsV1(Long memberId);
+
   List<BoardDto.ListBoardResponse> getBoardsV2(Long memberId);
 
   BoardDto.CreateBoardResponse createBoard(Long memberId, BoardDto.CreateBoardRequest request);
@@ -16,6 +18,8 @@ public interface BoardService {
   BoardDto.UpdateBoardResponse updateBoard(Long memberId, Long boardId, BoardDto.UpdateBoardRequest update);
 
   BoardDto.getBoardResponse getBoardByIdAndMemberId(Long memberId, Long boardId);
+
+  BoardDto.getBoardResponse getBoardByIdAndMemberIdV2(Long memberId, Long boardId);
 
   void remove(Long id);
 

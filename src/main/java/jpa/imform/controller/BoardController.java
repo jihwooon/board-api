@@ -1,3 +1,5 @@
+//TODO : Repsoitorty 메소드별 추가
+
 package jpa.imform.controller;
 
 import jpa.imform.dto.BoardDto;
@@ -28,10 +30,29 @@ public class BoardController {
     return boardService.getBoards(memberId);
   }
 
+  //BoardRepository Interface
+  @GetMapping("member/{memberId}/boardV1")
+  public List<BoardDto.ListBoardResponse> listV1(@PathVariable final Long memberId) {
+    return boardService.getBoardsV1(memberId);
+  }
+
   //BoardJpaRepository
   @GetMapping("member/{memberId}/boardV2")
   public List<BoardDto.ListBoardResponse> listV2(@PathVariable final Long memberId) {
     return boardService.getBoardsV2(memberId);
+  }
+
+  @GetMapping("member/{memberId}/board/{boardId}")
+  public BoardDto.getBoardResponse detail(@PathVariable final Long memberId,
+                                          @PathVariable final Long boardId) {
+    return boardService.getBoardByIdAndMemberId(memberId, boardId);
+  }
+
+  //BoardJpaRepository - DetailV2
+  @GetMapping("member/{memberId}/boardV2/{boardId}")
+  public BoardDto.getBoardResponse detailV2(@PathVariable final Long memberId,
+                                            @PathVariable final Long boardId) {
+    return boardService.getBoardByIdAndMemberIdV2(memberId, boardId);
   }
 
   @PostMapping("member/{memberId}/board")
@@ -39,12 +60,6 @@ public class BoardController {
   public BoardDto.CreateBoardResponse create(@PathVariable final Long memberId,
                                              @RequestBody @Valid final BoardDto.CreateBoardRequest create) {
     return boardService.createBoard(memberId, create);
-  }
-
-  @GetMapping("member/{memberId}/board/{boardId}")
-  public BoardDto.getBoardResponse detail(@PathVariable final Long memberId,
-                                          @PathVariable final Long boardId) {
-    return boardService.getBoardByIdAndMemberId(memberId, boardId);
   }
 
   @PatchMapping("member/{memberId}/board/{boardId}")

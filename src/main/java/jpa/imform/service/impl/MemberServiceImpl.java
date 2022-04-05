@@ -19,6 +19,10 @@ public class MemberServiceImpl implements MemberService {
   private final MemberJpaRepository memberJpaRepository;
 
   public List<MemberDto.ListMemberResponse> getMembers() {
+    return MemberDto.ListMemberResponse.of(memberRepository.findAll());
+  }
+
+  public List<MemberDto.ListMemberResponse> getMembersV1() {
     return MemberDto.ListMemberResponse.of(memberRepository.findAllWithDevelop());
   }
 
@@ -47,6 +51,12 @@ public class MemberServiceImpl implements MemberService {
 
   @Override
   public Member getMember(final Long id) {
+    return memberRepository.findById(id)
+        .orElseThrow(() -> new MemberNotFoundException("return value of id"));
+  }
+
+  @Override
+  public Member getMemberV2(final Long id) {
     return memberRepository.findIdWithDevelop(id)
         .orElseThrow(() -> new MemberNotFoundException("return value of id"));
   }
