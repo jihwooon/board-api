@@ -30,14 +30,14 @@ public class CommentController {
   }
 
   //CommentRepository method name query
-  @GetMapping("member/{memberId}/board/{boardId}/commentV1")
+  @GetMapping("memberV1/{memberId}/boardV1/{boardId}/commentV1")
   public List<CommentDto.ListCommentResponse> listV1(@PathVariable final Long memberId,
                                                      @PathVariable final Long boardId) {
     return commentService.getCommentsV1(memberId, boardId);
   }
 
   //CommentJpaRepository
-  @GetMapping("member/{memberId}/board/{boardId}/commentV2")
+  @GetMapping("memberV2/{memberId}/boardV2/{boardId}/commentV2")
   public List<CommentDto.ListCommentResponse> listV2(@PathVariable final Long memberId,
                                                      @PathVariable final Long boardId) {
     return commentService.getCommentsV2(memberId, boardId);
