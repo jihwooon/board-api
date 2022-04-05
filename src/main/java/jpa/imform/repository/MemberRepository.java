@@ -10,10 +10,18 @@ import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
-  @Query(value = "select m from Member m")
-  List<Member> findAllWithDevelop();
+//  @Query(value = "select m from Member m")
+//  List<Member> findAllWithDevelop();
 
   @Query(value = "select m from Member m where m.id = :id")
-  Optional<Member> findIdWithDevelop(@Param("id") final Long id);
+  Optional<Member> findIdWithDevelop(@Param("id") Long id);
+
+  @Query(value = "select count(m) from Member m")
+  List<Member> findIdWithCount();
+
+  @Query(value = "SELECT m.name, COUNT(m.name) " +
+      " FROM Member m GROUP BY m.name" +
+      " ORDER BY m.id")
+  List<Member> findAllWithDevelop();
 
 }

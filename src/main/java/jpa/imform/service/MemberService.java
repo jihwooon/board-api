@@ -13,6 +13,7 @@ public interface MemberService {
 
   List<MemberDto.ListMemberResponse> getMembersV2();
 
+
   Member getMember(Long id);
 
   Member getMemberV1(Long id);

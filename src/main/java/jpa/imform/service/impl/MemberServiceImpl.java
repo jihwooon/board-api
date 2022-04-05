@@ -18,6 +18,7 @@ public class MemberServiceImpl implements MemberService {
   private final MemberRepository memberRepository;
   private final MemberJpaRepository memberJpaRepository;
 
+
   public List<MemberDto.ListMemberResponse> getMembers() {
     return MemberDto.ListMemberResponse.of(memberRepository.findAll());
   }

@@ -17,14 +17,13 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
       " join fetch c.board b")
   List<Comment> findAllWithCommentThem();
 
-  List<Comment> findByMemberAndBoard(final Member member, final Board board);
+  List<Comment> findByMemberAndBoard(Member member, Board board);
 
   @Query(value = "select c from Comment c " +
       "where c.member = :member and c.board = :board")
-  List<Comment> findAllWithDevelop(@Param("member") final Member member,
-                                   @Param("board") final Board board);
+  List<Comment> findAllWithDevelop(@Param("member") Member member,
+                                   @Param("board") Board board);
 
   @Query(value = "select c from Comment c where c.id = :id")
-  Optional<Comment> findIdWithDevelop(@Param("id") final Long id);
-
+  Optional<Comment> findIdWithDevelop(@Param("id") Long id);
 }
