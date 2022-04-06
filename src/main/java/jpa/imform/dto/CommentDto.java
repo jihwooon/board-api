@@ -3,7 +3,6 @@ package jpa.imform.dto;
 import jpa.imform.domain.Board;
 import jpa.imform.domain.Comment;
 import jpa.imform.domain.Member;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -41,8 +41,17 @@ public class BoardDto {
       this.title = board.getTitle();
     }
 
+    public getBoardResponse(Board board) {
+      this.content = board.getContent();
+      this.title = board.getTitle();
+    }
+
     public static getBoardResponse of(final Member member, final Board board) {
       return new getBoardResponse(member, board);
+    }
+
+    public static getBoardResponse of(final Board board) {
+      return new getBoardResponse(board);
     }
   }
 

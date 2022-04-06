@@ -1,6 +1,7 @@
 package jpa.imform.service;
 
 import jpa.imform.domain.Board;
+import jpa.imform.domain.Member;
 import jpa.imform.dto.BoardDto;
 
 import java.util.List;
@@ -25,6 +26,8 @@ public interface BoardService {
 
   Board getBoard(Long id);
 
-  Board getBoardV1(Long id);
+//  Board getBoardV1(Long id);
+
+  Board getBoardV1(Long id, Member member);
 
 }
