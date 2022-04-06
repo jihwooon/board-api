@@ -24,4 +24,7 @@ public interface MemberService {
 
   void delete(Long id);
 
+  long getMemberCount();
+
+  long getMemberCountV1();
 }
