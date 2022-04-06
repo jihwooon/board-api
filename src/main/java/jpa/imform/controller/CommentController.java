@@ -43,7 +43,7 @@ public class CommentController {
     return commentService.getCommentsV2(memberId, boardId);
   }
 
-  //CommentRepository getdetail -> Basic
+  //CommentRepository detail -> Basic
   @GetMapping("member/{memberId}/board/{boardId}/comment/{commentId}")
   public CommentDto.getCommentResponse detail(@PathVariable final Long memberId,
                                               @PathVariable final Long boardId,
@@ -51,7 +51,7 @@ public class CommentController {
     return commentService.getCommentById(memberId, boardId, commentId);
   }
 
-  //CommentRepository getdetail -> method name query
+  //CommentRepository detail -> method name query
   @GetMapping("memberV1/{memberId}/boardV1/{boardId}/commentV1/{commentId}")
   public CommentDto.getCommentResponse detailV1(@PathVariable final Long memberId,
                                                 @PathVariable final Long boardId,
@@ -80,4 +80,14 @@ public class CommentController {
   public void remove(@PathVariable final Long commentId) {
     commentService.deleteComment(commentId);
   }
+
+  @GetMapping("/comment-count")
+  public long count() {
+    return commentService.getCount();
+  }
+
+//  @GetMapping("/comment-dto")
+//  public List<CommentDto.ListCommentResponse> listDto() {
+//    return commentService.getListCommentDto();
+//  }
 }

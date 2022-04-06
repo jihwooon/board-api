@@ -2,6 +2,7 @@ package jpa.imform.controller;
 
 import jpa.imform.dto.MemberDto;
 import jpa.imform.service.MemberService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
@@ -69,5 +70,15 @@ public class MemberController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void remove(@PathVariable final Long memberId) {
     memberService.delete(memberId);
+  }
+
+  @GetMapping("member-count")
+  public long count() {
+    return memberService.getMemberCount();
+  }
+
+  @GetMapping("memberV1-count")
+  public long countV1() {
+    return memberService.getMemberCountV1();
   }
 }

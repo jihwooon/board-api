@@ -49,6 +49,7 @@ public class CommentServiceImpl implements CommentService {
     return CommentDto.ListCommentResponse.of(commentJpaRepository.findAllByMemberAndBoard(member, board));
   }
 
+  //Comment
   @Override
   public CommentDto.getCommentResponse getCommentById(final Long memberId,
                                                       final Long boardId,
@@ -60,15 +61,16 @@ public class CommentServiceImpl implements CommentService {
     return CommentDto.getCommentResponse.of(member, board, comment);
   }
 
+  //CommentV1
   @Override
   public CommentDto.getCommentResponse getCommentByIdV1(final Long memberId,
                                                         final Long boardId,
                                                         final Long commentId) {
     Member member = memberService.getMemberV1(memberId);
     Board board = boardService.getBoardV1(boardId);
-    Comment comment = getCommentV1(commentId);
+    Comment comment = getCommentV1(commentId, member, board);
 
-    return CommentDto.getCommentResponse.of(member, board, comment);
+    return CommentDto.getCommentResponse.of(comment);
   }
 
   @Override
@@ -110,8 +112,23 @@ public class CommentServiceImpl implements CommentService {
         .orElseThrow(() -> new CommentNotFoundException(id));
   }
 
-  public Comment getCommentV1(final Long id) {
-    return commentRepository.findIdWithDevelop(id)
+//  @Override
+//  public Comment getCommentV1(Long id) {
+//    return commentRepository.findIdWithDevelop(id)
+//        .orElseThrow(() -> new CommentNotFoundException(id));
+//  }
+
+  public Comment getCommentV1(final Long id, final Member member, final Board board) {
+    return commentRepository.findIdWithDevelop(id, member , board)
         .orElseThrow(() -> new CommentNotFoundException(id));
   }
+
+  public long getCount() {
+    return commentRepository.findCount();
+  }
+
+//  @Override
+//  public List<CommentDto.ListCommentResponse> getListCommentDto() {
+//    return commentRepository.findCommentDto();
+//  }
 }

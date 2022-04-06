@@ -1,6 +1,8 @@
 package jpa.imform.service;
 
+import jpa.imform.domain.Board;
 import jpa.imform.domain.Comment;
+import jpa.imform.domain.Member;
 import jpa.imform.dto.CommentDto;
 
 import java.util.List;
@@ -23,8 +25,13 @@ public interface CommentService {
 
   Comment getComment(Long id);
 
-  Comment getCommentV1(Long id);
+//  Comment getCommentV1(Long id);
+
+  Comment getCommentV1(Long id, Member member, Board board);
 
   Comment deleteComment(Long id);
 
+  long getCount();
+
+//  List<CommentDto.ListCommentResponse> getListCommentDto();
 }

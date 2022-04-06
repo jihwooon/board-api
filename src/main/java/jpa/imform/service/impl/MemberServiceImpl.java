@@ -67,4 +67,13 @@ public class MemberServiceImpl implements MemberService {
     Member memberId = getMember(id);
     memberRepository.delete(memberId);
   }
+
+  @Override
+  public long getMemberCount() {
+    return memberJpaRepository.count();
+  }
+
+  public long getMemberCountV1() {
+    return memberRepository.findIdWithMemberNameCount();
+  }
 }
