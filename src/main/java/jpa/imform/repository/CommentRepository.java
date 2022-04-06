@@ -36,8 +36,8 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
   @Query(value = "select count(c) from Comment c")
   long findCount();
 
-  //Dto 전달 객체 받기
-//  @Query(value = "select new jpa.imform.dto.CommentDto.ListCommentResponse(c.content) from Comment c")
-//  List<CommentDto.ListCommentResponse> findCommentDto();
+////Dto 전달 객체 받기
+//  @Query(value = "select new jpa.imform.dto.CommentDto.ListCommentResponse(c.content, c.createDate, c.modifiedDate) from Comment c")
+//  List<CommentDto.ListCommentResponse> findListCommentResponse();
 
 }

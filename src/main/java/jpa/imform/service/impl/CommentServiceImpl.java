@@ -67,7 +67,7 @@ public class CommentServiceImpl implements CommentService {
                                                         final Long boardId,
                                                         final Long commentId) {
     Member member = memberService.getMemberV1(memberId);
-    Board board = boardService.getBoardV1(boardId);
+    Board board = boardService.getBoardV1(boardId, member);
     Comment comment = getCommentV1(commentId, member, board);
 
     return CommentDto.getCommentResponse.of(comment);
@@ -129,6 +129,6 @@ public class CommentServiceImpl implements CommentService {
 
 //  @Override
 //  public List<CommentDto.ListCommentResponse> getListCommentDto() {
-//    return commentRepository.findCommentDto();
+//    return commentJpaRepository.findListCommentResponse();
 //  }
 }
