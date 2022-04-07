@@ -1,9 +1,8 @@
-package jpa.imform.repository;
+package jpa.imform.repository.EntityRepository;
 
 import jpa.imform.domain.Board;
 import jpa.imform.domain.Comment;
 import jpa.imform.domain.Member;
-import jpa.imform.dto.CommentDto;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

@@ -2,7 +2,7 @@ package jpa.imform.api;
 
 import jpa.imform.domain.Board;
 import jpa.imform.dto.BoardDto;
-import jpa.imform.repository.BoardRepository;
+import jpa.imform.repository.JpaRepository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,9 +1,10 @@
-package jpa.imform.repository;
+package jpa.imform.repository.JpaRepository;
 
 import jpa.imform.domain.Board;
 import jpa.imform.domain.Comment;
 import jpa.imform.domain.Member;
 import jpa.imform.dto.CommentDto;
+import jpa.imform.dto.CommentDtoImpl;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -36,8 +37,13 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
   @Query(value = "select count(c) from Comment c")
   long findCount();
 
-////Dto 전달 객체 받기
-//  @Query(value = "select new jpa.imform.dto.CommentDto.ListCommentResponse(c.content, c.createDate, c.modifiedDate) from Comment c")
+//  ListCommentResponse DTO를 @query를 사용해서 API 전달 받기
+//  @Query(value = "select new jpa.imform.dto.CommentDto.ListCommentResponse(c.content, c.createDate, c.modifiedDate) from Comment c") // <- 쿼리에서
 //  List<CommentDto.ListCommentResponse> findListCommentResponse();
 
+  @Query(value = "SELECT content, createDate, modifiedDate FROM Comment ", nativeQuery = true)
+  List<CommentDtoImpl> getCommentDtoImpl();
+
+//Validation failed for query for method public abstract java.util. 에러
+//nativeQuery = true 설정해서 가능 하다고 나옴제
 }

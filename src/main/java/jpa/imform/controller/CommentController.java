@@ -84,7 +84,7 @@ public class CommentController {
   @GetMapping("/comment-count")
   public long count() {
     return commentService.getCount();
-  }
+}
 
 //  @GetMapping("/comment-dto")
 //  public List<CommentDto.ListCommentResponse> listDto() {

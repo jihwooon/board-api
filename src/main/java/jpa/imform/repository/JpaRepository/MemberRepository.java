@@ -1,4 +1,4 @@
-package jpa.imform.repository;
+package jpa.imform.repository.JpaRepository;
 
 import jpa.imform.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,8 +20,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
   Long findIdWithMemberNameCount();
 
 //  @Query(value = "SELECT m.name, COUNT(m.name) " +
-////      " FROM Member m GROUP BY m.name" +
-////      " ORDER BY m.id")
-////  List<Member> findAllWithDevelop();
+//      " FROM Member m GROUP BY m.name" +
+//      " ORDER BY m.id")
+//  List<Member> findAllWithDevelop();
 
 }

@@ -1,4 +1,4 @@
-package jpa.imform.repository;
+package jpa.imform.repository.JpaRepository;
 
 import jpa.imform.domain.Board;
 import jpa.imform.domain.Member;
@@ -18,11 +18,12 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
   @Query(value = "select b from Board b where b.member = :member")
   List<Board> findAllWithDevelop(@Param("member") Member member);
 
+  @Query(value = "select b from Board b where b.id = :id and b.member = :member")
+  Optional<Board> findIdWithDevelop(@Param("id") Long id,
+                                    @Param("member") Member member);
+
 //  //BoardRepositoryV1 detail
 //  @Query(value = "select b from Board b where b.id = :id")
 //  Optional<Board> findIdWithDevelop(@Param("id") Long id);
 
-  @Query(value = "select b from Board b where b.id = :id and b.member = :member")
-  Optional<Board> findIdWithDevelop(@Param("id") Long id,
-                                    @Param("member") Member member);
 }

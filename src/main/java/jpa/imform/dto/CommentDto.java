@@ -3,7 +3,9 @@ package jpa.imform.dto;
 import jpa.imform.domain.Board;
 import jpa.imform.domain.Comment;
 import jpa.imform.domain.Member;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
@@ -13,13 +15,15 @@ import java.util.stream.Collectors;
 
 public class CommentDto {
 
-  @Getter
+//  @Getter
+  @Data
   public static class ListCommentResponse {
     private String content;
     private LocalDateTime createDate;
     private LocalDateTime modifiedDate;
 
-    public ListCommentResponse(Comment comment) {
+
+  public ListCommentResponse(Comment comment) {
       this.content = comment.getContent();
       this.createDate = comment.getCreateDate();
       this.modifiedDate = comment.getModifiedDate();

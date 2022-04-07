@@ -1,4 +1,4 @@
-package jpa.imform.repository;
+package jpa.imform.repository.EntityRepository;
 
 import jpa.imform.domain.Member;
 import org.springframework.stereotype.Repository;
