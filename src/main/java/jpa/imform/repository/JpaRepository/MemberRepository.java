@@ -1,6 +1,7 @@
 package jpa.imform.repository.JpaRepository;
 
 import jpa.imform.domain.Member;
+import jpa.imform.dto.MemberSimpleDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,5 +24,14 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 //      " FROM Member m GROUP BY m.name" +
 //      " ORDER BY m.id")
 //  List<Member> findAllWithDevelop();
+
+//  @Query(value = "select new jpa.imform.dto.MemberDto.ListMemberRequest(m.name, m.phone, m.email) FROM Member m")
+//  List<Member> findListDto();
+
+//  @Query(value = "select m.name, m.phone, m.email FROM Member m", nativeQuery = true)
+//  List<Tuple> findListDto();
+
+  @Query(value = "SELECT new jpa.imform.dto.MemberSimpleDto(m.name, m.email) FROM Member m")
+  List<MemberSimpleDto> findListDtos();
 
 }

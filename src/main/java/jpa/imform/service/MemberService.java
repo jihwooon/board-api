@@ -2,6 +2,7 @@ package jpa.imform.service;
 
 import jpa.imform.domain.Member;
 import jpa.imform.dto.MemberDto;
+import jpa.imform.dto.MemberSimpleDto;
 
 import java.util.List;
 
@@ -26,4 +27,6 @@ public interface MemberService {
   long getMemberCount();
 
   long getMemberCountV1();
+
+  List<MemberSimpleDto> getSimpleDto();
 }

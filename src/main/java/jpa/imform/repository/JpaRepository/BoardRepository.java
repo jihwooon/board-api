@@ -2,6 +2,7 @@ package jpa.imform.repository.JpaRepository;
 
 import jpa.imform.domain.Board;
 import jpa.imform.domain.Member;
+import jpa.imform.dto.BoardSimpleDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -25,5 +26,8 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 //  //BoardRepositoryV1 detail
 //  @Query(value = "select b from Board b where b.id = :id")
 //  Optional<Board> findIdWithDevelop(@Param("id") Long id);
+
+  @Query(value = "SELECT new jpa.imform.dto.BoardSimpleDto(b.title, b.content, m.name) FROM Board b join b.member m")
+  List<BoardSimpleDto> findBoardDto();
 
 }
