@@ -3,7 +3,7 @@ package jpa.imform.api;
 
 import jpa.imform.domain.Member;
 import jpa.imform.dto.MemberDto;
-import jpa.imform.repository.MemberRepository;
+import jpa.imform.repository.JpaRepository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

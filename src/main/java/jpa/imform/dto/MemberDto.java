@@ -1,5 +1,6 @@
 package jpa.imform.dto;
 
+import jpa.imform.domain.Board;
 import jpa.imform.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
@@ -40,11 +41,14 @@ public class MemberDto {
       private String name;
       private String phone;
       private String email;
+      private List<BoardDto.ListBoardResponse> board;
+
 
       public DetailMemberResponse(Member member) {
         this.name = member.getName();
         this.phone = member.getPhone();
         this.email = member.getEmail();
+
       }
 
       public static DetailMemberResponse of(final Member member) {

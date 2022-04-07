@@ -5,8 +5,8 @@ import jpa.imform.domain.Comment;
 import jpa.imform.domain.Member;
 import jpa.imform.dto.CommentDto;
 import jpa.imform.error.CommentNotFoundException;
-import jpa.imform.repository.CommentJpaRepository;
-import jpa.imform.repository.CommentRepository;
+import jpa.imform.repository.EntityRepository.CommentJpaRepository;
+import jpa.imform.repository.JpaRepository.CommentRepository;
 import jpa.imform.service.BoardService;
 import jpa.imform.service.CommentService;
 import jpa.imform.service.MemberService;
@@ -36,8 +36,8 @@ public class CommentServiceImpl implements CommentService {
   @Override
   public List<CommentDto.ListCommentResponse> getCommentsV1(final Long memberId,
                                                             final Long boardId) {
-    Member member = memberService.getMember(memberId);
     Board board = boardService.getBoard(boardId);
+    Member member = memberService.getMember(memberId);
     return CommentDto.ListCommentResponse.of(commentRepository.findAllWithDevelop(member, board));
   }
 
@@ -129,6 +129,6 @@ public class CommentServiceImpl implements CommentService {
 
 //  @Override
 //  public List<CommentDto.ListCommentResponse> getListCommentDto() {
-//    return commentJpaRepository.findListCommentResponse();
+//    return commentRepository.findListCommentResponse();
 //  }
 }

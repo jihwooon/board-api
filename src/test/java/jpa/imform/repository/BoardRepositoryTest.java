@@ -1,6 +1,7 @@
 package jpa.imform.repository;
 
 import jpa.imform.domain.Board;
+import jpa.imform.repository.JpaRepository.BoardRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

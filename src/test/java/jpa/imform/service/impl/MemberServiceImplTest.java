@@ -3,7 +3,7 @@ package jpa.imform.service.impl;
 import jpa.imform.domain.Member;
 import jpa.imform.dto.MemberDto;
 import jpa.imform.error.MemberNotFoundException;
-import jpa.imform.repository.MemberRepository;
+import jpa.imform.repository.JpaRepository.MemberRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
