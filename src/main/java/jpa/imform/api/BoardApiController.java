@@ -2,7 +2,9 @@ package jpa.imform.api;
 
 import jpa.imform.domain.Board;
 import jpa.imform.dto.BoardDto;
+import jpa.imform.dto.BoardSimpleDto;
 import jpa.imform.repository.JpaRepository.BoardRepository;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,4 +28,8 @@ public class BoardApiController {
     return result;
   }
 
+  @GetMapping("/board/api/v2")
+  public List<BoardSimpleDto> listV2() {
+    return boardRepository.findBoardDto();
+  }
 }

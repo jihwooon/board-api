@@ -81,4 +81,5 @@ public class MemberController {
   public long countV1() {
     return memberService.getMemberCountV1();
   }
+
 }

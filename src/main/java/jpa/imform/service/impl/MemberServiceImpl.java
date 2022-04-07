@@ -2,6 +2,7 @@ package jpa.imform.service.impl;
 
 import jpa.imform.domain.Member;
 import jpa.imform.dto.MemberDto;
+import jpa.imform.dto.MemberSimpleDto;
 import jpa.imform.error.MemberNotFoundException;
 import jpa.imform.repository.EntityRepository.MemberJpaRepository;
 import jpa.imform.repository.JpaRepository.MemberRepository;
@@ -76,4 +77,10 @@ public class MemberServiceImpl implements MemberService {
   public long getMemberCountV1() {
     return memberRepository.findIdWithMemberNameCount();
   }
+
+  @Override
+  public List<MemberSimpleDto> getSimpleDto(){
+    return memberRepository.findListDtos();
+  }
+
 }
