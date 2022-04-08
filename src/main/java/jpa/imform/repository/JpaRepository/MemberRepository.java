@@ -31,13 +31,17 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 //  @Query(value = "select m.name, m.phone, m.email FROM Member m", nativeQuery = true)
 //  List<Tuple> findListDto();
 
-//  @Query(value = "SELECT new jpa.imform.dto.MemberSimpleDto.MemberSimpleDtoV1(m.name, m.email) FROM Member m") // inner 클래스로하면 Unable to locate class 오류 메시지 발생
-//  List<MemberSimpleDto.MemberSimpleDtoV1> findListDto();
-
 //  @Query(value = "select new jpa.imform.dto.MemberListDto(m.name, m.email, m.phone, m.boards) from Member m")
 //  List<MemberListDto> findListDtobyBoards();
+
+//  @Query(value = "SELECT new jpa.imform.dto.MemberSimpleDto.MemberSimpleDtoV1(m.name, m.email) FROM Member m") // inner 클래스로하면 Unable to locate class 오류 메시지 발생
+//  List<MemberSimpleDto.MemberSimpleDtoV1> findListDto();
 
   @Query(value = "SELECT new jpa.imform.dto.MemberSimpleDto(m.name, m.email) FROM Member m")
   List<MemberSimpleDto> findListDto();
 
+//  @Query(value = "select new jpa.imform.dto.MemberSimpleDto.MemberSimpleDtoV2(m.name, m.phone , m.email) from Member m")
+//  List<MemberSimpleDto.MemberSimpleDtoV2> findListDto2();
+
 }
+

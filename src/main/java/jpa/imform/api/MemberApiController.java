@@ -38,14 +38,4 @@ public class MemberApiController {
     return memberService.getSimpleDto();
   }
 
-//  @GetMapping("/member/api/v3")
-//  public List<MemberSimpleDto> listV3() {
-//    return memberJpaRepository.findListSimpleBoardDtos();
-//  }
-
-//  @GetMapping("/member/api/v3")
-//  public List<MemberListDto> listV3() {
-//    return memberRepository.findListDtobyBoards();
-//  }
-
 }
