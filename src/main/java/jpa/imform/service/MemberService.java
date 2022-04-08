@@ -29,4 +29,5 @@ public interface MemberService {
   long getMemberCountV1();
 
   List<MemberSimpleDto> getSimpleDto();
+
 }

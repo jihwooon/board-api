@@ -4,7 +4,6 @@ package jpa.imform.api;
 import jpa.imform.domain.Member;
 import jpa.imform.dto.MemberDto;
 import jpa.imform.dto.MemberSimpleDto;
-import jpa.imform.repository.EntityRepository.MemberJpaRepository;
 import jpa.imform.repository.JpaRepository.MemberRepository;
 import jpa.imform.service.impl.MemberServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,6 @@ import java.util.stream.Collectors;
 public class MemberApiController {
 
   private final MemberRepository memberRepository;
-  private final MemberJpaRepository memberJpaRepository;
   private final MemberServiceImpl memberService;
 
   @GetMapping("/member/api/v1")
@@ -37,8 +35,4 @@ public class MemberApiController {
     return memberService.getSimpleDto();
   }
 
-  @GetMapping("/member/api/v3")
-  public List<MemberSimpleDto> listV3() {
-    return memberJpaRepository.findListSimpleBoardDtos();
-  }
 }
