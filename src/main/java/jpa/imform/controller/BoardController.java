@@ -30,29 +30,10 @@ public class BoardController {
     return boardService.getBoards(memberId);
   }
 
-  //BoardRepository Interface
-  @GetMapping("memberV1/{memberId}/boardV1")
-  public List<BoardDto.ListBoardResponse> listV1(@PathVariable final Long memberId) {
-    return boardService.getBoardsV1(memberId);
-  }
-
-  //BoardJpaRepository
-  @GetMapping("memberV2/{memberId}/boardV2")
-  public List<BoardDto.ListBoardResponse> listV2(@PathVariable final Long memberId) {
-    return boardService.getBoardsV2(memberId);
-  }
-
   @GetMapping("member/{memberId}/board/{boardId}")
   public BoardDto.getBoardResponse detail(@PathVariable final Long memberId,
                                           @PathVariable final Long boardId) {
     return boardService.getBoardByIdAndMemberId(memberId, boardId);
-  }
-
-  //BoardJpaRepository - DetailV2
-  @GetMapping("memberV1/{memberId}/boardV1/{boardId}")
-  public BoardDto.getBoardResponse detailV1(@PathVariable final Long memberId,
-                                            @PathVariable final Long boardId) {
-    return boardService.getBoardByIdAndMemberIdV1(memberId, boardId);
   }
 
   @PostMapping("member/{memberId}/board")
@@ -74,4 +55,24 @@ public class BoardController {
   public void remove(@PathVariable final Long boardId) {
     boardService.remove(boardId);
   }
+
+  //BoardRepository Interface
+  @GetMapping("memberV1/{memberId}/boardV1")
+  public List<BoardDto.ListBoardResponse> listV1(@PathVariable final Long memberId) {
+    return boardService.getBoardsV1(memberId);
+  }
+
+  //BoardJpaRepository
+  @GetMapping("memberV2/{memberId}/boardV2")
+  public List<BoardDto.ListBoardResponse> listV2(@PathVariable final Long memberId) {
+    return boardService.getBoardsV2(memberId);
+  }
+
+  //BoardJpaRepository - DetailV2
+  @GetMapping("memberV1/{memberId}/boardV1/{boardId}")
+  public BoardDto.getBoardResponse detailV1(@PathVariable final Long memberId,
+                                            @PathVariable final Long boardId) {
+    return boardService.getBoardByIdAndMemberIdV1(memberId, boardId);
+  }
+
 }

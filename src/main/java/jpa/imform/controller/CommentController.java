@@ -3,6 +3,7 @@ package jpa.imform.controller;
 import jpa.imform.dto.CommentDto;
 import jpa.imform.service.CommentService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class CommentController {
 
   private final CommentService commentService;
@@ -29,34 +31,12 @@ public class CommentController {
     return commentService.getComments(memberId, boardId);
   }
 
-  //CommentRepository method name query
-  @GetMapping("memberV1/{memberId}/boardV1/{boardId}/commentV1")
-  public List<CommentDto.ListCommentResponse> listV1(@PathVariable final Long memberId,
-                                                     @PathVariable final Long boardId) {
-    return commentService.getCommentsV1(memberId, boardId);
-  }
-
-  //CommentJpaRepository
-  @GetMapping("memberV2/{memberId}/boardV2/{boardId}/commentV2")
-  public List<CommentDto.ListCommentResponse> listV2(@PathVariable final Long memberId,
-                                                     @PathVariable final Long boardId) {
-    return commentService.getCommentsV2(memberId, boardId);
-  }
-
   //CommentRepository detail -> Basic
   @GetMapping("member/{memberId}/board/{boardId}/comment/{commentId}")
   public CommentDto.getCommentResponse detail(@PathVariable final Long memberId,
                                               @PathVariable final Long boardId,
                                               @PathVariable final Long commentId) {
     return commentService.getCommentById(memberId, boardId, commentId);
-  }
-
-  //CommentRepository detail -> method name query
-  @GetMapping("memberV1/{memberId}/boardV1/{boardId}/commentV1/{commentId}")
-  public CommentDto.getCommentResponse detailV1(@PathVariable final Long memberId,
-                                                @PathVariable final Long boardId,
-                                                @PathVariable final Long commentId) {
-    return commentService.getCommentByIdV1(memberId, boardId, commentId);
   }
 
   @PostMapping("member/{memberId}/board/{boardId}/comment")
@@ -84,7 +64,29 @@ public class CommentController {
   @GetMapping("/comment-count")
   public long count() {
     return commentService.getCount();
-}
+  }
+
+  //CommentRepository method name query
+  @GetMapping("memberV1/{memberId}/boardV1/{boardId}/commentV1")
+  public List<CommentDto.ListCommentResponse> listV1(@PathVariable final Long memberId,
+                                                     @PathVariable final Long boardId) {
+    return commentService.getCommentsV1(memberId, boardId);
+  }
+
+  //CommentJpaRepository
+  @GetMapping("memberV2/{memberId}/boardV2/{boardId}/commentV2")
+  public List<CommentDto.ListCommentResponse> listV2(@PathVariable final Long memberId,
+                                                     @PathVariable final Long boardId) {
+    return commentService.getCommentsV2(memberId, boardId);
+  }
+
+  //CommentRepository detail -> method name query
+  @GetMapping("memberV1/{memberId}/boardV1/{boardId}/commentV1/{commentId}")
+  public CommentDto.getCommentResponse detailV1(@PathVariable final Long memberId,
+                                                @PathVariable final Long boardId,
+                                                @PathVariable final Long commentId) {
+    return commentService.getCommentByIdV1(memberId, boardId, commentId);
+  }
 
 //  @GetMapping("/comment-dto")
 //  public List<CommentDto.ListCommentResponse> listDto() {

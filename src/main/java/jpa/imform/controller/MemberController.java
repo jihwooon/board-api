@@ -24,34 +24,14 @@ public class MemberController {
 
   private final MemberService memberService;
 
-  //MemberRepository method name query
   @GetMapping("member")
   public List<MemberDto.ListMemberResponse> list() {
     return memberService.getMembers();
   }
 
-  //MemberRepository Entity manager
-  @GetMapping("memberV1")
-  public List<MemberDto.ListMemberResponse> listV1() {
-    return memberService.getMembersV1();
-  }
-
-  //MemberJpaRepository
-  @GetMapping("memberV2")
-  public List<MemberDto.ListMemberResponse> listV2() {
-    return memberService.getMembersV2();
-  }
-
-  //MemberRepository -> getDetail basic
   @GetMapping("member/{memberId}")
   public MemberDto.DetailMemberResponse detail(@PathVariable final Long memberId) {
     return MemberDto.DetailMemberResponse.of(memberService.getMember(memberId));
-  }
-
-  //MemberRepository -> getDetail method name query
-  @GetMapping("memberV1/{memberId}")
-  public MemberDto.DetailMemberResponse detailV1(@PathVariable final Long memberId) {
-    return MemberDto.DetailMemberResponse.of(memberService.getMemberV1(memberId));
   }
 
   @PostMapping("member")
@@ -80,6 +60,24 @@ public class MemberController {
   @GetMapping("memberV1-count")
   public long countV1() {
     return memberService.getMemberCountV1();
+  }
+
+  //MemberRepository Entity manager
+  @GetMapping("memberV1")
+  public List<MemberDto.ListMemberResponse> listV1() {
+    return memberService.getMembersV1();
+  }
+
+  //MemberJpaRepository
+  @GetMapping("memberV2")
+  public List<MemberDto.ListMemberResponse> listV2() {
+    return memberService.getMembersV2();
+  }
+
+  //MemberRepository -> getDetail method name query
+  @GetMapping("memberV1/{memberId}")
+  public MemberDto.DetailMemberResponse detailV1(@PathVariable final Long memberId) {
+    return MemberDto.DetailMemberResponse.of(memberService.getMemberV1(memberId));
   }
 
 }

@@ -21,6 +21,7 @@ repositories {
 
 dependencies {
 	
+	// asdciidoc
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.6'
 	asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 	
@@ -31,15 +32,33 @@ dependencies {
 	testImplementation 'org.mockito:mockito-core:4.3.1'
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	
+	// thymelaf 
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	
+	// validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	
+	// sprign-web
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	
+	// Lombok
+	annotationProcessor 'org.projectlombok:lombok'
 	compileOnly 'org.projectlombok:lombok'
+	
+	// Database
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:2.7.2'
-	annotationProcessor 'org.projectlombok:lombok'
+	
+	// Test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+	// JWT
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+	runtime 'io.jsonwebtoken:jjwt-impl:0.11.2'
+	runtime 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+
+	// p6spy
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6'
 
 	// Spring Boot Test
@@ -47,6 +66,7 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 
+	// restdoc mockmvc
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 }
 
