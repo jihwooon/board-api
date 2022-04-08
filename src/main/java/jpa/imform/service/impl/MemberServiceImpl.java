@@ -80,7 +80,7 @@ public class MemberServiceImpl implements MemberService {
 
   @Override
   public List<MemberSimpleDto> getSimpleDto(){
-    return memberRepository.findListDtos();
+    return memberRepository.findListDto();
   }
 
 }
