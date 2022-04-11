@@ -20,6 +20,6 @@ class AuthenticationServiceTest {
   void login() {
     String accessToken = authenticationService.login();
 
-    assertThat(accessToken).contains(".");
+    assertThat(accessToken).contains(".xxx");
   }
 }

@@ -1,5 +1,6 @@
 package jpa.imform.service.impl;
 
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,8 @@ public class AuthenticationService {
   public String login() {
     Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-    return "a.b.c";
+    return Jwts.builder()
+        .signWith(key)
+        .compact();
   }
 }
