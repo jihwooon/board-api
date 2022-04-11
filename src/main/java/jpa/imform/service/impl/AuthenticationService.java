@@ -5,9 +5,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationService {
+  private JwtUtil jwtUtil;
+
+  public AuthenticationService(JwtUtil jwtUtil) {
+    this.jwtUtil = jwtUtil;
+  }
 
   public String login() {
-    JwtUtil jwtUtil = new JwtUtil();
     return jwtUtil.encode(1L);
   }
 }

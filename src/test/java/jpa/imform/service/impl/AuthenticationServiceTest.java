@@ -1,11 +1,10 @@
 package jpa.imform.service.impl;
 
+import jpa.imform.utils.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-
 
 class AuthenticationServiceTest {
 
@@ -13,7 +12,9 @@ class AuthenticationServiceTest {
 
   @BeforeEach
   void setUp() {
-    authenticationService = new AuthenticationService();
+    JwtUtil jwtUtil = new JwtUtil();
+
+    authenticationService = new AuthenticationService(jwtUtil);
   }
 
   @Test
