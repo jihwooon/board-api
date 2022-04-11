@@ -18,4 +18,4 @@ logging:
     org.hibernate.type: trace
 
 jwt:
-  secret: 12345678901234567890123456789012
+  secret: "c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0"
