@@ -7,12 +7,13 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class AuthenticationServiceTest {
+  public static final String SECRET = "12345367890123453678901234536789012";
 
   private AuthenticationService authenticationService;
 
   @BeforeEach
   void setUp() {
-    JwtUtil jwtUtil = new JwtUtil();
+    JwtUtil jwtUtil = new JwtUtil(SECRET);
 
     authenticationService = new AuthenticationService(jwtUtil);
   }
