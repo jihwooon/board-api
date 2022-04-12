@@ -35,7 +35,7 @@ public class MemberController {
     return MemberDto.DetailMemberResponse.of(memberService.getMember(memberId));
   }
 
-  @PostMapping("member")
+  @PostMapping("members")
   @ResponseStatus(HttpStatus.CREATED)
   public MemberDto.CreateMemberResponse create(
       @RequestHeader("Authorization") String authorization,
