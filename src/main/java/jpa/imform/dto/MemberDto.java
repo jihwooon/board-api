@@ -1,9 +1,11 @@
 package jpa.imform.dto;
 
 import jpa.imform.domain.Member;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
@@ -65,6 +67,8 @@ public class MemberDto {
 
   @Getter
   @Builder
+  @AllArgsConstructor
+  @NoArgsConstructor
   public static class CreateMemberRequest {
 
     @NotBlank(message = "이름을 입력해주세요")
@@ -87,13 +91,11 @@ public class MemberDto {
     private String name;
     private String phone;
     private String email;
-    private List<BoardDto.CreateBoardResponse> boards;
 
     public CreateMemberResponse(Member member) {
       this.name = member.getName();
       this.phone = member.getPhone();
       this.email = member.getEmail();
-      this.boards = BoardDto.CreateBoardResponse.of(member.getBoards());
     }
 
     public static CreateMemberResponse of(final Member member) {
