@@ -55,3 +55,4 @@ class AuthenticationServiceTest {
   }
 
 }
+  //http POST localhost:8083/members name="Rank" password="1234" phone="010" email="test@exmaple" "Authorization: IMFOEM eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MX0.BGwAfdmwKJCrBws5J7rE55Qn9QWDixTHNV80OiFbAJg"

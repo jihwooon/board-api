@@ -27,6 +27,7 @@ public class BoardController {
   //BoardRepository Interface
   @GetMapping("member/{memberId}/board")
   public List<BoardDto.ListBoardResponse> list(@PathVariable final Long memberId) {
+
     return boardService.getBoards(memberId);
   }
 
