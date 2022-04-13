@@ -1,18 +1,14 @@
 package jpa.imform.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
-//@NoArgsConstructor
 @AllArgsConstructor
 public class MemberSimpleDto {
 
   private String name;
   private String email;
-
 
   public class MemberSimpleDtoV1 {
   }
