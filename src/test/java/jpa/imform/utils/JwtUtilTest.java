@@ -3,13 +3,15 @@ package jpa.imform.utils;
 import io.jsonwebtoken.Claims;
 import jpa.imform.error.InvalidTokenException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+@DisplayName("JwtUtil")
 class JwtUtilTest {
-  private static final String SERCET = "12345678901234567890123456789012";
+  private static final String SECRET = "12345678901234567890123456789012";
   private static final String VALID_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MX0.vU91JPmJz_Kx_53C0i1p0i2NKEwTgMDOGtzMtx5UF4I";
   private static final String INVALID_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MX0.vU91JPmJz_Kx_53C0i1p0i2NKEwTgMDOGtzMtx5UF43";
 
@@ -17,7 +19,7 @@ class JwtUtilTest {
 
   @BeforeEach
   void setUp() {
-    jwtUtil = new JwtUtil(SERCET);
+    jwtUtil = new JwtUtil(SECRET);
   }
 
   @Test

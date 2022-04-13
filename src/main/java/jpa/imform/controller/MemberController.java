@@ -25,12 +25,12 @@ public class MemberController {
   private final MemberService memberService;
   private final AuthenticationService authenticationService;
 
-  @GetMapping("member")
+  @GetMapping("members")
   public List<MemberDto.ListMemberResponse> list() {
     return memberService.getMembers();
   }
 
-  @GetMapping("member/{memberId}")
+  @GetMapping("members/{memberId}")
   public MemberDto.DetailMemberResponse detail(@PathVariable final Long memberId) {
     return MemberDto.DetailMemberResponse.of(memberService.getMember(memberId));
   }
@@ -49,13 +49,13 @@ public class MemberController {
     return memberService.createMember(create);
   }
 
-  @PatchMapping("member/{memberId}")
+  @PatchMapping("members/{memberId}")
   public MemberDto.UpdateMemberResponse update(@PathVariable final Long memberId,
                                                @RequestBody @Valid final MemberDto.UpdateMemberRequest update) {
     return memberService.updateMember(memberId, update);
   }
 
-  @DeleteMapping("member/{memberId}")
+  @DeleteMapping("members/{memberId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void remove(@PathVariable final Long memberId) {
     memberService.delete(memberId);

@@ -2,10 +2,11 @@ package jpa.imform.controller;
 
 import jpa.imform.service.impl.AuthenticationService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.core.StringContains.containsString;
@@ -15,12 +16,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(SessionController.class)
+@DisplayName("SessionController")
 class SessionControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
 
-  @SpyBean
+  @MockBean
   private AuthenticationService authenticationService;
 
   @BeforeEach
