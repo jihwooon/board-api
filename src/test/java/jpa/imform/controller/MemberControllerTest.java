@@ -70,7 +70,6 @@ class MemberControllerTest {
   }
 
   @Test
-  @DisplayName("전체 조회가 가능한 경우")
   void list() throws Exception {
     mockMvc.perform(get("/members")
         .contentType(MediaType.APPLICATION_JSON))
@@ -78,21 +77,12 @@ class MemberControllerTest {
   }
 
   @Test
-  @DisplayName("Id가 같을 경우")
   void detailWithExistedId() throws Exception {
     mockMvc.perform(get("/members/1")
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
 
     verify(memberService).getMember(1L);
-  }
-
-  @Test
-  @DisplayName("Id가 다를 경우")
-  void detailWithNotExistedId() throws Exception {
-    mockMvc.perform(get("/members/100")
-        .contentType(MediaType.APPLICATION_JSON))
-        .andExpect(status().isNotFound());
   }
 
   @Test
@@ -107,12 +97,27 @@ class MemberControllerTest {
   }
 
   @Test
+  void detailWithNotExistedId() throws Exception {
+    mockMvc.perform(get("/members/100")
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isNotFound());
+  }
+
+  @Test
   void createWithWrongMember() throws Exception {
     mockMvc.perform(post("/members")
         .contentType(MediaType.APPLICATION_JSON)
         .content("{\"name\" : \"Voyatouch\", \"password\": \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@om\"}")
         .header("Authorization", "Bearer " + INVALID_TOKEN))
         .andExpect(status().isUnauthorized());
+  }
+
+  @Test
+  void createWithNotAuthMember() throws Exception {
+    mockMvc.perform(post("/members")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content("{\"name\" : \"장그래\", \"password\": \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}"))
+        .andExpect(status().isBadRequest());
   }
 
   @Test
@@ -135,7 +140,7 @@ class MemberControllerTest {
   void updateWithNotExistedId() throws Exception {
     mockMvc.perform(patch("/members/100")
         .contentType(MediaType.APPLICATION_JSON)
-        .content("{\"name\" : \"asds\", \"password\" : \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}"))
+        .content("{\"name\" : \"Voyatouch\", \"password\" : \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}"))
         .andExpect(status().isNotFound());
   }
 

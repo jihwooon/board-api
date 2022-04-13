@@ -1,6 +1,5 @@
 package jpa.imform.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jpa.imform.service.BoardService;
 import org.junit.jupiter.api.DisplayName;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +13,6 @@ class BoardControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
-
-  @Autowired
-  private ObjectMapper objectMapper;
 
   @MockBean
   private BoardService boardService;
