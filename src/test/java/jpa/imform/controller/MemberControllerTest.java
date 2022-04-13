@@ -63,7 +63,6 @@ class MemberControllerTest {
 
     given(memberService.createMember(any(MemberDto.CreateMemberRequest.class))).willReturn(MemberDto.CreateMemberResponse.of(member));
 
-
     given(authenticationService.parseToken(VALID_TOKEN)).willReturn(1L);
 
     given(authenticationService.parseToken(INVALID_TOKEN)).willThrow(new InvalidTokenException(INVALID_TOKEN));
