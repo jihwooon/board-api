@@ -1,9 +1,8 @@
-//TODO : Repsoitorty 메소드별 추가
-
 package jpa.imform.controller;
 
 import jpa.imform.dto.BoardDto;
 import jpa.imform.service.BoardService;
+import jpa.imform.service.impl.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,7 +23,8 @@ public class BoardController {
 
   private final BoardService boardService;
 
-  //BoardRepository Interface
+  private final AuthenticationService authenticationService;
+
   @GetMapping("member/{memberId}/board")
   public List<BoardDto.ListBoardResponse> list(@PathVariable final Long memberId) {
 
@@ -55,25 +55,6 @@ public class BoardController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void remove(@PathVariable final Long boardId) {
     boardService.remove(boardId);
-  }
-
-  //BoardRepository Interface
-  @GetMapping("memberV1/{memberId}/boardV1")
-  public List<BoardDto.ListBoardResponse> listV1(@PathVariable final Long memberId) {
-    return boardService.getBoardsV1(memberId);
-  }
-
-  //BoardJpaRepository
-  @GetMapping("memberV2/{memberId}/boardV2")
-  public List<BoardDto.ListBoardResponse> listV2(@PathVariable final Long memberId) {
-    return boardService.getBoardsV2(memberId);
-  }
-
-  //BoardJpaRepository - DetailV2
-  @GetMapping("memberV1/{memberId}/boardV1/{boardId}")
-  public BoardDto.getBoardResponse detailV1(@PathVariable final Long memberId,
-                                            @PathVariable final Long boardId) {
-    return boardService.getBoardByIdAndMemberIdV1(memberId, boardId);
   }
 
 }

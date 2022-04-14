@@ -1,10 +1,3 @@
-//TODO : JWT을 이용한 로그인 기능 구현
-// SessionController
-// AuthenticationService
-// AuthenticationInterceptor
-// JWTUtil
-// SessionRequest, SessionResponses DTO
-
 package jpa.imform.controller;
 
 import jpa.imform.dto.SessionDto;
@@ -19,16 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/session")
 public class SessionController {
 
-  private final AuthenticationService authenticationService;
+  private final AuthenticationService authenticationServiceImpl;
 
-  public SessionController(AuthenticationService authenticationService) {
-    this.authenticationService = authenticationService;
+  public SessionController(AuthenticationService authenticationServiceImpl) {
+    this.authenticationServiceImpl = authenticationServiceImpl;
   }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public SessionDto.SessionResponse login() {
-    String accessToken = authenticationService.login();
+    String accessToken = authenticationServiceImpl.login();
 
     return SessionDto.SessionResponse.builder()
         .accessToken(accessToken)
