@@ -24,7 +24,6 @@ public class BoardController {
 
   private final BoardService boardService;
 
-  //BoardRepository Interface
   @GetMapping("member/{memberId}/board")
   public List<BoardDto.ListBoardResponse> list(@PathVariable final Long memberId) {
 
@@ -55,25 +54,6 @@ public class BoardController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void remove(@PathVariable final Long boardId) {
     boardService.remove(boardId);
-  }
-
-  //BoardRepository Interface
-  @GetMapping("memberV1/{memberId}/boardV1")
-  public List<BoardDto.ListBoardResponse> listV1(@PathVariable final Long memberId) {
-    return boardService.getBoardsV1(memberId);
-  }
-
-  //BoardJpaRepository
-  @GetMapping("memberV2/{memberId}/boardV2")
-  public List<BoardDto.ListBoardResponse> listV2(@PathVariable final Long memberId) {
-    return boardService.getBoardsV2(memberId);
-  }
-
-  //BoardJpaRepository - DetailV2
-  @GetMapping("memberV1/{memberId}/boardV1/{boardId}")
-  public BoardDto.getBoardResponse detailV1(@PathVariable final Long memberId,
-                                            @PathVariable final Long boardId) {
-    return boardService.getBoardByIdAndMemberIdV1(memberId, boardId);
   }
 
 }
