@@ -1,7 +1,7 @@
 package jpa.imform.controller;
 
 import jpa.imform.dto.SessionDto;
-import jpa.imform.service.impl.AuthenticationService;
+import jpa.imform.service.impl.AuthenticationServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/session")
 public class SessionController {
 
-  private final AuthenticationService authenticationService;
+  private final AuthenticationServiceImpl authenticationServiceImpl;
 
-  public SessionController(AuthenticationService authenticationService) {
-    this.authenticationService = authenticationService;
+  public SessionController(AuthenticationServiceImpl authenticationServiceImpl) {
+    this.authenticationServiceImpl = authenticationServiceImpl;
   }
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public SessionDto.SessionResponse login() {
-    String accessToken = authenticationService.login();
+    String accessToken = authenticationServiceImpl.login();
 
     return SessionDto.SessionResponse.builder()
         .accessToken(accessToken)

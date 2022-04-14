@@ -5,7 +5,7 @@ import jpa.imform.dto.MemberDto;
 import jpa.imform.error.InvalidTokenException;
 import jpa.imform.error.MemberNotFoundException;
 import jpa.imform.service.MemberService;
-import jpa.imform.service.impl.AuthenticationService;
+import jpa.imform.service.impl.AuthenticationServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -47,7 +47,7 @@ class MemberControllerTest {
   private MemberService memberService;
 
   @MockBean
-  private AuthenticationService authenticationService;
+  private AuthenticationServiceImpl authenticationService;
 
   @BeforeEach
   void setUp() {

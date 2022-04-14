@@ -2,8 +2,8 @@ package jpa.imform.controller;
 
 import jpa.imform.domain.Member;
 import jpa.imform.dto.MemberDto;
+import jpa.imform.service.AuthenticationService;
 import jpa.imform.service.MemberService;
-import jpa.imform.service.impl.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;

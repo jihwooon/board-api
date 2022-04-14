@@ -1,6 +1,6 @@
 package jpa.imform.controller;
 
-import jpa.imform.service.impl.AuthenticationService;
+import jpa.imform.service.impl.AuthenticationServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ class SessionControllerTest {
   private MockMvc mockMvc;
 
   @MockBean
-  private AuthenticationService authenticationService;
+  private AuthenticationServiceImpl authenticationService;
 
   @BeforeEach
   void setUp() {

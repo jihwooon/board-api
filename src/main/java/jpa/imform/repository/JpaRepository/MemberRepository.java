@@ -43,5 +43,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
   @Query(value = "SELECT new jpa.imform.dto.MemberSimpleDto(m.name, m.email) FROM Member m")
   List<MemberSimpleDto> findListDto();
 
+  Member delete(Long id);
 }
 
