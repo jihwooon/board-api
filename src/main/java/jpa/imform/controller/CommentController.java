@@ -2,6 +2,7 @@ package jpa.imform.controller;
 
 import jpa.imform.dto.CommentDto;
 import jpa.imform.service.CommentService;
+import jpa.imform.service.impl.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,7 @@ import java.util.List;
 public class CommentController {
 
   private final CommentService commentService;
+  private final AuthenticationService authenticationService;
 
   //CommentRepository Basic
   @GetMapping("member/{memberId}/board/{boardId}/comment")

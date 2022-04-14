@@ -5,7 +5,7 @@ import jpa.imform.dto.MemberDto;
 import jpa.imform.error.InvalidTokenException;
 import jpa.imform.error.MemberNotFoundException;
 import jpa.imform.service.MemberService;
-import jpa.imform.service.impl.AuthenticationServiceImpl;
+import jpa.imform.service.impl.AuthenticationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -47,7 +47,7 @@ class MemberControllerTest {
   private MemberService memberService;
 
   @MockBean
-  private AuthenticationServiceImpl authenticationService;
+  private AuthenticationService authenticationService;
 
   @BeforeEach
   void setUp() {
@@ -83,22 +83,6 @@ class MemberControllerTest {
     mockMvc.perform(get("/members")
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
-  }
-
-  @Test
-  void detailWithExistedId() throws Exception {
-    mockMvc.perform(get("/members/1")
-        .contentType(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk());
-
-    verify(memberService).getMember(1L);
-  }
-
-  @Test
-  void detailWithNotExistedId() throws Exception {
-    mockMvc.perform(get("/members/100")
-        .contentType(MediaType.APPLICATION_JSON))
-        .andExpect(status().isNotFound());
   }
 
   @Test
@@ -191,13 +175,15 @@ class MemberControllerTest {
 
   @Test
   void deleteWithExistedId() throws Exception {
-    mockMvc.perform(delete("/members/1"))
+    mockMvc.perform(delete("/members/1")
+        .header("Authorization", "Bearer " + VALID_TOKEN))
         .andExpect(status().isNoContent());
   }
 
   @Test
   void deleteWithNotExistedId() throws Exception {
-    mockMvc.perform(delete("/members/100"))
-        .andExpect(status().isNotFound());
+    mockMvc.perform(delete("/members/100")
+        .header("Authorization", "Bearer " + INVALID_TOKEN))
+        .andExpect(status().isUnauthorized());
   }
 }

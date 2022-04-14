@@ -2,8 +2,8 @@ package jpa.imform.controller;
 
 import jpa.imform.domain.Member;
 import jpa.imform.dto.MemberDto;
-import jpa.imform.service.AuthenticationService;
 import jpa.imform.service.MemberService;
+import jpa.imform.service.impl.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -62,7 +62,13 @@ public class MemberController {
 
   @DeleteMapping("members/{memberId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public Member remove(@PathVariable final Long memberId) {
+  public Member remove(
+      @RequestHeader("Authorization") String authorization,
+      @PathVariable final Long memberId) {
+
+    String accessToken = authorization.substring("Bearer ".length());
+    Long userId = authenticationService.parseToken(accessToken);
+
     return memberService.delete(memberId);
   }
 

@@ -15,12 +15,12 @@ class AuthenticationServiceImplTest {
   public static final String VALID_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MX0.BGwAfdmwKJCrBws5J7rE55Qn9QWDixTHNV80OiFbAJg";
   public static final String INVALID_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MX0.BGwAfdmwKJCrBws5J7rE55Qn9QWDixTHNV80OiFbAJ2";
 
-  private AuthenticationServiceImpl authenticationServiceImpl;
+  private AuthenticationService authenticationServiceImpl;
 
   @BeforeEach
   void setUp() {
     JwtUtil jwtUtil = new JwtUtil(SECRET);
-    authenticationServiceImpl = new AuthenticationServiceImpl(jwtUtil);
+    authenticationServiceImpl = new AuthenticationService(jwtUtil);
   }
 
   @Test

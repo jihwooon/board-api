@@ -5,6 +5,7 @@ import jpa.imform.dto.BoardDto;
 import jpa.imform.dto.BoardSimpleDto;
 import jpa.imform.repository.JpaRepository.BoardRepository;
 import jpa.imform.service.BoardService;
+import jpa.imform.service.impl.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ public class BoardApiController {
 
   private final BoardRepository boardRepository;
   private final BoardService boardService;
+  private final AuthenticationService authenticationService;
 
   @GetMapping("/board/api/v1")
   public List<BoardDto.ListBoardResponse> listV1() {

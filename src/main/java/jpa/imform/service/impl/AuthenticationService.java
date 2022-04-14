@@ -1,17 +1,16 @@
 package jpa.imform.service.impl;
 
 import io.jsonwebtoken.Claims;
-import jpa.imform.service.AuthenticationService;
 import jpa.imform.utils.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AuthenticationServiceImpl implements AuthenticationService {
+public class AuthenticationService{
   private JwtUtil jwtUtil;
 
-  public AuthenticationServiceImpl(JwtUtil jwtUtil) {
+  public AuthenticationService(JwtUtil jwtUtil) {
     this.jwtUtil = jwtUtil;
   }
 

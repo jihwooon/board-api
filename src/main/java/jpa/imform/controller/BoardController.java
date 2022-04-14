@@ -2,6 +2,7 @@ package jpa.imform.controller;
 
 import jpa.imform.dto.BoardDto;
 import jpa.imform.service.BoardService;
+import jpa.imform.service.impl.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,6 +22,8 @@ import java.util.List;
 public class BoardController {
 
   private final BoardService boardService;
+
+  private final AuthenticationService authenticationService;
 
   @GetMapping("member/{memberId}/board")
   public List<BoardDto.ListBoardResponse> list(@PathVariable final Long memberId) {
