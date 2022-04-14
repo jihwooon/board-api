@@ -1,6 +1,7 @@
 package jpa.imform.error;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,5 +20,11 @@ public class ControllerErrorAdvice {
   @ResponseStatus(HttpStatus.UNAUTHORIZED)
   @ExceptionHandler(InvalidTokenException.class)
   public void handleInvalidAccessTokenException() {
+  }
+
+  @ResponseStatus(HttpStatus.UNAUTHORIZED)
+  @ExceptionHandler(MissingRequestHeaderException.class)
+  public void handleMissingRequestHeaderException() {
+
   }
 }

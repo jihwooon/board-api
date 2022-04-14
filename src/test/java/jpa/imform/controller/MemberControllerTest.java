@@ -62,11 +62,15 @@ class MemberControllerTest {
 
     given(memberService.getMember(100L)).willThrow(new MemberNotFoundException("Not Found Exception Id"));
 
+    given(memberService.createMember(any(MemberDto.CreateMemberRequest.class))).willReturn(MemberDto.CreateMemberResponse.of(member));
+
     given(memberService.updateMember(eq(1L), any(MemberDto.UpdateMemberRequest.class))).willReturn(MemberDto.UpdateMemberResponse.of(member));
 
     given(memberService.updateMember(eq(100L), any(MemberDto.UpdateMemberRequest.class))).willThrow(new MemberNotFoundException("Not Found Exception"));
 
-    given(memberService.createMember(any(MemberDto.CreateMemberRequest.class))).willReturn(MemberDto.CreateMemberResponse.of(member));
+    given(memberService.delete(1L)).willReturn(member);
+
+    given(memberService.delete(100L)).willThrow(new MemberNotFoundException("Not Found Exception"));
 
     given(authenticationService.parseToken(VALID_TOKEN)).willReturn(1L);
 
@@ -161,12 +165,12 @@ class MemberControllerTest {
   }
 
   @Test
-  void updateWithNotFoundId() throws Exception {
+  void updateWithWrongMember() throws Exception {
     mockMvc.perform(patch("/members/100")
         .contentType(MediaType.APPLICATION_JSON)
         .content("{\"name\" : \"장그래\", \"password\" : \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}")
         .header("Authorization", "Bearer " + VALID_TOKEN))
-        .andExpect(status().isUnauthorized());
+        .andExpect(status().isNotFound());
   }
 
   @Test
@@ -189,5 +193,11 @@ class MemberControllerTest {
   void deleteWithExistedId() throws Exception {
     mockMvc.perform(delete("/members/1"))
         .andExpect(status().isNoContent());
+  }
+
+  @Test
+  void deleteWithNotExistedId() throws Exception {
+    mockMvc.perform(delete("/members/100"))
+        .andExpect(status().isNotFound());
   }
 }

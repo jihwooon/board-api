@@ -8,6 +8,7 @@ import jpa.imform.repository.JpaRepository.MemberRepository;
 import jpa.imform.service.impl.MemberServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -34,5 +35,31 @@ public class MemberApiController {
   public List<MemberSimpleDto> listV2() {
     return memberService.getSimpleDto();
   }
+
+  @GetMapping("member-count")
+  public long count() {
+    return memberService.getMemberCount();
+  }
+
+  @GetMapping("memberV1-count")
+  public long countV1() {
+    return memberService.getMemberCountV1();
+  }
+
+  @GetMapping("memberV1")
+  public List<MemberDto.ListMemberResponse> listV3() {
+    return memberService.getMembersV1();
+  }
+
+  @GetMapping("memberV2")
+  public List<MemberDto.ListMemberResponse> listV4() {
+    return memberService.getMembersV2();
+  }
+
+  @GetMapping("memberV1/{memberId}")
+  public MemberDto.DetailMemberResponse detailV1(@PathVariable final Long memberId) {
+    return MemberDto.DetailMemberResponse.of(memberService.getMemberV1(memberId));
+  }
+
 
 }

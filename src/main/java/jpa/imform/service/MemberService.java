@@ -22,7 +22,7 @@ public interface MemberService {
 
   MemberDto.UpdateMemberResponse updateMember(Long id, MemberDto.UpdateMemberRequest request);
 
-  void delete(Long id);
+  Member delete(Long id);
 
   long getMemberCount();
 
