@@ -149,7 +149,7 @@ class MemberControllerTest {
   void updateWithExistedId() throws Exception {
     mockMvc.perform(patch("/members/1")
         .contentType(MediaType.APPLICATION_JSON)
-        .content("{\"name\" : \"장그래\", \"password\" : \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}")
+        .content("{\"name\" : \"장그래\", \"password\" : \"12345\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}")
         .header("Authorization", "Bearer " + VALID_TOKEN))
         .andExpect(status().isOk());
   }
