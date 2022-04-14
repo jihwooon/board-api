@@ -17,11 +17,16 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
@@ -86,21 +91,22 @@ class MemberControllerTest {
   }
 
   @Test
-  void createWithExistedMember() throws Exception {
-    mockMvc.perform(post("/members")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content("{\"name\" : \"장그\", \"password\": \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}")
-        .header("Authorization", "Bearer " + VALID_TOKEN))
-        .andExpect(status().isCreated());
-
-    verify(memberService).createMember(any());
-  }
-
-  @Test
   void detailWithNotExistedId() throws Exception {
     mockMvc.perform(get("/members/100")
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isNotFound());
+  }
+
+  @Test
+  void createWithExistedMember() throws Exception {
+    mockMvc.perform(post("/members")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content("{\"name\" : \"Voyatouch\", \"password\": \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}")
+        .header("Authorization", "Bearer " + VALID_TOKEN))
+        .andExpect(status().isCreated())
+        .andExpect(content().string(containsString("Voyatouch")));
+
+    verify(memberService).createMember(any());
   }
 
   @Test
@@ -117,7 +123,7 @@ class MemberControllerTest {
     mockMvc.perform(post("/members")
         .contentType(MediaType.APPLICATION_JSON)
         .content("{\"name\" : \"장그래\", \"password\": \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}"))
-        .andExpect(status().isBadRequest());
+        .andExpect(status().isUnauthorized());
   }
 
   @Test
@@ -125,23 +131,58 @@ class MemberControllerTest {
     mockMvc.perform(post("/members")
         .contentType(MediaType.APPLICATION_JSON)
         .content("{}"))
-        .andExpect(status().isBadRequest());
+        .andExpect(status().isUnauthorized());
   }
 
   @Test
   void updateWithExistedId() throws Exception {
     mockMvc.perform(patch("/members/1")
         .contentType(MediaType.APPLICATION_JSON)
-        .content("{\"name\" : \"장그래\", \"password\" : \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}"))
+        .content("{\"name\" : \"장그래\", \"password\" : \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}")
+        .header("Authorization", "Bearer " + VALID_TOKEN))
         .andExpect(status().isOk());
+  }
+
+  @Test
+  void updateWithWrongAccessToken() throws Exception {
+    mockMvc.perform(patch("/members/1")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content("{\"name\" : \"장그래\", \"password\" : \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}")
+        .header("Authorization", "Bearer " + INVALID_TOKEN))
+        .andExpect(status().isUnauthorized());
+  }
+
+  @Test
+  void updateWithNoAccessToken() throws Exception {
+    mockMvc.perform(patch("/members/1")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content("{\"name\" : \"장그래\", \"password\" : \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}"))
+        .andExpect(status().isUnauthorized());
+  }
+
+  @Test
+  void updateWithNotFoundId() throws Exception {
+    mockMvc.perform(patch("/members/100")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content("{\"name\" : \"장그래\", \"password\" : \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}")
+        .header("Authorization", "Bearer " + VALID_TOKEN))
+        .andExpect(status().isUnauthorized());
+  }
+
+  @Test
+  void updateWithWrongIdAndNoAccessToken() throws Exception {
+    mockMvc.perform(patch("/members/100")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content("{\"name\" : \"장그래\", \"password\" : \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}"))
+        .andExpect(status().isUnauthorized());
   }
 
   @Test
   void updateWithNotExistedId() throws Exception {
     mockMvc.perform(patch("/members/100")
         .contentType(MediaType.APPLICATION_JSON)
-        .content("{\"name\" : \"Voyatouch\", \"password\" : \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}"))
-        .andExpect(status().isNotFound());
+        .content("{\"name\" : \"장그래\", \"password\" : \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}"))
+        .andExpect(status().isUnauthorized());
   }
 
   @Test
@@ -149,5 +190,4 @@ class MemberControllerTest {
     mockMvc.perform(delete("/members/1"))
         .andExpect(status().isNoContent());
   }
-
 }

@@ -5,7 +5,9 @@ import jpa.imform.service.MemberService;
 import jpa.imform.service.impl.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -71,22 +73,24 @@ public class MemberController {
     return memberService.getMemberCountV1();
   }
 
-  //MemberRepository Entity manager
   @GetMapping("memberV1")
   public List<MemberDto.ListMemberResponse> listV1() {
     return memberService.getMembersV1();
   }
 
-  //MemberJpaRepository
   @GetMapping("memberV2")
   public List<MemberDto.ListMemberResponse> listV2() {
     return memberService.getMembersV2();
   }
 
-  //MemberRepository -> getDetail method name query
   @GetMapping("memberV1/{memberId}")
   public MemberDto.DetailMemberResponse detailV1(@PathVariable final Long memberId) {
     return MemberDto.DetailMemberResponse.of(memberService.getMemberV1(memberId));
   }
 
+  @ExceptionHandler(MissingRequestHeaderException.class)
+  @ResponseStatus(HttpStatus.UNAUTHORIZED)
+  public void handleMissingRequestHeaderException() {
+
+  }
 }
