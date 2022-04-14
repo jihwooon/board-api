@@ -1,5 +1,3 @@
-//TODO : Repsoitorty 메소드별 추가
-
 package jpa.imform.controller;
 
 import jpa.imform.dto.BoardDto;
