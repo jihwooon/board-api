@@ -37,17 +37,14 @@ public class MemberController {
 
     @PostMapping("members")
     @ResponseStatus(HttpStatus.CREATED)
-//    @PreAuthorize("isAuthenticated()")
     public MemberDto.CreateMemberResponse create(
         @RequestBody @Valid final MemberDto.CreateMemberRequest create
-//        Authentication authentication
     ) {
 
         return memberService.createMember(create);
     }
 
     @PatchMapping("members/{memberId}")
-//    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
     public MemberDto.UpdateMemberResponse update(
         @PathVariable final Long memberId,
         @RequestBody @Valid final MemberDto.UpdateMemberRequest update
@@ -57,11 +54,9 @@ public class MemberController {
     }
 
     @DeleteMapping("members/{memberId}")
-//    @PreAuthorize("isAuthenticated()")
     public Member remove(
         @PathVariable final Long memberId) {
 
         return memberService.delete(memberId);
     }
-
 }
