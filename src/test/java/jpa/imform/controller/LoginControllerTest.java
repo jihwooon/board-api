@@ -1,6 +1,7 @@
 package jpa.imform.controller;
 
 
+import jpa.imform.dto.LoginDto;
 import jpa.imform.service.impl.AuthenticationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -11,14 +12,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.core.StringContains.containsString;
-import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(SessionController.class)
-@DisplayName("SessionController")
-class SessionControllerTest {
+@WebMvcTest(LoginController.class)
+@DisplayName("LoginController")
+class LoginControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
@@ -26,16 +26,30 @@ class SessionControllerTest {
   @MockBean
   private AuthenticationService authenticationService;
 
+
   @BeforeEach
   void setUp() {
-    given(authenticationService.login()).willReturn("a.b.c");
+
+    LoginDto.LoginInRequest request = LoginDto.LoginInRequest.builder()
+        .email("jihwooon@example.com")
+        .password("1234")
+        .build();
+
+//    given(authenticationService.login(request)).willReturn("a.b.c");
+//    given(authenticationService.login(request)).willThrow(new InvalidTokenException("Not have token"));
   }
 
   @Test
   void login() throws Exception {
-    mockMvc.perform(post("/session"))
+    mockMvc.perform(post("/login"))
         .andExpect(status().isCreated())
         .andExpect(content().string(containsString(".")));
+  }
+
+  @Test
+  void loginWithNotToken() throws Exception {
+    mockMvc.perform(post("/login"))
+        .andExpect(status().isUnauthorized());
   }
 
 }

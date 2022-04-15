@@ -19,7 +19,6 @@ public class BoardServiceImpl implements BoardService {
 
   private final BoardRepository boardRepository;
   private final BoardJpaRepository boardJpaRepository;
-
   private final MemberService memberService;
 
   @Override
