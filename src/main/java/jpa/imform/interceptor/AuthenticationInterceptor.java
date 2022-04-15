@@ -23,7 +23,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                            HttpServletResponse response,
                            Object handler) throws Exception {
 
-    return (filterPathAndMethod(request)) ||
+    return filterPathAndMethod(request) ||
         doAuthentication(request, response);
   }
 

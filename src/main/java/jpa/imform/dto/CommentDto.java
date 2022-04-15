@@ -20,7 +20,7 @@ public class CommentDto {
     private LocalDateTime modifiedDate;
 
 
-  public ListCommentResponse(Comment comment) {
+    public ListCommentResponse(Comment comment) {
       this.content = comment.getContent();
       this.createDate = comment.getCreateDate();
       this.modifiedDate = comment.getModifiedDate();

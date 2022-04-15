@@ -1,5 +1,6 @@
 package jpa.imform.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jpa.imform.domain.Member;
 import jpa.imform.dto.MemberDto;
 import jpa.imform.error.InvalidTokenException;
@@ -13,9 +14,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.nio.charset.StandardCharsets;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
@@ -49,14 +53,29 @@ class MemberControllerTest {
   @MockBean
   private AuthenticationService authenticationService;
 
+  @Autowired
+  private ObjectMapper objectMapper;
+
+  private Member member;
+
+  private HttpHeaders validToken;
+
+  private HttpHeaders InvalidToken;
+
   @BeforeEach
   void setUp() {
-    Member member = Member.builder()
+    member = Member.builder()
         .name("Voyatouch")
         .password("1234")
         .phone("736-207-6273")
         .email("rfrid1b@squidoo.com")
         .build();
+
+    validToken = new HttpHeaders();
+    validToken.add("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MX0.vU91JPmJz_Kx_53C0i1p0i2NKEwTgMDOGtzMtx5UF4I");
+
+    InvalidToken = new HttpHeaders();
+    InvalidToken.add("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MX0.vU91JPmJz_Kx_53C0i1p0i2NKEwTgMDOGtzMtx5UF42");
 
     given(memberService.getMember(1L)).willReturn(member);
 
@@ -87,10 +106,13 @@ class MemberControllerTest {
 
   @Test
   void createWithExistedMember() throws Exception {
+
     mockMvc.perform(post("/members")
+        .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
-        .content("{\"name\" : \"Voyatouch\", \"password\": \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}")
-        .header("Authorization", "Bearer " + VALID_TOKEN))
+        .characterEncoding(StandardCharsets.UTF_8.name())
+        .content(objectMapper.writeValueAsString(member))
+        .headers(validToken))
         .andExpect(status().isCreated())
         .andExpect(content().string(containsString("Voyatouch")));
 
@@ -101,8 +123,9 @@ class MemberControllerTest {
   void createWithWrongMember() throws Exception {
     mockMvc.perform(post("/members")
         .contentType(MediaType.APPLICATION_JSON)
-        .content("{\"name\" : \"Voyatouch\", \"password\": \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@om\"}")
-        .header("Authorization", "Bearer " + INVALID_TOKEN))
+        .content(objectMapper.writeValueAsString(member))
+        .characterEncoding(StandardCharsets.UTF_8.name())
+        .headers(InvalidToken))
         .andExpect(status().isUnauthorized());
   }
 
@@ -126,7 +149,7 @@ class MemberControllerTest {
   void updateWithExistedId() throws Exception {
     mockMvc.perform(patch("/members/1")
         .contentType(MediaType.APPLICATION_JSON)
-        .content("{\"name\" : \"장그래\", \"password\" : \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}")
+        .content("{\"name\" : \"장그래\", \"password\" : \"12345\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}")
         .header("Authorization", "Bearer " + VALID_TOKEN))
         .andExpect(status().isOk());
   }
@@ -177,7 +200,7 @@ class MemberControllerTest {
   void deleteWithExistedId() throws Exception {
     mockMvc.perform(delete("/members/1")
         .header("Authorization", "Bearer " + VALID_TOKEN))
-        .andExpect(status().isNoContent());
+        .andExpect(status().isOk());
   }
 
   @Test

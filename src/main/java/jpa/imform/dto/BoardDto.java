@@ -29,6 +29,7 @@ public class BoardDto {
           .map(o -> new ListBoardResponse(o))
           .collect(Collectors.toList());
     }
+
   }
 
   @Getter

@@ -8,8 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @DisplayName("Application")
 class ImformApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+  @Test
+  void contextLoads() {
+  }
 
 }
