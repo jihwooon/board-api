@@ -39,11 +39,7 @@ public class MemberController {
   @PostMapping("members")
   @ResponseStatus(HttpStatus.CREATED)
   public MemberDto.CreateMemberResponse create(
-      @RequestHeader("Authorization") String authorization,
       @RequestBody @Valid final MemberDto.CreateMemberRequest create) {
-
-    String accessToken = authorization.substring("Bearer ".length());
-    Long memberId = authenticationService.parseToken(accessToken);
 
     return memberService.createMember(create);
   }

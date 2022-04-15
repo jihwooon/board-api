@@ -119,7 +119,7 @@ public class CommentServiceImpl implements CommentService {
 //  }
 
   public Comment getCommentV1(final Long id, final Member member, final Board board) {
-    return commentRepository.findIdWithDevelop(id, member , board)
+    return commentRepository.findIdWithDevelop(id, member, board)
         .orElseThrow(() -> new CommentNotFoundException(id));
   }
 
