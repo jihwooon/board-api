@@ -6,8 +6,6 @@ import jpa.imform.service.MemberService;
 import jpa.imform.service.impl.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -39,17 +37,17 @@ public class MemberController {
 
     @PostMapping("members")
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("isAuthenticated()")
+//    @PreAuthorize("isAuthenticated()")
     public MemberDto.CreateMemberResponse create(
-        @RequestBody @Valid final MemberDto.CreateMemberRequest create,
-        Authentication authentication
+        @RequestBody @Valid final MemberDto.CreateMemberRequest create
+//        Authentication authentication
     ) {
 
         return memberService.createMember(create);
     }
 
     @PatchMapping("members/{memberId}")
-    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
+//    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
     public MemberDto.UpdateMemberResponse update(
         @PathVariable final Long memberId,
         @RequestBody @Valid final MemberDto.UpdateMemberRequest update
@@ -59,7 +57,7 @@ public class MemberController {
     }
 
     @DeleteMapping("members/{memberId}")
-    @PreAuthorize("isAuthenticated()")
+//    @PreAuthorize("isAuthenticated()")
     public Member remove(
         @PathVariable final Long memberId) {
 
