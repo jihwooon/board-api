@@ -200,7 +200,7 @@ class MemberControllerTest {
   void deleteWithExistedId() throws Exception {
     mockMvc.perform(delete("/members/1")
         .header("Authorization", "Bearer " + VALID_TOKEN))
-        .andExpect(status().isNoContent());
+        .andExpect(status().isOk());
   }
 
   @Test
