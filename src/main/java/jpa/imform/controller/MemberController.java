@@ -3,7 +3,7 @@ package jpa.imform.controller;
 import jpa.imform.domain.Member;
 import jpa.imform.dto.MemberDto;
 import jpa.imform.service.MemberService;
-import jpa.imform.service.impl.AuthenticationService;
+import jpa.imform.service.impl.AuthenticationServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,7 +24,7 @@ import java.util.List;
 public class MemberController {
 
   private final MemberService memberService;
-  private final AuthenticationService authenticationService;
+  private final AuthenticationServiceImpl authenticationServiceImpl;
 
   @GetMapping("members")
   public List<MemberDto.ListMemberResponse> list() {
@@ -43,7 +43,7 @@ public class MemberController {
       @RequestBody @Valid final MemberDto.CreateMemberRequest create) {
 
     String accessToken = authorization.substring("Bearer ".length());
-    Long memberId = authenticationService.parseToken(accessToken);
+    Long memberId = authenticationServiceImpl.parseToken(accessToken);
 
     return memberService.createMember(create);
   }
@@ -55,7 +55,7 @@ public class MemberController {
       @RequestBody @Valid final MemberDto.UpdateMemberRequest update) {
 
     String accessToken = authorization.substring("Bearer ".length());
-    Long userId = authenticationService.parseToken(accessToken);
+    Long userId = authenticationServiceImpl.parseToken(accessToken);
 
     return memberService.updateMember(memberId, update);
   }
@@ -67,7 +67,7 @@ public class MemberController {
       @PathVariable final Long memberId) {
 
     String accessToken = authorization.substring("Bearer ".length());
-    Long userId = authenticationService.parseToken(accessToken);
+    Long userId = authenticationServiceImpl.parseToken(accessToken);
 
     return memberService.delete(memberId);
   }

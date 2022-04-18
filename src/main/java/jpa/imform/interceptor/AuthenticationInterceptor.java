@@ -1,6 +1,6 @@
 package jpa.imform.interceptor;
 
-import jpa.imform.service.impl.AuthenticationService;
+import jpa.imform.service.impl.AuthenticationServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -12,10 +12,10 @@ import java.io.IOException;
 @Component
 public class AuthenticationInterceptor implements HandlerInterceptor {
 
-  private AuthenticationService authenticationService;
+  private AuthenticationServiceImpl authenticationServiceImpl;
 
-  public AuthenticationInterceptor(AuthenticationService authenticationService) {
-    this.authenticationService = authenticationService;
+  public AuthenticationInterceptor(AuthenticationServiceImpl authenticationServiceImpl) {
+    this.authenticationServiceImpl = authenticationServiceImpl;
   }
 
   @Override
@@ -50,7 +50,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     }
 
     String accessToken = authorization.substring("Bearer ".length());
-    Long memberId = authenticationService.parseToken(accessToken);
+    Long memberId = authenticationServiceImpl.parseToken(accessToken);
 
     return true;
   }

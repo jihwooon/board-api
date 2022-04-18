@@ -3,10 +3,10 @@
 //import jpa.imform.domain.Member;
 //import jpa.imform.dto.MemberDto;
 //import jpa.imform.error.MemberNotFoundException;
+//import jpa.imform.repository.EntityRepository.MemberJpaRepository;
 //import jpa.imform.repository.JpaRepository.MemberRepository;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
 //
 //import java.util.List;
 //import java.util.Optional;
@@ -22,10 +22,12 @@
 //
 //  private MemberRepository memberRepository = mock(MemberRepository.class);
 //  private MemberServiceImpl memberService;
+//  private MemberJpaRepository memberJpaRepository;
+//
 //
 //  @BeforeEach
 //  public void setUp() {
-//    memberService = new MemberServiceImpl(memberRepository);
+//    memberService = new MemberServiceImpl(memberRepository, memberJpaRepository);
 //
 //    Member member = Member.builder()
 //        .name("jihwooon")

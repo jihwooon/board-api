@@ -7,20 +7,18 @@ import jpa.imform.error.MemberNotFoundException;
 import jpa.imform.repository.EntityRepository.MemberJpaRepository;
 import jpa.imform.repository.JpaRepository.MemberRepository;
 import jpa.imform.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
   private final MemberRepository memberRepository;
   private final MemberJpaRepository memberJpaRepository;
 
-  public MemberServiceImpl(MemberRepository memberRepository, MemberJpaRepository memberJpaRepository) {
-    this.memberRepository = memberRepository;
-    this.memberJpaRepository = memberJpaRepository;
-  }
 
   public List<MemberDto.ListMemberResponse> getMembers() {
     return MemberDto.ListMemberResponse.of(memberRepository.findAll());
@@ -83,7 +81,7 @@ public class MemberServiceImpl implements MemberService {
   }
 
   @Override
-  public List<MemberSimpleDto> getSimpleDto(){
+  public List<MemberSimpleDto> getSimpleDto() {
     return memberRepository.findListDto();
   }
 

@@ -20,6 +20,11 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
   @Query(value = "select count(m.name) from Member m")
   Long findIdWithMemberNameCount();
 
+  @Query(value = "SELECT new jpa.imform.dto.MemberSimpleDto(m.name, m.email) FROM Member m")
+  List<MemberSimpleDto> findListDto();
+
+  Optional<Member> findByEmail(String email);
+
 //  @Query(value = "SELECT m.name, COUNT(m.name) " +
 //      " FROM Member m GROUP BY m.name" +
 //      " ORDER BY m.id")
@@ -39,9 +44,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
 //  @Query(value = "select new jpa.imform.dto.MemberSimpleDto.MemberSimpleDtoV2(m.name, m.phone , m.email) from Member m")
 //  List<MemberSimpleDto.MemberSimpleDtoV2> findListDto2();
-
-  @Query(value = "SELECT new jpa.imform.dto.MemberSimpleDto(m.name, m.email) FROM Member m")
-  List<MemberSimpleDto> findListDto();
 
 }
 

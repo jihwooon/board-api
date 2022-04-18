@@ -60,4 +60,7 @@ public class Member {
     this.email = request.getEmail();
   }
 
+  public boolean authenticate(String password) {
+    return password.equals(this.password);
+  }
 }
