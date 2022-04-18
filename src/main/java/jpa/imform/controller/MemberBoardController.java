@@ -1,7 +1,16 @@
+//TODO : 회원 일 경우 게시판
+// list : 회원 인 경우만 볼 수 있는 경우
+// detail : 특정 회원만 조회
+// create : 회원 일 경우 글 등록 가능
+// update : 회원 일 경우 글 수정 가능
+// delete : 회원 일 경우 글 삭제 가능
+
+//TODO : 비회원일 경우 게시판 조회
+// list : 회원/비회원 구분 없이 조회 가능
 package jpa.imform.controller;
 
 import jpa.imform.dto.BoardDto;
-import jpa.imform.service.BoardService;
+import jpa.imform.service.MemberBoardService;
 import jpa.imform.service.impl.AuthenticationServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,44 +28,41 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class BoardController {
+public class MemberBoardController {
 
-  private final BoardService boardService;
-
+  private final MemberBoardService memberBoardService;
   private final AuthenticationServiceImpl authenticationServiceImpl;
 
   @GetMapping("member/{memberId}/board")
   public List<BoardDto.ListBoardResponse> list(@PathVariable final Long memberId) {
 
-    return boardService.getBoards(memberId);
+    return memberBoardService.getBoards(memberId);
   }
 
   @GetMapping("member/{memberId}/board/{boardId}")
   public BoardDto.getBoardResponse detail(@PathVariable final Long memberId,
                                           @PathVariable final Long boardId) {
-    return boardService.getBoardByIdAndMemberId(memberId, boardId);
+    return memberBoardService.getBoardByIdAndMemberId(memberId, boardId);
   }
 
   @PostMapping("member/{memberId}/board")
   @ResponseStatus(HttpStatus.CREATED)
   public BoardDto.CreateBoardResponse create(@PathVariable final Long memberId,
                                              @RequestBody @Valid final BoardDto.CreateBoardRequest create) {
-    return boardService.createBoard(memberId, create);
+    return memberBoardService.createBoard(memberId, create);
   }
 
   @PatchMapping("member/{memberId}/board/{boardId}")
   public BoardDto.UpdateBoardResponse update(@PathVariable final Long memberId,
                                              @PathVariable final Long boardId,
                                              @RequestBody @Valid final BoardDto.UpdateBoardRequest update) {
-    return boardService.updateBoard(memberId, boardId, update);
+    return memberBoardService.updateBoard(memberId, boardId, update);
   }
 
   @DeleteMapping("/board/{boardId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void remove(@PathVariable final Long boardId) {
-    boardService.remove(boardId);
+    memberBoardService.remove(boardId);
   }
-
-  //
 
 }

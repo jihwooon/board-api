@@ -6,7 +6,7 @@ import jpa.imform.dto.BoardDto;
 import jpa.imform.error.BoardNotFoundException;
 import jpa.imform.repository.EntityRepository.BoardJpaRepository;
 import jpa.imform.repository.JpaRepository.BoardRepository;
-import jpa.imform.service.BoardService;
+import jpa.imform.service.MemberBoardService;
 import jpa.imform.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class BoardServiceImpl implements BoardService {
+public class MemberBoardServiceImpl implements MemberBoardService {
 
   private final BoardRepository boardRepository;
   private final BoardJpaRepository boardJpaRepository;

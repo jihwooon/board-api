@@ -7,7 +7,7 @@ import jpa.imform.dto.CommentDto;
 import jpa.imform.error.CommentNotFoundException;
 import jpa.imform.repository.EntityRepository.CommentJpaRepository;
 import jpa.imform.repository.JpaRepository.CommentRepository;
-import jpa.imform.service.BoardService;
+import jpa.imform.service.MemberBoardService;
 import jpa.imform.service.CommentService;
 import jpa.imform.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -22,21 +22,21 @@ public class CommentServiceImpl implements CommentService {
   private final CommentRepository commentRepository;
   private final CommentJpaRepository commentJpaRepository;
 
-  private final BoardService boardService;
+  private final MemberBoardService memberBoardService;
   private final MemberService memberService;
 
   @Override
   public List<CommentDto.ListCommentResponse> getComments(final Long memberId,
                                                           final Long boardId) {
     Member member = memberService.getMember(memberId);
-    Board board = boardService.getBoard(boardId);
+    Board board = memberBoardService.getBoard(boardId);
     return CommentDto.ListCommentResponse.of(commentRepository.findByMemberAndBoard(member, board));
   }
 
   @Override
   public List<CommentDto.ListCommentResponse> getCommentsV1(final Long memberId,
                                                             final Long boardId) {
-    Board board = boardService.getBoard(boardId);
+    Board board = memberBoardService.getBoard(boardId);
     Member member = memberService.getMember(memberId);
     return CommentDto.ListCommentResponse.of(commentRepository.findAllWithDevelop(member, board));
   }
@@ -45,7 +45,7 @@ public class CommentServiceImpl implements CommentService {
   public List<CommentDto.ListCommentResponse> getCommentsV2(final Long memberId,
                                                             final Long boardId) {
     Member member = memberService.getMember(memberId);
-    Board board = boardService.getBoard(boardId);
+    Board board = memberBoardService.getBoard(boardId);
     return CommentDto.ListCommentResponse.of(commentJpaRepository.findAllByMemberAndBoard(member, board));
   }
 
@@ -55,7 +55,7 @@ public class CommentServiceImpl implements CommentService {
                                                       final Long boardId,
                                                       final Long commentId) {
     Member member = memberService.getMember(memberId);
-    Board board = boardService.getBoard(boardId);
+    Board board = memberBoardService.getBoard(boardId);
     Comment comment = getComment(commentId);
 
     return CommentDto.getCommentResponse.of(member, board, comment);
@@ -67,7 +67,7 @@ public class CommentServiceImpl implements CommentService {
                                                         final Long boardId,
                                                         final Long commentId) {
     Member member = memberService.getMemberV1(memberId);
-    Board board = boardService.getBoardV1(boardId, member);
+    Board board = memberBoardService.getBoardV1(boardId, member);
     Comment comment = getCommentV1(commentId, member, board);
 
     return CommentDto.getCommentResponse.of(comment);
@@ -78,7 +78,7 @@ public class CommentServiceImpl implements CommentService {
                                                         final Long boardId,
                                                         final CommentDto.CreateCommentRequest request) {
     Member member = memberService.getMember(memberId);
-    Board board = boardService.getBoard(boardId);
+    Board board = memberBoardService.getBoard(boardId);
     Comment comment = Comment.builder()
         .content(request.getContent())
         .member(member)
@@ -93,7 +93,7 @@ public class CommentServiceImpl implements CommentService {
                                                         final Long commentId,
                                                         final CommentDto.UpdateCommentRequest request) {
     Member member = memberService.getMember(memberId);
-    Board board = boardService.getBoard(boardId);
+    Board board = memberBoardService.getBoard(boardId);
     Comment comment = getComment(commentId);
     comment.changeRequest(member, board, comment, request);
 

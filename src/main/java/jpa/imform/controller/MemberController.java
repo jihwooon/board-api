@@ -1,3 +1,10 @@
+//TODO : 회원 가입 폼
+// List : 가입 된 회원 전체 조회
+// detail : 특정 회원 조회
+// create : 회원 가입
+// udpate : 회원 가입 수정
+// delete  : 회원 등록 삭제
+
 package jpa.imform.controller;
 
 import jpa.imform.domain.Member;
@@ -32,7 +39,13 @@ public class MemberController {
   }
 
   @GetMapping("members/{memberId}")
-  public MemberDto.DetailMemberResponse detail(@PathVariable final Long memberId) {
+  public MemberDto.DetailMemberResponse detail(
+      @RequestHeader("Authorization") String authorization,
+      @PathVariable final Long memberId) {
+
+    String accessToken = authorization.substring("Bearer ".length());
+    Long userId = authenticationServiceImpl.parseToken(accessToken);
+
     return MemberDto.DetailMemberResponse.of(memberService.getMember(memberId));
   }
 
@@ -50,12 +63,8 @@ public class MemberController {
 
   @PatchMapping("members/{memberId}")
   public MemberDto.UpdateMemberResponse update(
-      @RequestHeader("Authorization") String authorization,
       @PathVariable final Long memberId,
       @RequestBody @Valid final MemberDto.UpdateMemberRequest update) {
-
-    String accessToken = authorization.substring("Bearer ".length());
-    Long userId = authenticationServiceImpl.parseToken(accessToken);
 
     return memberService.updateMember(memberId, update);
   }

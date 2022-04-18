@@ -6,7 +6,7 @@ import jpa.imform.dto.BoardDto;
 
 import java.util.List;
 
-public interface BoardService {
+public interface MemberBoardService {
 
   List<BoardDto.ListBoardResponse> getBoards(Long memberId);
 
