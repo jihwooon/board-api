@@ -2,7 +2,7 @@
 // List : 가입 된 회원 전체 조회
 // detail : 특정 회원 조회
 // create : 회원 가입
-// udpate : 회원 가입 수정
+// update : 회원 가입 수정
 // delete  : 회원 등록 삭제
 
 package jpa.imform.controller;
@@ -63,8 +63,13 @@ public class MemberController {
 
   @PatchMapping("members/{memberId}")
   public MemberDto.UpdateMemberResponse update(
+      @RequestHeader("Authorization") String authorization,
       @PathVariable final Long memberId,
       @RequestBody @Valid final MemberDto.UpdateMemberRequest update) {
+
+    String accessToken = authorization.substring("Bearer ".length());
+    Long userId = authenticationServiceImpl.parseToken(accessToken);
+    System.out.println("****userId : "+ userId);
 
     return memberService.updateMember(memberId, update);
   }

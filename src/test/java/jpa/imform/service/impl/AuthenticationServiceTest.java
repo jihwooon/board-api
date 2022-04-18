@@ -17,7 +17,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 @DisplayName("AuthenticationService")
-class AuthenticationServiceImplImplTest {
+class AuthenticationServiceTest {
   public static final String SECRET = "c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0";
   public static final String VALID_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MX0.BGwAfdmwKJCrBws5J7rE55Qn9QWDixTHNV80OiFbAJg";
   public static final String INVALID_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MX0.BGwAfdmwKJCrBws5J7rE55Qn9QWDixTHNV80OiFbAJ2";
