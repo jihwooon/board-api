@@ -89,37 +89,27 @@ class MemberControllerTest {
   void createWithExistedMember() throws Exception {
     mockMvc.perform(post("/members")
         .contentType(MediaType.APPLICATION_JSON)
-        .content("{\"name\" : \"Voyatouch\", \"password\": \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}")
-        .header("Authorization", "Bearer " + VALID_TOKEN))
+        .content("{\"name\" : \"Voyatouch\", \"password\": \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}"))
         .andExpect(status().isCreated())
         .andExpect(content().string(containsString("Voyatouch")));
 
     verify(memberService).createMember(any());
   }
 
-  @Test
-  void createWithWrongMember() throws Exception {
-    mockMvc.perform(post("/members")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content("{\"name\" : \"Voyatouch\", \"password\": \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@om\"}")
-        .header("Authorization", "Bearer " + INVALID_TOKEN))
-        .andExpect(status().isUnauthorized());
-  }
-
-  @Test
-  void createWithNotAuthMember() throws Exception {
-    mockMvc.perform(post("/members")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content("{\"name\" : \"장그래\", \"password\": \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}"))
-        .andExpect(status().isUnauthorized());
-  }
+//  @Test
+//  void createWithNotAuthMember() throws Exception {
+//    mockMvc.perform(post("/members")
+//        .contentType(MediaType.APPLICATION_JSON)
+//        .content("{\"name\" : \"장그래\", \"password\": \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}"))
+//        .andExpect(status().isUnauthorized());
+//  }
 
   @Test
   void createWithEmptyMember() throws Exception {
     mockMvc.perform(post("/members")
         .contentType(MediaType.APPLICATION_JSON)
         .content("{}"))
-        .andExpect(status().isUnauthorized());
+        .andExpect(status().isBadRequest());
   }
 
   @Test
@@ -170,20 +160,20 @@ class MemberControllerTest {
     mockMvc.perform(patch("/members/100")
         .contentType(MediaType.APPLICATION_JSON)
         .content("{\"name\" : \"장그래\", \"password\" : \"1234\", \"phone\" : \"736-207-6273\", \"email\" : \"rfrid1b@squidoo.com\"}"))
-        .andExpect(status().isUnauthorized());
+        .andExpect(status().isNotFound());
   }
 
   @Test
   void deleteWithExistedId() throws Exception {
-    mockMvc.perform(delete("/members/1")
-        .header("Authorization", "Bearer " + VALID_TOKEN))
+    mockMvc.perform(delete("/members/1"))
+//        .header("Authorization", "Bearer " + VALID_TOKEN))
         .andExpect(status().isNoContent());
   }
 
-  @Test
-  void deleteWithNotExistedId() throws Exception {
-    mockMvc.perform(delete("/members/100")
-        .header("Authorization", "Bearer " + INVALID_TOKEN))
-        .andExpect(status().isUnauthorized());
-  }
+//  @Test
+//  void deleteWithNotExistedId() throws Exception {
+//    mockMvc.perform(delete("/members/100"))
+////        .header("Authorization", "Bearer " + INVALID_TOKEN))
+//        .andExpect(status().isUnauthorized());
+//  }
 }

@@ -1,6 +1,6 @@
 //TODO : 로그인 기능 구현
-// 로그인 기능
-// 로그 아웃 기능
+// 로그인 기능 - 완료
+// 로그 아웃 기능 - 기능 구현 예정
 package jpa.imform.controller;
 
 import jpa.imform.dto.LoginDto;

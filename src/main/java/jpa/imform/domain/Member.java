@@ -40,9 +40,17 @@ public class Member {
   @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
   private List<Comment> comments = new ArrayList<>();
 
+  @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+  private List<Review> reviews = new ArrayList<>();
+
   public void addComment(Comment comment) {
     this.comments.add(comment);
     comment.setMember(this);
+  }
+
+  public void addReview(Review review) {
+    this.reviews.add(review);
+    review.setMember(this);
   }
 
   @Builder
@@ -63,4 +71,6 @@ public class Member {
   public boolean authenticate(String password) {
     return password.equals(this.password);
   }
+
+
 }

@@ -28,16 +28,12 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
   }
 
   private boolean filterPathAndMethod(HttpServletRequest request) {
-
     String method = request.getMethod();
+
     if (method.equals("GET")) {
       return true;
     }
 
-    String path = request.getRequestURI();
-    if (!path.equals("/members")) {
-      return true;
-    }
     return false;
   }
 
@@ -51,6 +47,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 
     String accessToken = authorization.substring("Bearer ".length());
     Long memberId = authenticationServiceImpl.parseToken(accessToken);
+    System.out.println("=-=-=-=-=-=-=-=- memberId : " + memberId);
 
     return true;
   }

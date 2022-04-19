@@ -5,13 +5,13 @@
 // update : 회원 일 경우 글 수정 가능
 // delete : 회원 일 경우 글 삭제 가능
 
-//TODO : 비회원일 경우 게시판 조회
-// list : 회원/비회원 구분 없이 조회 가능
+//TODO : 비회원일 경우 게시판 조회 (쇼핑몰 기준)
+// list : 회원/비회원 구분 없이 상품 정보
 package jpa.imform.controller;
 
 import jpa.imform.dto.BoardDto;
+import jpa.imform.service.AuthenticationService;
 import jpa.imform.service.MemberBoardService;
-import jpa.imform.service.impl.AuthenticationServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,10 +29,10 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class MemberBoardController {
+public class BoardController {
 
   private final MemberBoardService memberBoardService;
-  private final AuthenticationServiceImpl authenticationServiceImpl;
+  private final AuthenticationService authenticationService;
 
   @GetMapping("member/{memberId}/board")
   public List<BoardDto.ListBoardResponse> list(@PathVariable final Long memberId) {
@@ -47,8 +48,14 @@ public class MemberBoardController {
 
   @PostMapping("member/{memberId}/board")
   @ResponseStatus(HttpStatus.CREATED)
-  public BoardDto.CreateBoardResponse create(@PathVariable final Long memberId,
-                                             @RequestBody @Valid final BoardDto.CreateBoardRequest create) {
+  public BoardDto.CreateBoardResponse create(
+      @RequestHeader("Authorization") String authorization,
+      @PathVariable final Long memberId,
+      @RequestBody @Valid final BoardDto.CreateBoardRequest create) {
+
+    String accessToken = authorization.substring("Bearer ".length());
+    Long userId = authenticationService.parseToken(accessToken);
+
     return memberBoardService.createBoard(memberId, create);
   }
 

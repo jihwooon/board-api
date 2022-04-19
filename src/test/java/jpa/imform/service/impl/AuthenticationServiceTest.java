@@ -79,5 +79,4 @@ class AuthenticationServiceTest {
     assertThatThrownBy(() -> authenticationService.parseToken(null))
         .isInstanceOf(InvalidTokenException.class);
   }
-
 }
