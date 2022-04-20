@@ -23,7 +23,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
       throw new LoginFailException(email);
     }
 
-    return jwtUtil.encode(1L);
+    return jwtUtil.encode(member.getId());
   }
 
   public Long parseToken(String accessToken) {

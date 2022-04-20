@@ -46,17 +46,16 @@ public class BoardController {
     return memberBoardService.getBoardByIdAndMemberId(memberId, boardId);
   }
 
-  @PostMapping("members/{memberId}/boards")
+  @PostMapping("boards")
   @ResponseStatus(HttpStatus.CREATED)
   public BoardDto.CreateBoardResponse create(
       @RequestHeader("Authorization") String authorization,
-      @PathVariable final Long memberId,
       @RequestBody @Valid final BoardDto.CreateBoardRequest create) {
 
     String accessToken = authorization.substring("Bearer ".length());
     Long userId = authenticationService.parseToken(accessToken);
 
-    return memberBoardService.createBoard(memberId, create);
+    return memberBoardService.createBoard(userId, create);
   }
 
   @PatchMapping("members/{memberId}/boards/{boardId}")

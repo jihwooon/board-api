@@ -25,7 +25,17 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                            HttpServletResponse response,
                            Object handler) throws Exception {
 
-    return doAuthentication(request, response);
+    return (filterWithPathAndMethod(request)) || doAuthentication(request, response);
+  }
+
+  private boolean filterWithPathAndMethod(HttpServletRequest request) {
+    String method = request.getMethod();
+
+    if (method.equals("GET")) {
+      return true;
+    }
+
+    return false;
   }
 
   private boolean doAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {

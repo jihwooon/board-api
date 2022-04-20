@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
+import java.util.Date;
 
 @Component
 public class JwtUtil {
@@ -19,8 +20,10 @@ public class JwtUtil {
   }
 
   public String encode(Long memberId) {
+    Date now = new Date();
     return Jwts.builder()
-        .claim("memberId", 1L)
+        .claim("memberId", memberId)
+        .setIssuedAt(now)
         .signWith(key)
         .compact();
   }

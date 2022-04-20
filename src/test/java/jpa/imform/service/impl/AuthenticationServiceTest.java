@@ -15,6 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 @DisplayName("AuthenticationService")
 class AuthenticationServiceTest {
@@ -47,7 +48,7 @@ class AuthenticationServiceTest {
     String accessToken = authenticationService.login("rfrid1b@squidoo.com", "8ixYbxleTQ");
     assertThat(accessToken).isEqualTo(VALID_TOKEN);
 
-//    verify(memberRepository).findByEmail("rfrid1b@squidoo.com");
+    verify(memberRepository).findByEmail("rfrid1b@squidoo.com");
   }
 
   @Test

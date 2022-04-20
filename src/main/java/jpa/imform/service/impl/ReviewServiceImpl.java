@@ -30,6 +30,7 @@ public class ReviewServiceImpl implements ReviewService {
 
   @Override
   public ReviewDto.ReviewResponseDetail getDetail(final Long memberId, final Long reviewId) {
+
     Member member = memberService.getMember(memberId);
     Review review = getReview(reviewId);
 
@@ -52,14 +53,14 @@ public class ReviewServiceImpl implements ReviewService {
   public ReviewDto.ReviewResponseUpdate getUpdate(final Long memberId, final Long reviewId, final ReviewDto.ReviewRequestUpdate request) {
     Member member = getMember(memberId);
     Review review = getReview(reviewId);
-    review.changeWith(member,request);
+    review.changeWith(member, request);
 
     return ReviewDto.ReviewResponseUpdate.of(reviewRepository.save(review));
 
   }
 
   @Override
-  public void getRemove(final Long reviewId) {
+  public void getRemove(Long userId, final Long reviewId) {
     Review review = getReview(reviewId);
     reviewRepository.delete(review);
 

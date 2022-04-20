@@ -34,4 +34,10 @@ public class ControllerErrorAdvice {
 
   }
 
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  @ExceptionHandler(LoginFailException.class)
+  public void loginFailBadRequest() {
+
+  }
+
 }

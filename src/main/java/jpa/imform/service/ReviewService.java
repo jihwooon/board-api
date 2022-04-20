@@ -14,6 +14,6 @@ public interface ReviewService {
 
   ReviewDto.ReviewResponseUpdate getUpdate(Long memberId, Long reviewId, ReviewDto.ReviewRequestUpdate request);
 
-  void getRemove(Long reviewId);
+  void getRemove(Long userId, Long reviewId);
 
 }
