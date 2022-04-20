@@ -34,19 +34,19 @@ public class BoardController {
   private final MemberBoardService memberBoardService;
   private final AuthenticationService authenticationService;
 
-  @GetMapping("member/{memberId}/board")
+  @GetMapping("members/{memberId}/boards")
   public List<BoardDto.ListBoardResponse> list(@PathVariable final Long memberId) {
 
     return memberBoardService.getBoards(memberId);
   }
 
-  @GetMapping("member/{memberId}/board/{boardId}")
+  @GetMapping("members/{memberId}/boards/{boardId}")
   public BoardDto.getBoardResponse detail(@PathVariable final Long memberId,
                                           @PathVariable final Long boardId) {
     return memberBoardService.getBoardByIdAndMemberId(memberId, boardId);
   }
 
-  @PostMapping("member/{memberId}/board")
+  @PostMapping("members/{memberId}/boards")
   @ResponseStatus(HttpStatus.CREATED)
   public BoardDto.CreateBoardResponse create(
       @RequestHeader("Authorization") String authorization,
@@ -59,7 +59,7 @@ public class BoardController {
     return memberBoardService.createBoard(memberId, create);
   }
 
-  @PatchMapping("member/{memberId}/board/{boardId}")
+  @PatchMapping("members/{memberId}/boards/{boardId}")
   public BoardDto.UpdateBoardResponse update(@PathVariable final Long memberId,
                                              @PathVariable final Long boardId,
                                              @RequestBody @Valid final BoardDto.UpdateBoardRequest update) {

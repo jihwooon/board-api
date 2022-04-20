@@ -1,6 +1,5 @@
 package jpa.imform.service;
 
-import jpa.imform.domain.Review;
 import jpa.imform.dto.ReviewDto;
 
 import java.util.List;
@@ -9,9 +8,12 @@ public interface ReviewService {
 
   List<ReviewDto.ReviewResponseList> getList();
 
-  ReviewDto.ReviewResponseCreate getCreate(ReviewDto.ReviewRequestCreate request);
+  ReviewDto.ReviewResponseDetail getDetail(Long memberId, Long reviewId);
 
-  ReviewDto.ReviewResponseUpdate getUpdate(Long reviewId, ReviewDto.ReviewRequestUpdate request);
+  ReviewDto.ReviewResponseCreate CreateReview(Long memberId, ReviewDto.ReviewRequestCreate request);
 
-  Review getDelete(Long reviewId);
+  ReviewDto.ReviewResponseUpdate getUpdate(Long memberId, Long reviewId, ReviewDto.ReviewRequestUpdate request);
+
+  void getRemove(Long reviewId);
+
 }

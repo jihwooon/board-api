@@ -26,7 +26,6 @@ public interface MemberBoardService {
 
   Board getBoard(Long id);
 
-//  Board getBoardV1(Long id);
 
   Board getBoardV1(Long id, Member member);
 

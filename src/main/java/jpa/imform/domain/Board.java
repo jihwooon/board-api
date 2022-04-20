@@ -28,9 +28,7 @@ public class Board extends BaseEntity {
   @Id
   @GeneratedValue
   private Long id;
-
   private String title;
-
   private String content;
 
   @ManyToOne(fetch = FetchType.LAZY)

@@ -1,8 +1,7 @@
+//TODO : Review
 package jpa.imform.controller;
 
-import jpa.imform.domain.Review;
 import jpa.imform.dto.ReviewDto;
-import jpa.imform.service.AuthenticationService;
 import jpa.imform.service.ReviewService;
 import jpa.imform.service.impl.AuthenticationServiceImpl;
 import org.springframework.http.HttpStatus;
@@ -18,12 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-
 public class ReviewController {
 
   private final ReviewService reviewService;
   private final AuthenticationServiceImpl authenticationServiceImpl;
-  private AuthenticationService authenticationService;
 
   public ReviewController(ReviewService reviewService, AuthenticationServiceImpl authenticationServiceImpl) {
     this.reviewService = reviewService;
@@ -35,20 +32,33 @@ public class ReviewController {
     return reviewService.getList();
   }
 
-  @PostMapping("/reviews")
-  @ResponseStatus(HttpStatus.CREATED)
-  public ReviewDto.ReviewResponseCreate create(@RequestBody final ReviewDto.ReviewRequestCreate request) {
-    return reviewService.getCreate(request);
+  @GetMapping("/members/{memberId}/reviews/{reviewId}")
+  public ReviewDto.ReviewResponseDetail detail(@PathVariable final Long memberId,
+                                               @PathVariable final Long reviewId) {
+    return reviewService.getDetail(memberId, reviewId);
   }
 
-  @PatchMapping("/reviews/{reviewId}")
-  public ReviewDto.ReviewResponseUpdate update(@PathVariable final Long reviewId, @RequestBody final ReviewDto.ReviewRequestUpdate update) {
-    return reviewService.getUpdate(reviewId, update);
+  @PostMapping("members/{memberId}/reviews")
+  @ResponseStatus(HttpStatus.CREATED)
+  public ReviewDto.ReviewResponseCreate create(
+      @PathVariable final Long memberId,
+      @RequestBody final ReviewDto.ReviewRequestCreate request) {
+    return reviewService.CreateReview(memberId, request);
+  }
+
+  @PatchMapping("/members/{memberId}/reviews/{reviewId}")
+  public ReviewDto.ReviewResponseUpdate update(
+      @PathVariable final Long memberId,
+      @PathVariable final Long reviewId,
+      @RequestBody final ReviewDto.ReviewRequestUpdate update) {
+    return reviewService.getUpdate(memberId, reviewId, update);
   }
 
   @DeleteMapping("/reviews/{reviewId}")
-  public Review delete(@PathVariable final Long reviewId) {
-    return reviewService.getDelete(reviewId);
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void remove(
+      @PathVariable final Long reviewId) {
+    reviewService.getRemove(reviewId);
   }
 
 }

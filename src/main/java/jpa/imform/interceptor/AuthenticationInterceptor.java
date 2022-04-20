@@ -1,6 +1,7 @@
 package jpa.imform.interceptor;
 
 import jpa.imform.service.impl.AuthenticationServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
+@Slf4j
 public class AuthenticationInterceptor implements HandlerInterceptor {
 
   private AuthenticationServiceImpl authenticationServiceImpl;
@@ -23,18 +25,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                            HttpServletResponse response,
                            Object handler) throws Exception {
 
-    return (filterPathAndMethod(request)) ||
-        doAuthentication(request, response);
-  }
-
-  private boolean filterPathAndMethod(HttpServletRequest request) {
-    String method = request.getMethod();
-
-    if (method.equals("GET")) {
-      return true;
-    }
-
-    return false;
+    return doAuthentication(request, response);
   }
 
   private boolean doAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -15,7 +15,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class MemberBoardServiceImpl implements MemberBoardService {
+public class BoardServiceImpl implements MemberBoardService {
 
   private final BoardRepository boardRepository;
   private final BoardJpaRepository boardJpaRepository;
@@ -100,11 +100,5 @@ public class MemberBoardServiceImpl implements MemberBoardService {
     return boardRepository.findIdWithDevelop(id, member)
         .orElseThrow(() -> new BoardNotFoundException(id));
   }
-
-//  @Override
-//  public Board getBoardV1(Long id) {
-//    return null;
-//  }
-
 
 }

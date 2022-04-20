@@ -3,6 +3,7 @@ package jpa.imform.dto;
 import jpa.imform.domain.Member;
 import jpa.imform.domain.Review;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,15 +14,13 @@ public class ReviewDto {
   @Getter
   public static class ReviewResponseList {
 
+    private String name;
     private String title;
-    private Member member;
-    private String content;
     private LocalDateTime createDate;
 
     public ReviewResponseList(Review review) {
+      this.name = review.getMember().getName();
       this.title = review.getTitle();
-      this.member = review.getMember();
-      this.content = review.getContent();
       this.createDate = review.getCreateDate();
     }
 
@@ -33,6 +32,7 @@ public class ReviewDto {
   }
 
   @Getter
+  @Setter
   public static class ReviewRequestCreate {
     private String title;
     private String content;
@@ -42,18 +42,26 @@ public class ReviewDto {
   public static class ReviewResponseCreate {
     private String title;
     private String content;
-    private Member member;
     private LocalDateTime createDate;
 
     public ReviewResponseCreate(Review review) {
       this.title = review.getTitle();
       this.content = review.getContent();
-      this.member = review.getMember();
+      this.createDate = review.getCreateDate();
+    }
+
+    public ReviewResponseCreate(Member member, Review review) {
+      this.title = review.getTitle();
+      this.content = review.getContent();
       this.createDate = review.getCreateDate();
     }
 
     public static ReviewResponseCreate of(final Review review) {
       return new ReviewResponseCreate(review);
+    }
+
+    public static ReviewResponseCreate of(final Member member, final Review review) {
+      return new ReviewResponseCreate(member, review);
     }
   }
 
@@ -61,20 +69,19 @@ public class ReviewDto {
   public static class ReviewRequestUpdate {
     private String title;
     private String content;
-    private Member member;
   }
 
   @Getter
   public static class ReviewResponseUpdate {
+    private String name;
     private String title;
     private String content;
-    private Member member;
     private LocalDateTime lastModifiedDate;
 
     public ReviewResponseUpdate(Review review) {
+      this.name = review.getMember().getName();
       this.title = review.getTitle();
       this.content = review.getContent();
-      this.member = review.getMember();
       this.lastModifiedDate = review.getModifiedDate();
     }
 
@@ -82,4 +89,28 @@ public class ReviewDto {
       return new ReviewResponseUpdate(review);
     }
   }
+
+  @Getter
+  public static class ReviewResponseDetail {
+    private String name;
+    private String title;
+    private String content;
+    private LocalDateTime createDate;
+    private LocalDateTime lastModifiedDate;
+
+    public ReviewResponseDetail(final Member member, final Review review) {
+      this.name = review.getMember().getName();
+      this.title = review.getTitle();
+      this.content = review.getContent();
+      this.createDate = review.getCreateDate();
+      this.lastModifiedDate = review.getModifiedDate();
+    }
+
+    public static ReviewResponseDetail of(final Member member, final Review review) {
+      return new ReviewResponseDetail(member, review);
+    }
+
+  }
+
+
 }

@@ -25,21 +25,21 @@ public class CommentController {
   private final CommentService commentService;
 
   //CommentRepository Basic
-  @GetMapping("member/{memberId}/board/{boardId}/comment")
+  @GetMapping("members/{memberId}/boards/{boardId}/comments")
   public List<CommentDto.ListCommentResponse> list(@PathVariable final Long memberId,
                                                    @PathVariable final Long boardId) {
     return commentService.getComments(memberId, boardId);
   }
 
   //CommentRepository detail -> Basic
-  @GetMapping("member/{memberId}/board/{boardId}/comment/{commentId}")
+  @GetMapping("members/{memberId}/boards/{boardId}/comment/{commentId}")
   public CommentDto.getCommentResponse detail(@PathVariable final Long memberId,
                                               @PathVariable final Long boardId,
                                               @PathVariable final Long commentId) {
     return commentService.getCommentById(memberId, boardId, commentId);
   }
 
-  @PostMapping("member/{memberId}/board/{boardId}/comment")
+  @PostMapping("members/{memberId}/boards/{boardId}/comments")
   @ResponseStatus(HttpStatus.CREATED)
   public CommentDto.CreateCommentResponse create(@PathVariable final Long memberId,
                                                  @PathVariable final Long boardId,
@@ -47,7 +47,7 @@ public class CommentController {
     return commentService.createComment(memberId, boardId, create);
   }
 
-  @PatchMapping("member/{memberId}/board/{boardId}/comment/{commentId}")
+  @PatchMapping("members/{memberId}/boards/{boardId}/comments/{commentId}")
   public CommentDto.UpdateCommentResponse update(@PathVariable final Long memberId,
                                                  @PathVariable final Long boardId,
                                                  @PathVariable final Long commentId,
@@ -55,7 +55,7 @@ public class CommentController {
     return commentService.updateComment(memberId, boardId, commentId, update);
   }
 
-  @DeleteMapping("/comment/{commentId}")
+  @DeleteMapping("/comments/{commentId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void remove(@PathVariable final Long commentId) {
     commentService.deleteComment(commentId);

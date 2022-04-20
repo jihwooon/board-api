@@ -45,8 +45,9 @@ public class Review extends BaseEntity {
     this.member = member;
   }
 
-  public void changeWith(ReviewDto.ReviewRequestUpdate update) {
+  public void changeWith(Member member,ReviewDto.ReviewRequestUpdate update) {
     this.title = update.getTitle();
     this.content = update.getContent();
+    this.member = member;
   }
 }

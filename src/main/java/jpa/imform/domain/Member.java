@@ -25,13 +25,9 @@ public class Member {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
   private String name;
-
   private String password;
-
   private String phone;
-
   private String email;
 
   @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
@@ -42,16 +38,6 @@ public class Member {
 
   @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
   private List<Review> reviews = new ArrayList<>();
-
-  public void addComment(Comment comment) {
-    this.comments.add(comment);
-    comment.setMember(this);
-  }
-
-  public void addReview(Review review) {
-    this.reviews.add(review);
-    review.setMember(this);
-  }
 
   @Builder
   public Member(String name, String password, String phone, String email) {
