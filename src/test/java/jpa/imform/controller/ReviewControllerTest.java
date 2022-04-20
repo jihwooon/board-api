@@ -1,7 +1,16 @@
+//TODO : 토큰 유무 검증
+// 1. 정상적인 토큰과 값이 들어 갔을 경우
+// 2. 잘못 된 토큰과 값이 들어 갔을 경우
+// 3. 토큰이 없을 경우
+// 4. 빈값이 들어가는 경우
+// 5. 잘못 된 토큰과 빈값이 들어 갔을 경우
+
 package jpa.imform.controller;
 
 import jpa.imform.domain.Review;
 import jpa.imform.dto.ReviewDto;
+import jpa.imform.error.InvalidTokenException;
+import jpa.imform.error.ReviewNotFoundException;
 import jpa.imform.service.ReviewService;
 import jpa.imform.service.impl.AuthenticationServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,10 +26,15 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
@@ -28,7 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayName("ReviewControllerTest")
 class ReviewControllerTest {
   private static final String VALID_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MX0.vU91JPmJz_Kx_53C0i1p0i2NKEwTgMDOGtzMtx5UF4I";
-  private static final String INVALID_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MX0.vU91JPmJz_Kx_53C0i1p0i2NKEwTgMDOGtzMtx5UF42";
+  private static final String INVALID_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6MX0.vU91JPmJz_Kx_53C0i1p0i2NKEwTgMDOGtzMtx5U325";
 
   @Autowired
   private MockMvc mockMvc;
@@ -45,14 +59,25 @@ class ReviewControllerTest {
   @BeforeEach
   void setUp() {
     Review review = Review.builder()
-        .title("제목")
-        .content("test")
+        .title("1234")
+        .content("Dd3aasdadsdd3d")
         .build();
 
     given(reviewService.getList()).willReturn(List.of());
 
     given(reviewService.getCreate(any(ReviewDto.ReviewRequestCreate.class))).willReturn(ReviewDto.ReviewResponseCreate.of(review));
 
+    given(reviewService.getUpdate(eq(1L),any(ReviewDto.ReviewRequestUpdate.class))).willReturn(ReviewDto.ReviewResponseUpdate.of(review));
+
+    given(reviewService.getUpdate(eq(100L), any(ReviewDto.ReviewRequestUpdate.class))).willThrow(new ReviewNotFoundException("Not Found Review"));
+
+    given(reviewService.getDelete(1L)).willReturn(review);
+
+    given(reviewService.getDelete(100L)).willThrow(new ReviewNotFoundException("Not Found Review"));
+
+    given(authenticationServiceImpl.parseToken(INVALID_TOKEN)).willThrow(new InvalidTokenException("Wrong Token"));
+
+    given(authenticationServiceImpl.parseToken(VALID_TOKEN)).willReturn(1L);
   }
 
   @Test
@@ -69,15 +94,97 @@ class ReviewControllerTest {
         .contentType(MediaType.APPLICATION_JSON)
         .content("{\"title\" : \"1234\",\"content\" : \"Dd3aasdadsdd3d\"}")
         .header("Authorization", "Bearer " + VALID_TOKEN))
-        .andExpect(status().isCreated());
+        .andExpect(status().isCreated())
+        .andExpect(content().string(containsString("1234")));
   }
 
   @Test
   void createWithExistedINVALID_TOKEN() throws Exception {
     mockMvc.perform(post("/reviews")
+        .accept(MediaType.APPLICATION_JSON_UTF8)
         .contentType(MediaType.APPLICATION_JSON)
         .content("{\"title\" : \"1234\",\"content\" : \"Dd3aasdadsdd3d\"}")
         .header("Authorization", "Bearer " + INVALID_TOKEN))
+        .andExpect(status().isUnauthorized());
+  }
+
+  @Test
+  void createWithIsNoTOKEN() throws Exception {
+    mockMvc.perform(post("/reviews")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content("{\"title\" : \"1234\",\"content\" : \"Dd3aasdadsdd3d\"}"))
+        .andExpect(status().isUnauthorized());
+  }
+
+  @Test
+  void createWithNoContent() throws Exception {
+    mockMvc.perform(post("/reviews")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content("{}"))
+        .andExpect(status().isUnauthorized());
+  }
+
+  @Test
+  void updateWithExistedValid_Token() throws Exception {
+    mockMvc.perform(patch("/reviews/1")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content("{\"title\" : \"1264\",\"content\" : \"Dd3aasdadsdd3d\"}")
+        .header("Authorization", "Bearer " + VALID_TOKEN))
+        .andExpect(status().isOk());
+  }
+
+  @Test
+  void updateWithNotExistedValid_Token() throws Exception {
+    mockMvc.perform(patch("/reviews/1")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content("{\"title\" : \"1264\",\"content\" : \"Dd3aasdadsdd3d\"}")
+        .header("Authorization", "Bearer " + INVALID_TOKEN))
+        .andExpect(status().isUnauthorized());
+  }
+
+  @Test
+  void updateWithNotExistedContentAndValid_Token() throws Exception {
+    mockMvc.perform(patch("/reviews/1")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content("{}")
+        .header("Authorization", "Bearer " + VALID_TOKEN))
+        .andExpect(status().isOk());
+  }
+
+  @Test
+  void updateWithNotExistedContentAndInValid_Token() throws Exception {
+    mockMvc.perform(patch("/reviews/1")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content("{}")
+        .header("Authorization", "Bearer " + INVALID_TOKEN))
+        .andExpect(status().isUnauthorized());
+  }
+
+  @Test
+  void updateWithWrongId() throws Exception {
+    mockMvc.perform(patch("/reviews/100")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content("{\"title\" : \"1264\",\"content\" : \"Dd3aasdadsdd3d\"}")
+        .header("Authorization", "Bearer " + VALID_TOKEN))
+        .andExpect(status().isNotFound());
+  }
+
+  @Test
+  void deleteWithExistedValid_Token() throws Exception {
+    mockMvc.perform(delete("/reviews/1")
+        .header("Authorization", "Bearer " + VALID_TOKEN))
+        .andExpect(status().isOk());
+  }
+
+  @Test
+  void deleteWithNoToken() throws Exception {
+    mockMvc.perform(delete("/reviews/1"))
+        .andExpect(status().isUnauthorized());
+  }
+
+  @Test
+  void deleteWithWrongIdAndNoToken() throws Exception {
+    mockMvc.perform(delete("/reviews/100"))
         .andExpect(status().isUnauthorized());
   }
 

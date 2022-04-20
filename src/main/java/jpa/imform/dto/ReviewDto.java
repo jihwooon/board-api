@@ -2,9 +2,7 @@ package jpa.imform.dto;
 
 import jpa.imform.domain.Member;
 import jpa.imform.domain.Review;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,16 +11,11 @@ import java.util.stream.Collectors;
 public class ReviewDto {
 
   @Getter
-  @AllArgsConstructor
-  @NoArgsConstructor
   public static class ReviewResponseList {
 
     private String title;
-
     private Member member;
-
     private String content;
-
     private LocalDateTime createDate;
 
     public ReviewResponseList(Review review) {
@@ -40,8 +33,6 @@ public class ReviewDto {
   }
 
   @Getter
-  @AllArgsConstructor
-  @NoArgsConstructor
   public static class ReviewRequestCreate {
     private String title;
     private String content;
@@ -67,8 +58,6 @@ public class ReviewDto {
   }
 
   @Getter
-  @AllArgsConstructor
-  @NoArgsConstructor
   public static class ReviewRequestUpdate {
     private String title;
     private String content;

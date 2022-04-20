@@ -17,6 +17,12 @@ public class ControllerErrorAdvice {
 
   }
 
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  @ExceptionHandler(ReviewNotFoundException.class)
+  public void handleReviewNotFoundException() {
+
+  }
+
   @ResponseStatus(HttpStatus.UNAUTHORIZED)
   @ExceptionHandler(InvalidTokenException.class)
   public void handleInvalidAccessTokenException() {
@@ -27,4 +33,5 @@ public class ControllerErrorAdvice {
   public void handleMissingRequestHeaderException() {
 
   }
+
 }

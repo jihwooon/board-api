@@ -5,12 +5,14 @@ import jpa.imform.dto.ReviewDto;
 import jpa.imform.service.AuthenticationService;
 import jpa.imform.service.ReviewService;
 import jpa.imform.service.impl.AuthenticationServiceImpl;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -34,25 +36,18 @@ public class ReviewController {
   }
 
   @PostMapping("/reviews")
-  public ReviewDto.ReviewResponseCreate create(
-      @RequestBody final ReviewDto.ReviewRequestCreate request) {
-
+  @ResponseStatus(HttpStatus.CREATED)
+  public ReviewDto.ReviewResponseCreate create(@RequestBody final ReviewDto.ReviewRequestCreate request) {
     return reviewService.getCreate(request);
   }
 
   @PatchMapping("/reviews/{reviewId}")
-  public ReviewDto.ReviewResponseUpdate update(
-      @PathVariable final Long reviewId,
-      @RequestBody final ReviewDto.ReviewRequestUpdate update
-  ) {
-
+  public ReviewDto.ReviewResponseUpdate update(@PathVariable final Long reviewId, @RequestBody final ReviewDto.ReviewRequestUpdate update) {
     return reviewService.getUpdate(reviewId, update);
   }
 
   @DeleteMapping("/reviews/{reviewId}")
-  public Review delete(
-      @PathVariable final Long reviewId
-  ) {
+  public Review delete(@PathVariable final Long reviewId) {
     return reviewService.getDelete(reviewId);
   }
 

@@ -46,8 +46,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     }
 
     String accessToken = authorization.substring("Bearer ".length());
-    Long memberId = authenticationServiceImpl.parseToken(accessToken);
-    System.out.println("=-=-=-=-=-=-=-=- memberId : " + memberId);
+    authenticationServiceImpl.parseToken(accessToken);
 
     return true;
   }
