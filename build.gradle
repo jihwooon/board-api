@@ -77,6 +77,11 @@ dependencies {
 	testImplementation 'org.junit.jupiter:junit-jupiter-engine:'
 }
 
+bootRun {
+	String activeProfile = System.properties['spring.profiles.active']
+	systemProperty "spring.profiles.active", activeProfile
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }

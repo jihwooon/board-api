@@ -15,8 +15,6 @@ spring:
         show_sql: true
         format_sql: true
         default_batch_fetch_size: 1000
-jwt:
-  secret: "c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0"
 
 logging:
   level:
@@ -24,3 +22,6 @@ logging:
     org:
       hibernage:
         type: trace
+jwt:
+  secret: "c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0"
+

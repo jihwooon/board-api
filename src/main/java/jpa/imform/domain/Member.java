@@ -58,5 +58,4 @@ public class Member {
     return password.equals(this.password);
   }
 
-
 }

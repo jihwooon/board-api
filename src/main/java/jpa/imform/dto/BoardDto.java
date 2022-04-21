@@ -16,12 +16,12 @@ public class BoardDto {
   public static class ListBoardResponse {
     private String content;
     private String title;
-    private List<CommentDto.ListCommentResponse> comments;
+    private String username;
 
     public ListBoardResponse(Board board) {
       this.content = board.getContent();
       this.title = board.getTitle();
-      this.comments = CommentDto.ListCommentResponse.of(board.getComments());
+      this.username = board.getMember().getName();
     }
 
     public static List<ListBoardResponse> of(final List<Board> board) {

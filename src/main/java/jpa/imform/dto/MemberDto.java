@@ -28,13 +28,11 @@ public class MemberDto {
     private String name;
     private String phone;
     private String email;
-    private List<BoardDto.ListBoardResponse> boards;
 
     public ListMemberResponse(Member member) {
       this.name = member.getName();
       this.phone = member.getPhone();
       this.email = member.getEmail();
-      this.boards = BoardDto.ListBoardResponse.of(member.getBoards());
     }
 
 
@@ -50,14 +48,11 @@ public class MemberDto {
     private String name;
     private String phone;
     private String email;
-    private List<BoardDto.ListBoardResponse> board;
-
 
     public DetailMemberResponse(Member member) {
       this.name = member.getName();
       this.phone = member.getPhone();
       this.email = member.getEmail();
-
     }
 
     public static DetailMemberResponse of(final Member member) {
