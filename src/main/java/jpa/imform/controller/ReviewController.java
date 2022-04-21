@@ -26,58 +26,55 @@ public class ReviewController {
   private final AuthenticationService authenticationService;
 
   @GetMapping("/reviews")
-  public List<ReviewDto.ReviewResponseList> list() {
-    return reviewService.getList();
+  public List<ReviewDto.ReviewResponseList> listReview() {
+    return reviewService.listReview();
   }
 
   @GetMapping("/reviews/{reviewId}")
-  public ReviewDto.ReviewResponseDetail detail(
+  public ReviewDto.ReviewResponseDetail detailReview(
       @RequestHeader("Authorization") String authorization,
       @PathVariable final Long reviewId) {
 
     String accessToken = authorization.substring("Bearer ".length());
     Long userId = authenticationService.parseToken(accessToken);
-    System.out.println("=-=-=-=-=-=-=-=-=userId : " + userId);
 
-    return reviewService.getDetail(userId, reviewId);
+    return reviewService.detailReview(userId, reviewId);
   }
 
   @PostMapping("/reviews")
   @ResponseStatus(HttpStatus.CREATED)
-  public ReviewDto.ReviewResponseCreate create(
+  public ReviewDto.ReviewResponseCreate createReview(
       @RequestHeader("Authorization") String authorization,
       @RequestBody final ReviewDto.ReviewRequestCreate request) {
 
     String accessToken = authorization.substring("Bearer ".length());
     Long userId = authenticationService.parseToken(accessToken);
-    System.out.println("=-=-=-=-=-=-=-=-=userId : " + userId);
 
-    return reviewService.CreateReview(userId, request);
+    return reviewService.createReview(userId, request);
   }
 
-  @PatchMapping("/review/{reviewId}")
-  public ReviewDto.ReviewResponseUpdate update(
+  @PatchMapping("/reviews/{reviewId}")
+  public ReviewDto.ReviewResponseUpdate updateReview(
       @RequestHeader("Authorization") String authorization,
       @PathVariable final Long reviewId,
       @RequestBody final ReviewDto.ReviewRequestUpdate update) {
 
     String accessToken = authorization.substring("Bearer ".length());
     Long userId = authenticationService.parseToken(accessToken);
-    System.out.println("=-=-=-=-=-=-=-=-=userId : " + userId);
 
-    return reviewService.getUpdate(userId, reviewId, update);
+    return reviewService.updateReview(userId, reviewId, update);
   }
 
-  @DeleteMapping("/review/{reviewId}")
+  @DeleteMapping("/reviews/{reviewId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void remove(
+  public void removeReview(
       @RequestHeader("Authorization") String authorization,
       @PathVariable final Long reviewId) {
 
     String accessToken = authorization.substring("Bearer ".length());
     Long userId = authenticationService.parseToken(accessToken);
 
-    reviewService.getRemove(userId, reviewId);
+    reviewService.removeReview(userId, reviewId);
   }
 
 }

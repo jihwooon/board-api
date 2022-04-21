@@ -26,7 +26,7 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
   @Query(value = "SELECT new jpa.imform.dto.BoardSimpleDto(b.title, b.content, m.name) FROM Board b join b.member m") // select 안에는 패키지랑 관련이 있는거 같다.
   List<BoardSimpleDto> findBoardDto();
 
-//  //BoardRepositoryV1 detail
+//  //BoardRepositoryV1 detailReview
 //  @Query(value = "select b from Board b where b.id = :id")
 //  Optional<Board> findIdWithDevelop(@Param("id") Long id);
 

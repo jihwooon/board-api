@@ -40,4 +40,10 @@ public class ControllerErrorAdvice {
 
   }
 
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(BadRequestException.class)
+  public void WrongPathIdBadRequest() {
+
+  }
+
 }

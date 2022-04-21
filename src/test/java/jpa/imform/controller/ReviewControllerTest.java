@@ -67,15 +67,15 @@ class ReviewControllerTest {
 
     Long userId = authenticationServiceImpl.parseToken(VALID_TOKEN);
 
-//    given(reviewService.getDetail(1L, 1L)).willReturn(ReviewDto.ReviewResponseDetail.of(userId, review));
+//    given(reviewService.detailReview(1L, 1L)).willReturn(ReviewDto.ReviewResponseDetail.of(userId, review));
 //
-//    given(reviewService.getUpdate(userId, eq(1L), any(ReviewDto.ReviewRequestUpdate.class))).willReturn(ReviewDto.ReviewResponseUpdate.of(review));
+//    given(reviewService.updateReview(userId, eq(1L), any(ReviewDto.ReviewRequestUpdate.class))).willReturn(ReviewDto.ReviewResponseUpdate.of(review));
 //
 //    given(reviewService.getDelete(userId ,1L)).willReturn(review);
 //
 //    given(reviewService.getDelete(userId, 100L)).willThrow(new ReviewNotFoundException("Not Found Review"));
 
-    given(reviewService.getList()).willReturn(List.of());
+    given(reviewService.listReview()).willReturn(List.of());
 
     given(authenticationServiceImpl.parseToken(VALID_TOKEN)).willReturn(1L);
 

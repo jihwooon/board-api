@@ -1,8 +1,8 @@
 //TODO : 회원 가입 폼
 // List : 가입 된 회원 전체 조회
-// detail : 특정 회원 조회
-// create : 회원 가입
-// update : 회원 가입 수정
+// detailReview : 특정 회원 조회
+// createReview : 회원 가입
+// updateReview : 회원 가입 수정
 // delete  : 회원 등록 삭제
 
 package jpa.imform.controller;

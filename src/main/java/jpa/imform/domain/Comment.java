@@ -25,11 +25,11 @@ public class Comment extends BaseEntity {
 
   private String content;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "member_id")
   private Member member;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "board_id")
   private Board board;
 

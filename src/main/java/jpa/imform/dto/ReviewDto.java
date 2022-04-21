@@ -98,19 +98,18 @@ public class ReviewDto {
     private LocalDateTime createDate;
     private LocalDateTime lastModifiedDate;
 
-    public ReviewResponseDetail(final Member member, final Review review) {
-      this.name = review.getMember().getName();
+    public ReviewResponseDetail(final Review review) {
+      this.name = review.getMember().getName(); // 쿼리가 안 나간다. 왜 안 가는지 이유를 파악하기 -> 즉시 로딩 일 경우 쿼리
       this.title = review.getTitle();
       this.content = review.getContent();
       this.createDate = review.getCreateDate();
       this.lastModifiedDate = review.getModifiedDate();
     }
 
-    public static ReviewResponseDetail of(final Member member, final Review review) {
-      return new ReviewResponseDetail(member, review);
+    public static ReviewResponseDetail of(final Review review) {
+      return new ReviewResponseDetail(review);
     }
 
   }
-
 
 }

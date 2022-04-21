@@ -19,26 +19,25 @@ import java.util.List;
 public class ReviewServiceImpl implements ReviewService {
 
   private final ReviewRepository reviewRepository;
-
   private final MemberService memberService;
   private final MemberRepository memberRepository;
 
   @Override
-  public List<ReviewDto.ReviewResponseList> getList() {
+  public List<ReviewDto.ReviewResponseList> listReview() {
     return ReviewDto.ReviewResponseList.of(reviewRepository.findAll());
+
   }
 
   @Override
-  public ReviewDto.ReviewResponseDetail getDetail(final Long memberId, final Long reviewId) {
-
+  public ReviewDto.ReviewResponseDetail detailReview(final Long memberId, final Long reviewId) {
     Member member = memberService.getMember(memberId);
-    Review review = getReview(reviewId);
+    Review review = getReviewByIdAndMember(reviewId, member);
 
-    return ReviewDto.ReviewResponseDetail.of(member, review);
+    return ReviewDto.ReviewResponseDetail.of(review);
   }
 
   @Override
-  public ReviewDto.ReviewResponseCreate CreateReview(final Long memberId, final ReviewDto.ReviewRequestCreate request) {
+  public ReviewDto.ReviewResponseCreate createReview(final Long memberId, final ReviewDto.ReviewRequestCreate request) {
     Member member = memberService.getMember(memberId);
     Review review = Review.builder()
         .title(request.getTitle())
@@ -50,30 +49,31 @@ public class ReviewServiceImpl implements ReviewService {
   }
 
   @Override
-  public ReviewDto.ReviewResponseUpdate getUpdate(final Long memberId, final Long reviewId, final ReviewDto.ReviewRequestUpdate request) {
+  public ReviewDto.ReviewResponseUpdate updateReview(final Long memberId, final Long reviewId, final ReviewDto.ReviewRequestUpdate request) {
     Member member = getMember(memberId);
-    Review review = getReview(reviewId);
-    review.changeWith(member, request);
+    Review review = getReviewByIdAndMember(reviewId, member);
+    review.changeWith(request);
 
     return ReviewDto.ReviewResponseUpdate.of(reviewRepository.save(review));
 
   }
 
   @Override
-  public void getRemove(Long userId, final Long reviewId) {
-    Review review = getReview(reviewId);
-    reviewRepository.delete(review);
+  public void removeReview(final Long userId, final Long reviewId) {
+    Member member = getMember(userId);
+    Review review = getReviewByIdAndMember(reviewId, member);
 
+    reviewRepository.delete(review);
   }
 
-  public Review getReview(final Long id) {
-    return reviewRepository.findById(id)
-        .orElseThrow(() -> new ReviewNotFoundException("return value of id"));
+  public Review getReviewByIdAndMember(final Long reviewId, Member member) {
+    return reviewRepository.findByIdAndMember(reviewId, member)
+        .orElseThrow(() -> new ReviewNotFoundException("Non-Members are not Accessible"));
   }
 
   public Member getMember(final Long memberId) {
     return memberRepository.findById(memberId)
-        .orElseThrow(() -> new MemberNotFoundException("return value of id"));
-
+        .orElseThrow(() -> new MemberNotFoundException("Invalid Id are not Accessible"));
   }
+
 }

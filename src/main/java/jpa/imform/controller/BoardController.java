@@ -1,12 +1,12 @@
 //TODO : 회원 일 경우 게시판
-// list : 회원 인 경우만 볼 수 있는 경우
-// detail : 특정 회원만 조회
-// create : 회원 일 경우 글 등록 가능
-// update : 회원 일 경우 글 수정 가능
+// listReview : 회원 인 경우만 볼 수 있는 경우
+// detailReview : 특정 회원만 조회
+// createReview : 회원 일 경우 글 등록 가능
+// updateReview : 회원 일 경우 글 수정 가능
 // delete : 회원 일 경우 글 삭제 가능
 
 //TODO : 비회원일 경우 게시판 조회 (쇼핑몰 기준)
-// list : 회원/비회원 구분 없이 상품 정보
+// listReview : 회원/비회원 구분 없이 상품 정보
 package jpa.imform.controller;
 
 import jpa.imform.dto.BoardDto;

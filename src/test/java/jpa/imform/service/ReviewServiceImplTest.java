@@ -13,6 +13,6 @@ class ReviewServiceImplTest {
 
   @Test
   void getList(){
-    assertThat(reviewServiceImpl.getList()).isEmpty();
+    assertThat(reviewServiceImpl.listReview()).isEmpty();
   }
 }
