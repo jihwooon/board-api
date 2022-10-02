@@ -5,6 +5,8 @@ import jpa.imform.service.BoardService;
 import jpa.imform.service.impl.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -21,40 +23,46 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardController {
 
-  private final BoardService boardService;
+    private final BoardService boardService;
 
-  private final AuthenticationService authenticationService;
+    private final AuthenticationService authenticationService;
 
-  @GetMapping("member/{memberId}/board")
-  public List<BoardDto.ListBoardResponse> list(@PathVariable final Long memberId) {
+    @GetMapping("member/{memberId}/board")
+    public List<BoardDto.ListBoardResponse> list(@PathVariable final Long memberId) {
 
-    return boardService.getBoards(memberId);
-  }
+        return boardService.getBoards(memberId);
+    }
 
-  @GetMapping("member/{memberId}/board/{boardId}")
-  public BoardDto.getBoardResponse detail(@PathVariable final Long memberId,
-                                          @PathVariable final Long boardId) {
-    return boardService.getBoardByIdAndMemberId(memberId, boardId);
-  }
+    @GetMapping("member/{memberId}/board/{boardId}")
+    public BoardDto.getBoardResponse detail(@PathVariable final Long memberId,
+                                            @PathVariable final Long boardId) {
+        return boardService.getBoardByIdAndMemberId(memberId, boardId);
+    }
 
-  @PostMapping("member/{memberId}/board")
-  @ResponseStatus(HttpStatus.CREATED)
-  public BoardDto.CreateBoardResponse create(@PathVariable final Long memberId,
-                                             @RequestBody @Valid final BoardDto.CreateBoardRequest create) {
-    return boardService.createBoard(memberId, create);
-  }
+    @PostMapping("member/{memberId}/board")
+    @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("isAuthenticated()")
+    public BoardDto.CreateBoardResponse create(@PathVariable final Long memberId,
+                                               @RequestBody @Valid final BoardDto.CreateBoardRequest create,
+                                               Authentication authentication
+    ) {
 
-  @PatchMapping("member/{memberId}/board/{boardId}")
-  public BoardDto.UpdateBoardResponse update(@PathVariable final Long memberId,
-                                             @PathVariable final Long boardId,
-                                             @RequestBody @Valid final BoardDto.UpdateBoardRequest update) {
-    return boardService.updateBoard(memberId, boardId, update);
-  }
+        return boardService.createBoard(memberId, create);
+    }
 
-  @DeleteMapping("/board/{boardId}")
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void remove(@PathVariable final Long boardId) {
-    boardService.remove(boardId);
-  }
+    @PatchMapping("member/{memberId}/board/{boardId}")
+    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
+    public BoardDto.UpdateBoardResponse update(@PathVariable final Long memberId,
+                                               @PathVariable final Long boardId,
+                                               @RequestBody @Valid final BoardDto.UpdateBoardRequest update) {
+        return boardService.updateBoard(memberId, boardId, update);
+    }
+
+    @DeleteMapping("/board/{boardId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("isAuthenticated()")
+    public void remove(@PathVariable final Long boardId) {
+        boardService.remove(boardId);
+    }
 
 }

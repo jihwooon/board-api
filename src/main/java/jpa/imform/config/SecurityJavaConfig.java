@@ -20,7 +20,6 @@ public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationService authenticationService;
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
